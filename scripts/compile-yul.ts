@@ -62,11 +62,7 @@ function preparePaths(path: string, files: string[], outputDirName: string | nul
         })
         .join(' ');
     const outputDir = outputDirName || files[0];
-    let absolutePathSources = `./system-contracts/${path}`
-
-    let absolutePathArtifacts = `./system-contracts/${path}/artifacts`;
-
-    return new CompilerPaths(filePaths, outputDir, absolutePathSources, absolutePathArtifacts);
+    return new CompilerPaths(filePaths, outputDir, path, `${path}/artifacts`);
 }
 
 class CompilerPaths {
@@ -87,7 +83,6 @@ async function main() {
     await compileYulFolder('contracts');
     await compileYulFolder('contracts/precompiles');
     await compileYulFolder('bootloader/build');
-    await compileYulFolder('bootloader/tests');
 }
 
 main()
