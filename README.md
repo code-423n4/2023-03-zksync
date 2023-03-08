@@ -491,7 +491,7 @@ This contract is used to support various system parameters not included in the V
 
 Most of the details of its implementation are rather straightforward and can be seen within its doc-comments. A few things to note:
 
-- The constructor is **not** run for system contracts upon genesis, i.e. the constant context values are set on genesis explicitly. Notably, if in the future we want to upgrade the contracts, we will do it via [ContractDeployer](#contractdeployer-immutablesimulator) and so the constructor will be run.
+- The constructor is **not** run for system contracts upon genesis, i.e. the constant context values are set on genesis explicitly. Notably, if in the future we want to upgrade the contracts, we will do it via [ContractDeployer](#contractdeployer--immutablesimulator) and so the constructor will be run.
 - When `setNewBlock` is called by the bootloader to set the metadata about the new block as well as the blockhash of the previous ones, this contract sends an L2→L1 log, with the timestamp of the new block as well as the hash of the previous one. The L1 contract is responsible to validate this information.
 
 ### AccountCodeStorage
@@ -552,7 +552,7 @@ The factory dependencies field provided by the user for each transaction contain
 - If the transaction comes from L1, i.e. all its factory dependencies have already been published on L1, we can simply mark these dependencies as "known".
 - If the transaction comes from L2, i.e. (the factory dependencies are yet to publish on L1), we make the user pays by burning gas proportional to the bytecode's length. After that, we send the L2→L1 log with the bytecode hash of the contract. It is the responsibility of the L1 contracts to verify that the corresponding bytecode hash has been published on L1.
 
-It is the responsibility of the [ContractDeployer](#contractdeployer-immutablesimulator) system contract to deploy only those code hashes that are known.
+It is the responsibility of the [ContractDeployer](#contractdeployer--immutablesimulator) system contract to deploy only those code hashes that are known.
 
 The KnownCodesStorage contract is also responsible for ensuring that all the "known" bytecode hashes are also [valid](#bytecode-validity).
 
