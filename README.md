@@ -53,12 +53,12 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
   - HM awards: $127,500 USDC 
   - QA report awards: $15,000 USDC
   - Gas report awards: $7,500 USDC 
-  - Judge + presort awards: $15,000 USDC 
+  - Judge + presort awards: $30,000 USDC 
   - Scout awards: $500 USDC 
 - Join [C4 Discord](https://discord.gg/code4rena) to register
-- Submit findings [using the C4 form](https://code4rena.com/contests/2023-03-zksync-contest/submit)
+- Submit findings [using the C4 form](https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
-- Starts March 09, 2023 20:00 UTC
+- Starts March 10, 2023 20:00 UTC
 - Ends March 19, 2023 20:00 UTC
 
 ## Automated Findings / Publicly Known Issues
