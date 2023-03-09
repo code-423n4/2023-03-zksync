@@ -4,17 +4,7 @@ pragma solidity ^0.8.0;
 
 import {ImmutableData} from "./interfaces/IImmutableSimulator.sol";
 import "./interfaces/IContractDeployer.sol";
-import {
-    CREATE2_PREFIX,
-    CREATE_PREFIX,
-    NONCE_HOLDER_SYSTEM_CONTRACT,
-    ACCOUNT_CODE_STORAGE_SYSTEM_CONTRACT,
-    FORCE_DEPLOYER,
-    MAX_SYSTEM_CONTRACT_ADDRESS,
-    KNOWN_CODE_STORAGE_CONTRACT,
-    ETH_TOKEN_SYSTEM_CONTRACT,
-    IMMUTABLE_SIMULATOR_SYSTEM_CONTRACT
-} from "./Constants.sol";
+import {CREATE2_PREFIX, CREATE_PREFIX, NONCE_HOLDER_SYSTEM_CONTRACT, ACCOUNT_CODE_STORAGE_SYSTEM_CONTRACT, FORCE_DEPLOYER, MAX_SYSTEM_CONTRACT_ADDRESS, KNOWN_CODE_STORAGE_CONTRACT, ETH_TOKEN_SYSTEM_CONTRACT, IMMUTABLE_SIMULATOR_SYSTEM_CONTRACT} from "./Constants.sol";
 
 import "./libraries/Utils.sol";
 import "./libraries/EfficientCall.sol";
@@ -30,7 +20,7 @@ import {SystemContractHelper, ISystemContract} from "./libraries/SystemContractH
  */
 contract ContractDeployer is IContractDeployer, ISystemContract {
     /// @notice Information about an account contract.
-    /// @dev For EOA and simple contracts (i.e. not accounts) this value is 0. 
+    /// @dev For EOA and simple contracts (i.e. not accounts) this value is 0.
     mapping(address => AccountInfo) internal _accountInfo;
 
     modifier onlySelf() {
@@ -38,11 +28,8 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
         _;
     }
 
-
     /// @notice Returns information about a certain account.
-    function getAccountInfo(
-        address _address
-    ) external view returns (AccountInfo memory info) {
+    function getAccountInfo(address _address) external view returns (AccountInfo memory info) {
         return _accountInfo[_address];
     }
 
@@ -50,7 +37,7 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
     /// Returns the latest supported account abstraction version if `_address` is an EOA.
     function extendedAccountVersion(address _address) public view returns (AccountAbstractionVersion) {
         AccountInfo memory info = _accountInfo[_address];
-        if(info.supportedAAVersion != AccountAbstractionVersion.None) {
+        if (info.supportedAAVersion != AccountAbstractionVersion.None) {
             return info.supportedAAVersion;
         }
 
@@ -76,15 +63,15 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
         emit AccountVersionUpdated(msg.sender, _version);
     }
 
-    /// @notice Updates the nonce ordering of the account. Currently, 
+    /// @notice Updates the nonce ordering of the account. Currently,
     /// it only allows changes from sequential to arbitrary ordering.
     /// @param _nonceOrdering The new nonce ordering to use.
     function updateNonceOrdering(AccountNonceOrdering _nonceOrdering) external onlySystemCall {
         AccountInfo memory currentInfo = _accountInfo[msg.sender];
 
         require(
-            _nonceOrdering == AccountNonceOrdering.Arbitrary && 
-            currentInfo.nonceOrdering == AccountNonceOrdering.Sequential, 
+            _nonceOrdering == AccountNonceOrdering.Arbitrary &&
+                currentInfo.nonceOrdering == AccountNonceOrdering.Sequential,
             "It is only possible to change from sequential to arbitrary ordering"
         );
 
@@ -152,7 +139,7 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
     /// @dev This method also accepts nonce as one of its parameters.
     /// It is not used anywhere and it needed simply for the consistency for the compiler
     /// @dev In case of a revert, the zero address should be returned.
-    /// Note: this method may be callable only in system mode, 
+    /// Note: this method may be callable only in system mode,
     /// that is checked in the `createAccount` by `onlySystemCall` modifier.
     function create(
         bytes32 _salt,
@@ -168,7 +155,7 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
     /// @param _input The constructor calldata.
     /// @param _aaVersion The account abstraction version to use.
     /// @dev In case of a revert, the zero address should be returned.
-    /// Note: this method may be callable only in system mode, 
+    /// Note: this method may be callable only in system mode,
     /// that is checked in the `createAccount` by `onlySystemCall` modifier.
     function create2Account(
         bytes32 _salt,
@@ -222,10 +209,7 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
     /// @notice The method that can be used to forcefully deploy a contract.
     /// @param _deployment Information about the forced deployment.
     /// @param _sender The `msg.sender` inside the constructor call.
-    function forceDeployOnAddress(
-        ForceDeployment calldata _deployment,
-        address _sender
-    ) external payable onlySelf {
+    function forceDeployOnAddress(ForceDeployment calldata _deployment, address _sender) external payable onlySelf {
         _ensureBytecodeIsKnown(_deployment.bytecodeHash);
         _storeConstructingByteCodeHashOnAddress(_deployment.newAddress, _deployment.bytecodeHash);
 
@@ -245,21 +229,19 @@ contract ContractDeployer is IContractDeployer, ISystemContract {
     /// @notice This method is to be used only during an upgrade to set bytecodes on specific addresses.
     /// @dev We do not require `onlySystemCall` here, since the method is accessible only
     /// by `FORCE_DEPLOYER`.
-    function forceDeployOnAddresses(
-        ForceDeployment[] calldata _deployments
-    ) external payable {
+    function forceDeployOnAddresses(ForceDeployment[] calldata _deployments) external payable {
         require(msg.sender == FORCE_DEPLOYER, "Can only be called by FORCE_DEPLOYER_CONTRACT");
 
         uint256 deploymentsLength = _deployments.length;
         // We need to ensure that the `value` provided by the call is enough to provide `value`
         // for all of the deployments
         uint256 sumOfValues = 0;
-        for(uint256 i = 0; i < deploymentsLength; ++i){
+        for (uint256 i = 0; i < deploymentsLength; ++i) {
             sumOfValues += _deployments[i].value;
         }
         require(msg.value == sumOfValues, "`value` provided is not equal to the combined `value`s of deployments");
 
-        for(uint256 i = 0; i < deploymentsLength; ++i){
+        for (uint256 i = 0; i < deploymentsLength; ++i) {
             this.forceDeployOnAddress{value: _deployments[i].value}(_deployments[i], msg.sender);
         }
     }

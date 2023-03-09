@@ -18,7 +18,7 @@ export default {
         ethNetwork: 'http://localhost:8545'
     },
     solidity: {
-        version: '0.8.18'
+        version: '0.8.16'
     },
     solpp: {
         defs: (() => {
