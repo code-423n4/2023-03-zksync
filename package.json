@@ -40,7 +40,6 @@
     ]
   },
   "scripts": {
-    "test": "mocha test/system-contract-test.test.ts",
     "build": "hardhat compile && yarn preprocess && yarn ts-node scripts/compile-yul.ts",
     "clean": "hardhat clean",
     "fmt": "prettier --config prettier.js --write contracts/*.sol contracts/**/*.sol",
