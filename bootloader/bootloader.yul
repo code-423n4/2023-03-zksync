@@ -291,9 +291,62 @@ object "Bootloader" {
                 ret := MAX_TRANSACTIONS_IN_BLOCK()
             }
 
+            /// @dev The slot starting from which the maximum number of gas that the operator "trusts"
+            /// the transaction to use for its execution is stored. Sometimes, the operator may know that
+            /// a certain transaction can be allowed more gas that what the protocol-level worst-case allows.
+            function TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_SLOT() -> ret {
+                ret := add(TX_SUGGESTED_OVERHEAD_BEGIN_SLOT(), TX_SUGGESTED_OVERHEAD_SLOTS())
+            }
+
+            /// @dev byte starting from which the maximum number of gas that the operator "trusts"
+            /// the transaction to use for its execution is stored. 
+            function TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_BYTE() -> ret {
+                ret := mul(TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_SLOT(), 32)
+            }
+
+            /// @dev The number of slots dedicated for the trusted gas limits for the transactions.
+            /// It is equal to the number of transactions in the block.
+            function TX_OPERATOR_TRUSTED_GAS_LIMIT_SLOTS() -> ret {
+                ret := MAX_TRANSACTIONS_IN_BLOCK()
+            }
+
+            /// @dev The slot starting from which the compressed bytecodes are located in the bootloader's memory.
+            /// Each compressed bytecode is provided in the following format:
+            /// - 32 byte formatted bytecode hash
+            /// - 32 byte of zero (it will be replaced within the code with left-padded selector of the `publishCompressedBytecode`).
+            /// - ABI-encoding of the parameters of the `publishCompressedBytecode` method. 
+            /// 
+            /// At the slot `TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_SLOT()` the pointer to the currently processed compressed bytecode
+            /// is stored, i.e. this pointer will be increased once the current bytecode which the pointer points to is published.
+            /// At the start of the bootloader, the value stored at the `TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_SLOT` is equal to 
+            /// `TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_SLOT + 32`, where the hash of the first compressed bytecode to publish should be stored.
+            function COMPRESSED_BYTECODES_BEGIN_SLOT() -> ret {
+                ret := add(TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_SLOT(), TX_OPERATOR_TRUSTED_GAS_LIMIT_SLOTS())
+            }
+
+            /// @dev The byte starting from which the compressed bytecodes are located in the bootloader's memory.
+            function COMPRESSED_BYTECODES_BEGIN_BYTE() -> ret {
+                ret := mul(COMPRESSED_BYTECODES_BEGIN_SLOT(), 32)
+            }
+
+            /// @dev The number of slots dedicated to the compressed bytecodes.
+            function COMPRESSED_BYTECODES_SLOTS() -> ret {
+                ret := {{COMPRESSED_BYTECODES_SLOTS}}
+            }
+
+            /// @dev The slot right after the last slot of the compressed bytecodes memory area.
+            function COMPRESSED_BYTECODES_END_SLOT() -> ret {
+                ret := add(COMPRESSED_BYTECODES_BEGIN_SLOT(), COMPRESSED_BYTECODES_SLOTS())
+            }
+
+            /// @dev The first byte in memory right after the compressed bytecodes memory area.
+            function COMPRESSED_BYTECODES_END_BYTE() -> ret {
+                ret := mul(COMPRESSED_BYTECODES_END_SLOT(), 32)
+            }
+
             /// @dev The slot from which the bootloader transactions' descriptions begin
             function TX_DESCRIPTION_BEGIN_SLOT() -> ret {
-                ret := add(TX_SUGGESTED_OVERHEAD_BEGIN_SLOT(), TX_SUGGESTED_OVERHEAD_SLOTS())
+                ret := COMPRESSED_BYTECODES_END_SLOT()
             }
 
             /// @dev The byte from which the bootloader transactions' descriptions begin
@@ -417,6 +470,19 @@ object "Bootloader" {
                 ret := 0x000000000000000000000000000000000000800c
             }
 
+            function BYTECODE_COMPRESSOR_ADDR() -> ret {
+                ret := 0x000000000000000000000000000000000000800e
+            }
+
+            /// @dev The minimal allowed distance in bytes between the pointer to the compressed data
+            /// and the end of the area dedicated for the compressed bytecodes. 
+            /// In fact, only distance of 192 should be sufficient: there it would be possible to insert
+            /// the hash of the bytecode, the 32 bytes buffer for selector and 2 offsets of the calldata,
+            /// but we keep it at 512 just in case.
+            function MIN_ALLOWED_OFFSET_FOR_COMPRESSED_BYTES_POINTER() -> ret {
+                ret := 512
+            }
+
             /// @dev Whether the bootloader should enforce that accounts have returned the correct
             /// magic value for signature. This value is enforced to be "true" on the main proved block, but 
             /// we need the ability to ignore invalid signature results during fee estimation,
@@ -444,6 +510,10 @@ object "Bootloader" {
             let currentExpectedTxOffset := add(TXS_IN_BLOCK_LAST_PTR(), mul(MAX_POSTOP_SLOTS(), 32))
 
             let txPtr := TX_DESCRIPTION_BEGIN_BYTE()
+
+            // At the COMPRESSED_BYTECODES_BEGIN_BYTE() the pointer to the newest bytecode to be published 
+            // is stored.
+            mstore(COMPRESSED_BYTECODES_BEGIN_BYTE(), add(COMPRESSED_BYTECODES_BEGIN_BYTE(), 0x20))
 
             // Iterating through transaction descriptions
             for { 
@@ -833,8 +903,7 @@ object "Bootloader" {
                     transactionIndex, 
                     gasPerPubdata, 
                     L1_TX_INTRINSIC_L2_GAS(), 
-                    L1_TX_INTRINSIC_PUBDATA(),
-                    0
+                    L1_TX_INTRINSIC_PUBDATA()
                 )
 
                 let gasUsedOnPreparation := 0
@@ -1003,14 +1072,8 @@ object "Bootloader" {
 
                 // Firsly, we publish all the bytecodes needed. This is needed to be done separately, since
                 // bytecodes usually form the bulk of the L2 gas prices.
-                let spentOnFactoryDeps
-                {
-                    let preFactoryDep := gas()
-                    markFactoryDepsForTx(innerTxDataOffset, false)
-                    spentOnFactoryDeps := sub(preFactoryDep, gas())
-                }
                 
-                let gasLimitForTx := getGasLimitForTx(innerTxDataOffset, transactionIndex, gasPerPubdata, L2_TX_INTRINSIC_GAS(), L2_TX_INTRINSIC_PUBDATA(), spentOnFactoryDeps)
+                let gasLimitForTx := getGasLimitForTx(innerTxDataOffset, transactionIndex, gasPerPubdata, L2_TX_INTRINSIC_GAS(), L2_TX_INTRINSIC_PUBDATA())
                 let gasPrice := getGasPrice(getMaxFeePerGas(innerTxDataOffset), getMaxPriorityFeePerGas(innerTxDataOffset))
 
                 debugLog("gasLimitForTx", gasLimitForTx)
@@ -1055,10 +1118,16 @@ object "Bootloader" {
                 transactionIndex,
                 gasPerPubdata,
                 intrinsicGas,
-                intrinsicPubdata,
-                preSpent
+                intrinsicPubdata
             ) -> gasLimitForTx {
                 let totalGasLimit := getGasLimit(innerTxDataOffset)
+
+                // `MAX_GAS_PER_TRANSACTION` is the amount of gas each transaction 
+                // is guaranteed to get, so even if the operator does not trust the account enough,
+                // it is still obligated to provide at least that
+                let operatorTrustedErgsLimit := max(MAX_GAS_PER_TRANSACTION(), getOperatorTrustedGasLimitForTx(transactionIndex))
+                totalGasLimit := min(operatorTrustedErgsLimit, totalGasLimit)
+
                 let txEncodingLen := safeAdd(0x20, getDataLength(innerTxDataOffset), "lsh")
 
                 let operatorOverheadForTransaction := getVerifiedOperatorOverheadForTx(
@@ -1075,14 +1144,13 @@ object "Bootloader" {
                     safeMul(intrinsicPubdata, gasPerPubdata, "qw"),
                     "fj" 
                 )
-                preSpent := safeAdd(preSpent, intrinsicOverhead, "pl")
 
-                switch lt(gasLimitForTx, preSpent)
+                switch lt(gasLimitForTx, intrinsicOverhead)
                 case 1 {
                     gasLimitForTx := 0
                 }
                 default {
-                    gasLimitForTx := sub(gasLimitForTx, preSpent)
+                    gasLimitForTx := sub(gasLimitForTx, intrinsicOverhead)
                 }
 
                 // Making sure that the body of the transaction does not have more gas
@@ -1151,17 +1219,41 @@ object "Bootloader" {
                 txDataOffset,
                 gasLeft,
             ) -> success, gasSpentOnExecute {
-                let executeABI := getNearCallABI(gasLeft)
+                let markingDependenciesABI := getNearCallABI(gasLeft)
                 checkEnoughGas(gasLeft)
+                let gasBeforeFactoryDeps := gas()
+                let newCompressedFactoryDepsPointer := ZKSYNC_NEAR_CALL_markFactoryDepsL2(markingDependenciesABI, txDataOffset)
+                let gasSpentOnFactoryDeps := sub(gasBeforeFactoryDeps, gas())
 
-                let gasBeforeExecute := gas()
-                // for this one, we don't care whether or not it fails.
-                success := ZKSYNC_NEAR_CALL_executeL2Tx(
-                    executeABI,
-                    txDataOffset
-                )
+                // If marking of factory dependencies has been unsuccessful, 0 value is returned.
+                // Otherwise, all the previous dependencies have been successfuly published, so 
+                // we need to move the pointer.
+                if newCompressedFactoryDepsPointer {
+                    mstore(COMPRESSED_BYTECODES_BEGIN_SLOT(), newCompressedFactoryDepsPointer)
+                }
+
+                switch gt(gasLeft, gasSpentOnFactoryDeps) 
+                case 0 {
+                    gasLeft := 0
+                    gasSpentOnExecute := gasLeft
+                }
+                default {
+                    gasLeft := sub(gasLeft, gasSpentOnFactoryDeps)
+
+                    let executeABI := getNearCallABI(gasLeft)
+                    checkEnoughGas(gasLeft)
+
+                    let gasBeforeExecute := gas()
+                    // for this one, we don't care whether or not it fails.
+                    success := ZKSYNC_NEAR_CALL_executeL2Tx(
+                        executeABI,
+                        txDataOffset
+                    )
+
+                    gasSpentOnExecute := add(gasSpentOnFactoryDeps, sub(gasBeforeExecute, gas()))
+                }
+
                 notifyExecutionResult(success)
-                gasSpentOnExecute := sub(gasBeforeExecute, gas())
             }
 
             /// @dev Function responsible for the validation & fee payment step of the transaction. 
@@ -1215,6 +1307,71 @@ object "Bootloader" {
                 success := executeL2Tx(txDataOffset, from)
                 debugLog("Executing L2 ret", success)
             }
+
+            /// @dev Sets factory dependencies for an L2 transaction with possible usage of packed bytecodes.
+            function ZKSYNC_NEAR_CALL_markFactoryDepsL2(
+                abi,
+                txDataOffset
+            ) -> newDataInfoPtr {
+                let innerTxDataOffset := add(txDataOffset, 32)
+
+                /// Note, that since it is the near call when it panics it reverts the state changes, but it DOES NOT
+                /// revert the changes in *memory* of the current frame. That is why we do not change the value under 
+                /// COMPRESSED_BYTECODES_BEGIN_BYTE(), and it is only changed outside of this method.
+                let dataInfoPtr := mload(COMPRESSED_BYTECODES_BEGIN_BYTE())
+                let factoryDepsPtr := getFactoryDepsPtr(innerTxDataOffset)
+                let factoryDepsLength := mload(factoryDepsPtr)
+
+                let iter := add(factoryDepsPtr, 32)
+                let endPtr := add(iter, mul(32, factoryDepsLength))
+
+                for { } lt(iter, endPtr) { iter := add(iter, 32)} {
+                    let bytecodeHash := mload(iter)
+
+                    let currentExpectedBytecodeHash := mload(dataInfoPtr)
+
+                    if eq(bytecodeHash, currentExpectedBytecodeHash) {
+                        // Here we are making sure that the bytecode is indeed not yet know and needs to be published,
+                        // preveting users from being overcharged by the operator.
+                        let marker := getCodeMarker(bytecodeHash)
+
+                        if marker {
+                            assertionError("invalid republish")
+                        }
+
+                        dataInfoPtr := sendCompressedBytecode(dataInfoPtr, bytecodeHash)
+                    }
+                }
+
+                // For all the bytecodes that have not been compressed on purpose or due to the inefficiency
+                // of compressing the entire preimage of the bytecode will be published. 
+                // For bytecodes published in the previous step, no need pubdata will have to be published 
+                markFactoryDepsForTx(innerTxDataOffset, false)
+
+                newDataInfoPtr := dataInfoPtr
+            }
+
+            function getCodeMarker(bytecodeHash) -> ret {
+                let calldataPtr := 0
+                mstore(0, {{GET_MARKER_PADDED_SELECTOR}})
+                mstore(4, bytecodeHash)
+                let success := call(
+                    gas(),
+                    KNOWN_CODES_CONTRACT_ADDR(),
+                    0,
+                    0,
+                    36,
+                    0,
+                    32
+                )
+
+                if iszero(success) {
+                    nearCallPanic()
+                }
+
+                ret := mload(0)
+            }
+
 
             /// @dev Used to refund the current transaction. 
             /// The gas that this transaction consumes has been already paid in the 
@@ -1279,7 +1436,7 @@ object "Bootloader" {
                 let ethToRefund := safeMul(
                     refundInGas, 
                     gasPrice, 
-                    "fdf" // The message is shortened to fit into 32 bytes
+                    "fdf"
                 ) 
 
                 directETHTransfer(ethToRefund, refundRecipient)
@@ -1321,6 +1478,85 @@ object "Bootloader" {
             function getOperatorOverheadForTx(transactionIndex) -> ret {
                 let txBlockOverheadPtr := add(TX_SUGGESTED_OVERHEAD_BEGIN_BYTE(), mul(transactionIndex, 32))
                 ret := mload(txBlockOverheadPtr)
+            }
+
+            /// @dev Return the operator's "trusted" transaction gas limit
+            function getOperatorTrustedGasLimitForTx(transactionIndex) -> ret {
+                let txTrustedGasLimitPtr := add(TX_OPERATOR_TRUSTED_GAS_LIMIT_BEGIN_BYTE(), mul(transactionIndex, 32))
+                ret := mload(txTrustedGasLimitPtr)
+            }
+
+            /// @dev Returns the bytecode hash that is next for being published
+            function getCurrentCompressedBytecodeHash() -> ret {
+                let compressionPtr := mload(COMPRESSED_BYTECODES_BEGIN_BYTE())
+
+                ret := mload(add(COMPRESSED_BYTECODES_BEGIN_BYTE(), compressionPtr))
+            }
+
+            function checkOffset(pointer) {
+                if gt(pointer, sub(COMPRESSED_BYTECODES_END_BYTE(), MIN_ALLOWED_OFFSET_FOR_COMPRESSED_BYTES_POINTER())) {
+                    assertionError("calldataEncoding too big")
+                }
+            }   
+
+            /// @dev It is expected that the pointer at the COMPRESSED_BYTECODES_BEGIN_BYTE()
+            /// stores the position of the current bytecodeHash 
+            function sendCompressedBytecode(dataInfoPtr, bytecodeHash) -> ret {
+                // Storing the right selector, ensuring that the operator can not manipulate it
+                mstore(add(dataInfoPtr, 32), {{PUBLISH_COMPRESSED_BYTECODE_SELECTOR}})
+
+                let calldataPtr := add(dataInfoPtr, 60)
+                let afterSelectorPtr := add(calldataPtr, 4)
+
+                let originalBytecodeOffset := add(mload(afterSelectorPtr), afterSelectorPtr)
+                checkOffset(originalBytecodeOffset)
+                let potentialRawCompressedDataOffset := validateBytes(
+                    originalBytecodeOffset
+                )
+
+                let rawCompressedDataOffset := add(mload(add(afterSelectorPtr, 32)), afterSelectorPtr)
+                checkOffset(rawCompressedDataOffset)
+
+                if iszero(eq(potentialRawCompressedDataOffset, rawCompressedDataOffset)) {
+                    assertionError("Compression calldata incorrect")
+                }
+
+                let nextAfterCalldata := validateBytes(
+                    rawCompressedDataOffset
+                )
+                checkOffset(nextAfterCalldata)
+
+                let totalLen := safeSub(nextAfterCalldata, calldataPtr, "xqwf")
+                
+                // Note, that it is safe because the 
+                let success := call(
+                    gas(),
+                    BYTECODE_COMPRESSOR_ADDR(),
+                    0,
+                    calldataPtr,
+                    totalLen,
+                    0,
+                    32
+                )
+
+                // If the transaction failed, the most likely reason is that there
+                // was not enough gas. That's why we do the nearCallPanic to stop the near call frame.
+                if iszero(success) {
+                    debugLog("compressor call failed", 0)
+                    debugReturndata()
+                    nearCallPanic()
+                }
+
+                let returnedBytecodeHash := mload(0)
+
+                // If the bytecode hash calculated on the bytecode compressor's side
+                // is not equal to the one provided by the operator means that the operator is 
+                // malicious and we should revert the block altogether
+                if iszero(eq(returnedBytecodeHash, bytecodeHash)) {
+                    assertionError("bytecodeHash incorrect")
+                }
+
+                ret := nextAfterCalldata
             }
 
             /// @dev Get checked for overcharged operator's overhead for the transaction.
@@ -2039,10 +2275,17 @@ object "Bootloader" {
 
                 if iszero(success) {
                     debugReturndata()
-                    revertWithReason(
-                        FAILED_TO_MARK_FACTORY_DEPS(),
-                        1
-                    )
+                    switch isL1Tx 
+                    case 1 {
+                        revertWithReason(
+                            FAILED_TO_MARK_FACTORY_DEPS(),
+                            1
+                        )
+                    }
+                    default {
+                        // For L2 transactions, we use near call panic
+                        nearCallPanic()
+                    }
                 }
             }
 

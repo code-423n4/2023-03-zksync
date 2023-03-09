@@ -32,7 +32,7 @@ contract BytecodeCompressor is IBytecodeCompressor {
     ///         * If the chunk is not already in the dictionary, it is added to the dictionary array.
     ///         * If the dictionary becomes overcrowded (2^16 + 1 elements), the compression process will fail.
     ///         * The 2-byte index of the chunk in the dictionary is added to the encoded data.
-    function publishCompressedBytecode(bytes calldata _bytecode, bytes calldata _rawCompressedData) external payable {
+    function publishCompressedBytecode(bytes calldata _bytecode, bytes calldata _rawCompressedData) external payable returns (bytes32 bytecodeHash) {
         unchecked {
             (bytes calldata dictionary, bytes calldata encodedData) = _decodeRawBytecode(_rawCompressedData);
 
@@ -51,8 +51,10 @@ contract BytecodeCompressor is IBytecodeCompressor {
             }
         }
 
+        bytecodeHash = Utils.hashL2Bytecode(_bytecode);
+
         bytes32 rawCompressedDataHash = L1_MESSENGER_CONTRACT.sendToL1(_rawCompressedData);
-        KNOWN_CODE_STORAGE_CONTRACT.markBytecodeAsPublished(Utils.hashL2Bytecode(_bytecode), rawCompressedDataHash, _rawCompressedData.length);
+        KNOWN_CODE_STORAGE_CONTRACT.markBytecodeAsPublished(bytecodeHash, rawCompressedDataHash, _rawCompressedData.length);
     }
 
     /// @notice Decode the raw compressed data into the dictionary and the encoded data.
@@ -64,8 +66,8 @@ contract BytecodeCompressor is IBytecodeCompressor {
         unchecked {
             // The dictionary length can't be more than 2^16, so it fits into 2 bytes.
             uint256 dictionaryLen = uint256(_rawCompressedData.readUint16(0));
-            dictionary = _rawCompressedData[2:2 + dictionaryLen];
-            encodedData = _rawCompressedData[2 + dictionaryLen:];
+            dictionary = _rawCompressedData[2:2 + dictionaryLen * 8];
+            encodedData = _rawCompressedData[2 + dictionaryLen * 8:];
         }
     }
 }

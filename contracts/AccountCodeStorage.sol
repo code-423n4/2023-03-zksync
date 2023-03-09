@@ -76,7 +76,7 @@ contract AccountCodeStorage is IAccountCodeStorage {
         // according to the spec "If EXTCODEHASH of A is X, then EXTCODEHASH of A + 2**160 is X".
         address account = address(uint160(_input));
         if (uint160(account) <= CURRENT_MAX_PRECOMPILE_ADDRESS) {
-            return 0;
+            return EMPTY_STRING_KECCAK;
         }
 
         bytes32 codeHash = getRawCodeHash(account);

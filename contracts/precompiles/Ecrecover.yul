@@ -85,9 +85,9 @@ object "Ecrecover" {
             let success := precompileCall(precompileParams, gasToPay)
             let internalSuccess := mload(0)
 
-            switch or(success, internalSuccess)
+            switch and(success, internalSuccess)
             case 0 {
-                revert(0, 0)
+                return(0, 0)
             }
             default {
                 return(32, 32)

@@ -118,14 +118,16 @@ library EfficientCall {
         internal
         returns (bool success)
     {
-        _loadFarCallABIIntoActivePtr(_gas, _data, false, false);
-
         if (_value == 0) {
+            _loadFarCallABIIntoActivePtr(_gas, _data, false, false);
+
             address callAddr = RAW_FAR_CALL_BY_REF_CALL_ADDRESS;
             assembly {
                 success := call(_address, callAddr, 0, 0, 0xFFFF, 0, 0)
             }
         } else {
+            _loadFarCallABIIntoActivePtr(_gas, _data, false, true);
+
             // If there is provided `msg.value` call the `MsgValueSimulator` to forward ether.
             address msgValueSimulator = MSG_VALUE_SYSTEM_CONTRACT;
             address callAddr = SYSTEM_CALL_BY_REF_CALL_ADDRESS;
