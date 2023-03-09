@@ -107,13 +107,17 @@ contract AccountCodeStorage is IAccountCodeStorage {
 
         // If the contract is a default account or is on constructor the code size is zero,
         // otherwise extract the proper value for it from the bytecode hash.
-        // NOTE: zero address and precompiles are a special case, they are contracts, but we 
-        // want to preserve EVM invariants (see EIP-1052 specification). That's why we automatically 
+        // NOTE: zero address and precompiles are a special case, they are contracts, but we
+        // want to preserve EVM invariants (see EIP-1052 specification). That's why we automatically
         // return `0` length in the following cases:
         // - `codehash(0) == 0`
         // - `account` is a precompile.
         // - `account` is currently being constructed
-        if (uint160(account) > CURRENT_MAX_PRECOMPILE_ADDRESS && codeHash != 0x00 && !Utils.isContractConstructing(codeHash)) {
+        if (
+            uint160(account) > CURRENT_MAX_PRECOMPILE_ADDRESS &&
+            codeHash != 0x00 &&
+            !Utils.isContractConstructing(codeHash)
+        ) {
             codeSize = Utils.bytecodeLenInBytes(codeHash);
         }
     }

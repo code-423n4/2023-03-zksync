@@ -43,7 +43,11 @@ contract KnownCodesStorage is IKnownCodesStorage {
     /// @param _bytecodeHash The hash of the bytecode that is marked as known.
     /// @param _l1PreimageHash The hash of the preimage is be shown on L1 if zero - the full bytecode will be shown.
     /// @param _l1PreimageBytesLen The length of the preimage in bytes.
-    function markBytecodeAsPublished(bytes32 _bytecodeHash, bytes32 _l1PreimageHash, uint256 _l1PreimageBytesLen) external onlyBytecodeCompressor {
+    function markBytecodeAsPublished(
+        bytes32 _bytecodeHash,
+        bytes32 _l1PreimageHash,
+        uint256 _l1PreimageBytesLen
+    ) external onlyBytecodeCompressor {
         _markBytecodeAsPublished(_bytecodeHash, _l1PreimageHash, _l1PreimageBytesLen, false);
     }
 
@@ -52,7 +56,12 @@ contract KnownCodesStorage is IKnownCodesStorage {
     /// @param _l1PreimageHash The hash of the preimage to be shown on L1 if zero - the full bytecode will be shown
     /// @param _l1PreimageBytesLen The length of the preimage in bytes
     /// @param _shouldSendToL1 Whether the bytecode should be sent on L1
-    function _markBytecodeAsPublished(bytes32 _bytecodeHash, bytes32 _l1PreimageHash, uint256 _l1PreimageBytesLen, bool _shouldSendToL1) internal {
+    function _markBytecodeAsPublished(
+        bytes32 _bytecodeHash,
+        bytes32 _l1PreimageHash,
+        uint256 _l1PreimageBytesLen,
+        bool _shouldSendToL1
+    ) internal {
         if (getMarker(_bytecodeHash) == 0) {
             _validateBytecode(_bytecodeHash);
 
@@ -71,7 +80,7 @@ contract KnownCodesStorage is IKnownCodesStorage {
 
     /// @notice Method used for sending the bytecode (preimage for the bytecode hash) on L1.
     /// @dev While bytecode must be visible to L1 observers, it's not necessary to disclose the whole raw bytecode.
-    /// To achieve this, it's possible to utilize compressed data using a known compression algorithm. Thus, the 
+    /// To achieve this, it's possible to utilize compressed data using a known compression algorithm. Thus, the
     /// L1 preimage data may differ from the raw bytecode.
     /// @param _bytecodeHash The hash of the bytecode that is marked as known.
     /// @param _l1PreimageHash The hash of the preimage to be shown on L1 if zero - the full bytecode will be shown.

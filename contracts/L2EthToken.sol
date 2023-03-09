@@ -11,7 +11,7 @@ import {IMailbox} from "./interfaces/IMailbox.sol";
  * @author Matter Labs
  * @notice Native ETH contract.
  * @dev It does NOT provide interfaces for personal interaction with tokens like `transfer`, `approve`, and `transferFrom`.
- * Instead, this contract is used by the bootloader and `MsgValueSimulator`/`ContractDeployer` system contracts 
+ * Instead, this contract is used by the bootloader and `MsgValueSimulator`/`ContractDeployer` system contracts
  * to perform the balance changes while simulating the `msg.value` Ethereum behavior.
  */
 contract L2EthToken is IEthToken {
@@ -25,7 +25,7 @@ contract L2EthToken is IEthToken {
     // TODO: Remove this variable with the new upgrade.
     address __DEPRECATED_l2Bridge = address(0);
 
-    modifier onlyBootloader {
+    modifier onlyBootloader() {
         require(msg.sender == BOOTLOADER_FORMAL_ADDRESS, "Callable only by the bootloader");
         _;
     }
@@ -52,7 +52,7 @@ contract L2EthToken is IEthToken {
             // Overflow not possible: the sum of all balances is capped by totalSupply, and the sum is preserved by
             // decrementing then incrementing.
             balance[_to] += _amount;
-        }        
+        }
 
         emit Transfer(_from, _to, _amount);
     }
@@ -61,7 +61,7 @@ contract L2EthToken is IEthToken {
     /// @dev It takes `uint256` as an argument to be able to properly simulate the behaviour of the
     /// Ethereum's `BALANCE` opcode that accepts uint256 as an argument and truncates any upper bits
     /// @param _account The address of the account to return the balance of.
-    function balanceOf(uint256 _account) external override view returns (uint256) {
+    function balanceOf(uint256 _account) external view override returns (uint256) {
         return balance[address(uint160(_account))];
     }
 
