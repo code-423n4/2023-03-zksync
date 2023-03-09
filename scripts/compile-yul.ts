@@ -62,7 +62,12 @@ function preparePaths(path: string, files: string[], outputDirName: string | nul
         })
         .join(' ');
     const outputDir = outputDirName || files[0];
-    return new CompilerPaths(filePaths, outputDir, path, `${path}/artifacts`);
+
+    let absolutePathSources = `${process.env.PWD}/${path}`;
+
+    let absolutePathArtifacts = `${process.env.PWD}/${path}/artifacts`;
+
+    return new CompilerPaths(filePaths, outputDir, absolutePathSources, absolutePathArtifacts);
 }
 
 class CompilerPaths {
