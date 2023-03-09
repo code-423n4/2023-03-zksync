@@ -698,18 +698,27 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 | [contracts/libraries/TransactionHelper.sol](contracts/libraries/TransactionHelper.sol) | 313 | | |
 | [contracts/libraries/EfficientCall.sol](contracts/libraries/EfficientCall.sol) | 145 | | |
 | [contracts/libraries/RLPEncoder.sol](contracts/libraries/RLPEncoder.sol) | 75 | | |
-| [contracts/tests/TransactionHelperTest.sol](contracts/tests/TransactionHelperTest.sol) | 8 | | |
-| [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
 | [contracts/AccountCodeStorage.sol](contracts/AccountCodeStorage.sol) | 54 | | |
 | [contracts/KnownCodesStorage.sol](contracts/KnownCodesStorage.sol) | 63 | | |
 | [contracts/SystemContext.sol](contracts/SystemContext.sol) | 62 | | |
 | [contracts/L1Messenger.sol](contracts/L1Messenger.sol) | 24 | | |
 
+# Out of Scope
+
+| Contract | SLOC | Purpose | Libraries used |
+| ----------- | ----------- | ----------- | ----------- |
+| [bootloader/bootloader.yul](bootloader/bootloader.yul) | 3060 | | |
+| [contracts/test-contracts/TestSystemContract.sol](contracts/test-contracts/TestSystemContract.sol) | 145 | | |
+| [contracts/test-contracts/TestSystemContractHelper.sol](contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
+| [contracts/tests/TransactionHelperTest.sol](contracts/tests/TransactionHelperTest.sol) | 8 | | |
+| [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
+
+
 ## Scoping Details 
 ```
 - If you have a public code repo, please share it here:  https://github.com/matter-labs/era-system-contracts
-- How many contracts are in scope?:   44
-- Total SLoC for these contracts?:  2700
+- How many contracts are in scope?:   40
+- Total SLoC for these contracts?:  2464
 - How many external imports are there?: 0 
 - How many separate interfaces and struct definitions are there for the contracts within scope?:  
 - Does most of your code generally use composition or inheritance?:   Inheritance
