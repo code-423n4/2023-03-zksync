@@ -66,6 +66,7 @@ let params = {
     SUCCESSFUL_PAYMASTER_VALIDATION_MAGIC_VALUE: getPaddedSelector('IPaymaster', 'validateAndPayForPaymasterTransaction'),
     ENSURE_RETURNED_MAGIC: 1,
     FORBID_ZERO_GAS_PER_PUBDATA: 1,
+    COMPRESSED_BYTECODES_SLOTS: 32768,
     ...SYSTEM_PARAMS
 };
 
