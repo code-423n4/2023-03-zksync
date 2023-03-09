@@ -1152,10 +1152,6 @@ object "Bootloader" {
                 default {
                     gasLimitForTx := sub(gasLimitForTx, intrinsicOverhead)
                 }
-
-                // Making sure that the body of the transaction does not have more gas
-                // than allowed by DDoS safety
-                gasLimitForTx := min(MAX_GAS_PER_TRANSACTION(), gasLimitForTx)
             }
 
             /// @dev The function responsible for the L2 transaction validation.
