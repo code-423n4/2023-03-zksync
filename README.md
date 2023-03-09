@@ -1,8 +1,8 @@
 # zkSync Era System Contracts contest details
 - Total Prize Pool: $180,500 USDC
-  - HM awards: $127,500 USDC 
+  - HM awards: $135,000 USDC 
   - QA report awards: $15,000 USDC
-  - Gas report awards: $7,500 USDC 
+  - Gas report awards: $0 USDC 
   - Judge + presort awards: $30,000 USDC 
   - Scout awards: $500 USDC 
 - Join [C4 Discord](https://discord.gg/code4rena) to register
