@@ -38,17 +38,10 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
   - [ ] source lines of code (excluding blank lines and comments) in each
   - [ ] external contracts called in each
   - [ ] libraries used in each
-- [ ] Describe any novel or unique curve logic or mathematical models implemented in the contracts
-- [ ] Does the token conform to the ERC-20 standard? In what specific ways does it differ?
-- [ ] Describe anything else that adds any special logic that makes your approach unique
-- [ ] Identify any areas of specific concern in reviewing the code
-- [ ] Optional / nice to have: pre-record a high-level overview of your protocol (not just specific smart contract functions). This saves wardens a lot of time wading through documentation.
-- [ ] See also: [this checklist in Notion](https://code4rena.notion.site/Key-info-for-Code4rena-sponsors-f60764c4c4574bbf8e7a6dbd72cc49b4#0cafa01e6201462e9f78677a39e09746)
-- [ ] Delete this checklist and all text above the line below when you're ready.
 
 ---
 
-# zkSync era System Contracts contest details
+# zkSync Era System Contracts contest details
 - Total Prize Pool: $180,500 USDC
   - HM awards: $127,500 USDC 
   - QA report awards: $15,000 USDC
@@ -647,27 +640,61 @@ A system contract responsible for emitting events.
 
 It accepts in its 0-th extra abi data param the number of topics. In the rest of the extraAbiParams he accepts topics for the event to emit. Note, that in reality the event the first topic of the event contains the address of the account. Generally, the users should not interact with this contract directly, but only through Solidity syntax of `emit`-ing new events.
 
-## Known issues to be resolved
+# Scope
+
+| Contract | SLOC | Purpose | Libraries used |
+| ----------- | ----------- | ----------- | ----------- |
+| [./contracts/openzeppelin/utils/Address.sol](./contracts/openzeppelin/utils/Address.sol) | 160 | | |
+| [./contracts/openzeppelin/token/ERC20/IERC20.sol](./contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
+| [./contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](./contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
+| [./contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](./contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
+| [./contracts/test-contracts/TestSystemContract.sol](./contracts/test-contracts/TestSystemContract.sol) | 145 | | |
+| [./contracts/test-contracts/TestSystemContractHelper.sol](./contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
+| [./contracts/ImmutableSimulator.sol](./contracts/ImmutableSimulator.sol) | 20 | | |
+| [./contracts/MsgValueSimulator.sol](./contracts/MsgValueSimulator.sol) | 33 | | |
+| [./contracts/interfaces/IImmutableSimulator.sol](./contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
+| [./contracts/interfaces/IContractDeployer.sol](./contracts/interfaces/IContractDeployer.sol) | 62 | | |
+| [./contracts/interfaces/IAccount.sol](./contracts/interfaces/IAccount.sol) | 26 | | |
+| [./contracts/interfaces/IKnownCodesStorage.sol](./contracts/interfaces/IKnownCodesStorage.sol) | 7 | | |
+| [./contracts/interfaces/IBootloaderUtilities.sol](./contracts/interfaces/IBootloaderUtilities.sol) | 7 | | |
+| [./contracts/interfaces/IL1Messenger.sol](./contracts/interfaces/IL1Messenger.sol) | 5 | | |
+| [./contracts/interfaces/ISystemContext.sol](./contracts/interfaces/ISystemContext.sol) | 15 | | |
+| [./contracts/interfaces/IPaymaster.sol](./contracts/interfaces/IPaymaster.sol) | 22 | | |
+| [./contracts/interfaces/IAccountCodeStorage.sol](./contracts/interfaces/IAccountCodeStorage.sol) | 8 | | |
+| [./contracts/interfaces/IMailbox.sol](./contracts/interfaces/IMailbox.sol) | 10 | | |
+| [./contracts/interfaces/IEthToken.sol](./contracts/interfaces/IEthToken.sol) | 14 | | |
+| [./contracts/interfaces/IPaymasterFlow.sol](./contracts/interfaces/IPaymasterFlow.sol) | 5 | | |
+| [./contracts/interfaces/IBytecodeCompressor.sol](./contracts/interfaces/IBytecodeCompressor.sol) | 4 | | |
+| [./contracts/interfaces/IL2StandardToken.sol](./contracts/interfaces/IL2StandardToken.sol) | 9 | | |
+| [./contracts/interfaces/INonceHolder.sol](./contracts/interfaces/INonceHolder.sol) | 14 | | |
+| [./contracts/BootloaderUtilities.sol](./contracts/BootloaderUtilities.sol) | 233 | | |
+| [./contracts/BytecodeCompressor.sol](./contracts/BytecodeCompressor.sol) | 32 | | |
+| [./contracts/EmptyContract.sol](./contracts/EmptyContract.sol) | 5 | | |
+| [./contracts/L2EthToken.sol](./contracts/L2EthToken.sol) | 59 | | |
+| [./contracts/NonceHolder.sol](./contracts/NonceHolder.sol) | 82 | | |
+| [./contracts/DefaultAccount.sol](./contracts/DefaultAccount.sol) | 114 | | |
+| [./contracts/ContractDeployer.sol](./contracts/ContractDeployer.sol) | 199 | | |
+| [./contracts/Constants.sol](./contracts/Constants.sol) | 40 | | |
+| [./contracts/libraries/SystemContractsCaller.sol](./contracts/libraries/SystemContractsCaller.sol) | 149 | | |
+| [./contracts/libraries/SystemContractHelper.sol](./contracts/libraries/SystemContractHelper.sol) | 177 | | |
+| [./contracts/libraries/Utils.sol](./contracts/libraries/Utils.sol) | 46 | | |
+| [./contracts/libraries/UnsafeBytesCalldata.sol](./contracts/libraries/UnsafeBytesCalldata.sol) | 15 | | |
+| [./contracts/libraries/TransactionHelper.sol](./contracts/libraries/TransactionHelper.sol) | 313 | | |
+| [./contracts/libraries/EfficientCall.sol](./contracts/libraries/EfficientCall.sol) | 145 | | |
+| [./contracts/libraries/RLPEncoder.sol](./contracts/libraries/RLPEncoder.sol) | 75 | | |
+| [./contracts/tests/TransactionHelperTest.sol](./contracts/tests/TransactionHelperTest.sol) | 8 | | |
+| [./contracts/tests/Counter.sol](./contracts/tests/Counter.sol) | 7 | | |
+| [./contracts/AccountCodeStorage.sol](./contracts/AccountCodeStorage.sol) | 54 | | |
+| [./contracts/KnownCodesStorage.sol](./contracts/KnownCodesStorage.sol) | 63 | | |
+| [./contracts/SystemContext.sol](./contracts/SystemContext.sol) | 62 | | |
+| [./contracts/L1Messenger.sol](./contracts/L1Messenger.sol) | 24 | | |
+
+## Out of scope
 
 The protocol, while conceptually complete, contains some known issues which will be resolved very soon. 
 
 - Fee modeling is generally not ready, i.e. the final pricing of the opcodes, refunds for transactions (i.e. refunding users for any gas unused during the execution).
 - Most certainly we'll add some kind of default implementation for the contracts in the kernel space (i.e. if called, they wouldn't revert but behave like an EOA).
-
-# Scope
-
-*List all files in scope in the table below (along with hyperlinks) -- and feel free to add notes here to emphasize areas of focus.*
-
-*For line of code counts, we recommend using [cloc](https://github.com/AlDanial/cloc).* 
-
-| Contract | SLOC | Purpose | Libraries used |
-| ----------- | ----------- | ----------- | ----------- |
-| [contracts/folder/sample.sol](contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-
-## Out of scope
-
-*List any files/contracts that are out of scope for this audit.*
-
 
 ## Scoping Details 
 ```
