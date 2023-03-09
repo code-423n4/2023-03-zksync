@@ -3,7 +3,7 @@
 cd era-compiler-tester
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        pacman -S cmake ninja clang lld parallel
+        apt install cmake ninja-build clang-13 lld-13 parallel pkg-config
 elif [[ -f '/etc/arch-release' ]]; then
         pacman -S cmake ninja clang lld parallel
 elif [[ "$OSTYPE" == "darwin"* ]]; then
