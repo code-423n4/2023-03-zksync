@@ -741,6 +741,13 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 | [contracts/tests/TransactionHelperTest.sol](contracts/tests/TransactionHelperTest.sol) | 8 | | |
 | [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
 
+# Build
+
+Ensure you have `solc` 0.8.16 on your system, you can download it here: https://github.com/ethereum/solidity/releases/tag/v0.8.16
+
+`yarn install --ignore-engines`
+
+`yarn build`
 
 # Tests
 
