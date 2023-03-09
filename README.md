@@ -48,7 +48,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 
 ---
 
-# zkSync era System Contracts contest details
+# zkSync Era System Contracts contest details
 - Total Prize Pool: $180,500 USDC
   - HM awards: $127,500 USDC 
   - QA report awards: $15,000 USDC
