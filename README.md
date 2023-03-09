@@ -726,8 +726,4 @@ yarn test
 
 Please note, we are not running standard hardhat tests, but use the `era-compiler-tester` tool. 
 
-If you want to add a new test, you can add it to the `era-compiler-tester/tests/solidity` folder. 
-
-TODO: add more details about the test format.
-
 Other instructions can be found in the test suite [README](https://github.com/matter-labs/era-compiler-tester#compiler-tester-integration-test-framework).
