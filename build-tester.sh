@@ -4,10 +4,13 @@ cd era-compiler-tester
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
         brew install cmake ninja coreutils parallel
+	ln -s solc-macos ../solc
 elif [[ -f '/etc/arch-release' ]]; then
         sudo pacman -S cmake ninja clang lld parallel1
+	ln -s solc-linux ../solc
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         sudo apt install cmake ninja-build clang-13 lld-13 parallel pkg-config
+	ln -s solc-linux ../solc
 else
         echo "Unsupported OS"
         exit 1
