@@ -5,9 +5,9 @@ cd era-compiler-tester
 if [[ "$OSTYPE" == "darwin"* ]]; then
         brew install cmake ninja coreutils parallel
 elif [[ -f '/etc/arch-release' ]]; then
-        pacman -S cmake ninja clang lld parallel1
+        sudo pacman -S cmake ninja clang lld parallel1
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        apt install cmake ninja-build clang-13 lld-13 parallel pkg-config
+        sudo apt install cmake ninja-build clang-13 lld-13 parallel pkg-config
 else
         echo "Unsupported OS"
         exit 1
