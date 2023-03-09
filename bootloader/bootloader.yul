@@ -1225,7 +1225,7 @@ object "Bootloader" {
                 // Otherwise, all the previous dependencies have been successfuly published, so 
                 // we need to move the pointer.
                 if newCompressedFactoryDepsPointer {
-                    mstore(COMPRESSED_BYTECODES_BEGIN_SLOT(), newCompressedFactoryDepsPointer)
+                    mstore(COMPRESSED_BYTECODES_BEGIN_BYTE(), newCompressedFactoryDepsPointer)
                 }
 
                 switch gt(gasLeft, gasSpentOnFactoryDeps) 
