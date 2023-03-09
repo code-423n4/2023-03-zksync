@@ -714,15 +714,27 @@ Instead, we propose to run the big integration test suite. You will be able to r
 
 ## Setup
 
+```bash
+# Clone and build the testing tool
+git clone --recurse-submodules https://github.com/matter-labs/era-compiler-tester.git
+cd era-compiler-tester
+# This is a build command for Debian-based systems, instructions for other systems
+# can be found here: https://github.com/matter-labs/era-compiler-tester#building
+apt install cmake ninja-build clang-13 lld-13 parallel pkg-config clang lld libstdc++-12-dev
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# You may need to restart the shell after the above to have your rust properly registered
+cargo install compiler-llvm-builder
+zkevm-llvm clone && zkevm-llvm build
+cargo build --release
+```
+
 The exact setup is described in the [here](https://github.com/matter-labs/era-compiler-tester#building).
 
 ## Running the tests
 
 The generic command to run the tests can be found [here](https://github.com/matter-labs/era-compiler-tester#usage).
 
-Please note, you need to install the separate `era-compiler-tester` tool. The repo contains another instance of the contest repo, so you can modify contracts if want and run the tests from there. 
-
-For the purpuse of the contest, it will be enough to run the following commands:
+If you cloned  `era-compiler-tester` repository as suggested above you should have a copy of this repo in it that will be used for tests. For the purpuse of the contest, it will be enough to run the following commands.
 
 To run the whole test suite:
 
