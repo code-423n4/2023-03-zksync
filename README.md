@@ -720,18 +720,26 @@ The exact setup is described in the [here](https://github.com/matter-labs/era-co
 
 The generic command to run the tests can be found [here](https://github.com/matter-labs/era-compiler-tester#usage).
 
-But for this contest, it will be enough to run the following commands:
+Please note, you need to install the separate `era-compiler-tester` tool. The repo contains another instance of the contest repo, so you can modify contracts if want and run the tests from there. 
+
+For the purpuse of the contest, it will be enough to run the following commands:
 
 To run the whole test suite:
 
 ```bash
-cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.17" 
+cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.19" 
 ```
 
 Or select the specific test, like `transfer` from `ERC20/test.json`:
 
 ```bash
-cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.17" --path=ERC20/test.json::transfer
+cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.19" --path=ERC20/test.json::transfer
 ```
+
+If you want to modify the system contracts, you can apply changes in the `era-compiler-tester/system-contracts`, and then run the tests again.
+
+If you want to add a new test, you can add it to the `era-compiler-tester/tests/solidity` folder. 
+
+TODO: add more details about the test format.
 
 Other instructions can be found in the test suite [README](https://github.com/matter-labs/compiler-tester#compiler-tester-integration-test-framework).
