@@ -461,6 +461,19 @@ We process the L2 transactions according to our account abstraction protocol: [h
 - The bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1442) the user.
 6. We notify the operator about the [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1105) that was granted to the user. It will be used for the correct displaying of gasUsed for the transaction in explorer.
 
+#### Note on fee model
+
+Currently, in order to provide a better UX, the following amendments to the original fee model have been introduced:
+
+- The operator defines the L1 gas price and the corresponding block-wise `gasPerPubdata` is derived from it. The users will be charged exactly `gasPerPubdata` for the pubdata in their transactions regardless of what `gasPerPubdataLimit` they provide. This will allow to reduce the overhead for the transaction.
+- Since the operator controls L1 gas price, we have decided to temporarily remove the overhead for the pubdata.
+
+#### Trusted gas limit
+
+For L2 transactions, it is possible for the operator to provide the operator's trusted gas limit, which would allow the transaction to have a higher gas limit than the maximum amount of gas mentioned in the fee model. This may happen if the operator accepts the risks of this transaction (e.g. potential DDoS). It is currently used to provide a better UX for publishing bytecodes, where the `gasPerPubdata` may be high enough to allow publishing bytecodes only under a large gas limit.
+
+However, the overhead for the transaction is always calculated as if the transaction did not have the limit higher than `MAX_TX_GAS`. While the operator can increase the available gas beyond `MAX_TX_GAS`, it cannot decrease it below `MAX_TX_GAS`. This means that all L2 transactions are guaranteed to have at least `MAX_TX_GAS` available.
+
 ### L1 transactions
 
 We assume that `from` has already authorized the L1→L2 transactions. It also has its L1 pubdata price as well as gasPrice set on L1.
