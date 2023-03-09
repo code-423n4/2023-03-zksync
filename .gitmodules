@@ -1,0 +1,3 @@
+[submodule "era-compiler-tester"]
+	path = era-compiler-tester
+	url = git@github.com:matter-labs/era-compiler-tester.git
