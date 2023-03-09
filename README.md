@@ -11,6 +11,8 @@
 - Starts March 10, 2023 20:00 UTC
 - Ends March 19, 2023 20:00 UTC
 
+**Note for C4 wardens: For this contest, gas optimizations are out of scope. The zkSync team will not be awarding prize funds for gas-specific submissions.**
+
 ## Automated Findings / Publicly Known Issues
 
 Automated findings output for the contest can be found [here](add link to report) within an hour of contest opening.
