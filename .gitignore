@@ -103,3 +103,14 @@ dist
 
 # TernJS port file
 .tern-port
+
+# zkSync era specific ignore
+cache
+artifacts
+cache-zk
+artifacts-zk
+typechain-types
+typechain
+build
+yarn-debug.log*
+yarn-error.log*
