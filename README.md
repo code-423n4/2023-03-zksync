@@ -341,7 +341,7 @@ While the main transaction format is the internal `Transaction` [format](https:/
 The exact type of the transaction is marked by the `txType` field of the transaction type. There are 5 types currently supported:
 
 - `txType`: 0. It means that this transaction is of legacy transaction type. The following restrictions are enforced:
-  - `maxFeePerGas=getMaxPriorityFeePerGas` (since it is pre-EIP1559 tx type.
+  - `maxFeePerGas=getMaxPriorityFeePerGas` (since it is pre-EIP1559 tx type).
   - `reserved1..reserved3` as well as `paymaster` are 0. 
   - `paymasterInput` is empty.
 
@@ -666,8 +666,6 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 | [contracts/openzeppelin/token/ERC20/IERC20.sol](contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
 | [contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
 | [contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
-| [contracts/test-contracts/TestSystemContract.sol](contracts/test-contracts/TestSystemContract.sol) | 145 | | |
-| [contracts/test-contracts/TestSystemContractHelper.sol](contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
 | [contracts/ImmutableSimulator.sol](contracts/ImmutableSimulator.sol) | 20 | | |
 | [contracts/MsgValueSimulator.sol](contracts/MsgValueSimulator.sol) | 33 | | |
 | [contracts/interfaces/IImmutableSimulator.sol](contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
