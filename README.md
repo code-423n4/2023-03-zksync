@@ -488,6 +488,16 @@ Note, that for L1→L2 transactions, `reserved0` field denotes the amount of ETH
 
 At the end of the block we set `tx.origin` and `tx.gasprice` context variables to zero to save L1 gas on calldata and send the entire bootloader balance to the operator, effectively sending fees to him.
 
+## Security assumptions of the bootloader
+
+We are building a system ready for decentralization and that is resilient for malicious operators. That's why we have a lot validation checks in there to ensure that the operator can not provide malicious input into the bootloader's memory. However, temporarily the following assumptions are used:
+
+- The operator provides the L1 gas price as a trusted oracle. In the future, a decentralized algorithm will be used to determine the price of L1 gas.
+- The operator provides the correct trusted gas limit. While it can not reduce the gas limit lower than `MAX_TX_GAS()`, but it is crucial to enable L2 bytecode-heavy operations, e.g. contract deployments. 
+- The operator is trusted to provide compressed bytecodes which are advantageous for the users, i.e. it is trusted to make sure that using compression is cheaper than simply publishing the original preimage. 
+
+Any other issues resulting from malicious operator behavior are unexpected and so are welcome to be reported, even though the bootloader is out of scope.
+
 ## System contracts
 
 Most of the details on the implementation and the requirements for the execution of system contracts can be found in the doc-comments of their respective code bases. This chapter serves only as a high-level overview of such contracts. 
