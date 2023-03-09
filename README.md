@@ -234,10 +234,11 @@ We also use verbatim-like statements to access zkSync-specific opcodes in the bo
 
 [https://github.com/code-423n4/2023-03-zksync/tree/main/docs/VM-specific_v1.3.0_opcodes_simulation_verbatim.pdf](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/VM-specific_v1.3.0_opcodes_simulation_verbatim.pdf)
 
-All the usages of the simulations in our Solidity code are implemented in these two files:
+All the usages of the simulations in our Solidity code are implemented in these three files:
 
 - [https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol)
 - [https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractsCaller.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractsCaller.sol)
+- [https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/libraries/EfficientCall.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/libraries/EfficientCall.sol)
 
 All usages in Yul code are a part of the bootloader implementation
 
@@ -332,7 +333,7 @@ It is enforced by the ZKPs, that the state of the bootloader is equivalent to th
 
 For additional efficiency (and our convenience), the bootloader receives its parameters inside its memory. This is the only point of non-determinism: the bootloader *starts with its memory pre-filled with any data the operator wants*. That's why it is responsible for validating the correctness of it and it should never rely on the initial contents of the memory to be correct & valid.
 
-For instance, for each transaction, we check that it is [properly ABI-encoded](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L478) and that the transactions [go exactly one after another](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L471). We also ensure that transactions do not exceed the limits of the memory space allowed for transactions.
+For instance, for each transaction, we check that it is [properly ABI-encoded](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L548) and that the transactions [go exactly one after another](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#541). We also ensure that transactions do not exceed the limits of the memory space allowed for transactions.
 
 ### Transaction types & their validation
 
@@ -349,9 +350,9 @@ Note, that unlike type 1 and type 2 transactions, `reserved0` field can be set t
 - `txType`: 1. It means that the transaction is of type 1, i.e. transactions access list. zkSync does not support access lists in any way, so no benefits of fulfilling this list will be provided. The access list is assumed to be empty. The same restrictions as for type 0 are enforced, but also `reserved0` must be 0.
 - `txType`: 2. It is EIP1559 transactions. The same restrictions as for type 1 apply, but now `maxFeePerGas` may not be equal to `getMaxPriorityFeePerGas`.
 - `txType`: 113. It is zkSync transaction type. This transaction type is intended for AA support. The only restriction that applies to this transaction type: fields `reserved0..reserved3` must be equal to 0.
-- `txType`: 255. It is a transaction that comes from L1. There are no restrictions explicitly imposed upon this type of transaction, since the bootloader after executing this transaction [sends the hash of its struct to L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L911). The L1 contract ensures that the hash did indeed match the [hash of the encoded struct](https://github.com/matter-labs/era-contracts/blob/main/ethereum/contracts/zksync/facets/Mailbox.sol#L340) on L1.
+- `txType`: 255. It is a transaction that comes from L1. There are no restrictions explicitly imposed upon this type of transaction, since the bootloader after executing this transaction [sends the hash of its struct to L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L980). The L1 contract ensures that the hash did indeed match the [hash of the encoded struct](https://github.com/matter-labs/era-contracts/blob/main/ethereum/contracts/zksync/facets/Mailbox.sol#L340) on L1.
 
-However, as already stated, the bootloader's memory is not deterministic and the operator is free to put anything it wants there. For all of the transaction types above the restrictions are imposed in the following [method](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L2370), which is called before even starting processing the [transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L489).
+However, as already stated, the bootloader's memory is not deterministic and the operator is free to put anything it wants there. For all of the transaction types above the restrictions are imposed in the following [method](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L2613), which is called before even starting processing the [transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L559).
 
 ### Structure of the bootloader's memory
 
@@ -447,18 +448,18 @@ Note, that if you call an account that is in kernel space and does not have any 
 
 We process the L2 transactions according to our account abstraction protocol: [https://era.zksync.io/docs/dev/tutorials/custom-aa-tutorial.html#prerequisite](https://era.zksync.io/docs/dev/tutorials/custom-aa-tutorial.html#prerequisite). 
 
-1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1013](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1013). You can read more on how that works in the fee model [description](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf).
-2. Then we [calculate the gasPrice](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018) for these transactions according to the EIP1559 rules.
-3. We conduct the validation step of the AA protocol: [bootloader/bootloader.yul#L1018](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018):
- - We [calculate](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1108) the hash of the transaction.
- - If enough gas has been provided, we [near_call](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1124) the validation function in the bootloader. It sets the tx.origin to the address of the bootloader, sets the gasPrice. It also marks the factory dependencies provided by the transaction as marked and then invokes the validation method of the account and verifies the returned magic.
- - Calls the accounts and, if needed, the paymaster to receive the payment for the transaction. Note, that accounts may not use `block.baseFee` context variable, so they have no way to know what exact sum to pay. That's why the accounts typically firstly send `tx.maxFeePerGas * tx.gasLimit` and the bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L711) for any excess funds sent. 
-4. [We perform the execution of the transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1026). Note, that if the sender is an EOA, tx.origin is set equal to the `from` the value of the transaction. 
-5. We [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1034) the user for any excess funds he spent on the transaction:
-- Firstly, the postTransaction operation is [called](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1248) to the paymaster.
-- The bootloader [asks](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1268) the operator to provide a refund. During the first VM run without proofs the provide directly inserts the refunds in the memory of the bootloader. During the run for the proved blocks, the operator already knows what which values have to be inserted there. You can read more about it in the [documentation](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf) of the fee model.
-- The bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1285) the user.
-6. We notify the operator about the [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1042) that was granted to the user. It will be used for the correct displaying of gasUsed for the transaction in explorer.
+1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1076](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1076). You can read more on how that works in the fee model [description](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf).
+2. Then we [calculate the gasPrice](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1077) for these transactions according to the EIP1559 rules.
+3. We conduct the validation step of the AA protocol: [bootloader/bootloader.yul#L1081](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1081):
+ - We [calculate](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1176) the hash of the transaction.
+ - If enough gas has been provided, we [near_call](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1192) the validation function in the bootloader. It sets the tx.origin to the address of the bootloader, sets the gasPrice. It also marks the factory dependencies provided by the transaction as marked and then invokes the validation method of the account and verifies the returned magic.
+ - Calls the accounts and, if needed, the paymaster to receive the payment for the transaction. Note, that accounts may not use `block.baseFee` context variable, so they have no way to know what exact sum to pay. That's why the accounts typically firstly send `tx.maxFeePerGas * tx.gasLimit` and the bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L781) for any excess funds sent. 
+4. [We perform the execution of the transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1089). Note, that if the sender is an EOA, tx.origin is set equal to the `from` the value of the transaction. 
+5. We [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1092) the user for any excess funds he spent on the transaction:
+- Firstly, the postTransaction operation is [called](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1405) to the paymaster.
+- The bootloader [asks](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1425) the operator to provide a refund. During the first VM run without proofs the provide directly inserts the refunds in the memory of the bootloader. During the run for the proved blocks, the operator already knows what which values have to be inserted there. You can read more about it in the [documentation](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf) of the fee model.
+- The bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1442) the user.
+6. We notify the operator about the [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1105) that was granted to the user. It will be used for the correct displaying of gasUsed for the transaction in explorer.
 
 ### L1 transactions
 
@@ -466,7 +467,7 @@ We assume that `from` has already authorized the L1→L2 transactions. It also h
 
 Most of the steps from the execution of L2 transactions are omitted and we set `tx.origin` to the `from`, and `gasPrice` to the one provided by transaction. After that, we use mimicCall to provide the operation itself from the name of the sender account.
 
-[For transactions coming from L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L822), we hash them as well as the result of the transaction (i.e. 1 if successful, 0 otherwise) and [send](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L911) via L2→L1 messaging mechanism. The L1 contracts are responsible for tracking the consistency and order of the executed L1→L2 transactions.
+[For transactions coming from L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L980), we hash them as well as the result of the transaction (i.e. 1 if successful, 0 otherwise) and [send](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#595) via L2→L1 messaging mechanism. The L1 contracts are responsible for tracking the consistency and order of the executed L1→L2 transactions.
 
 Note, that for L1→L2 transactions, `reserved0` field denotes the amount of ETH that should be minted on L2 as a result of this transaction. `reserved1` is the refund receiver address, i.e. the address that would receive the refund for the transaction as well as the msg.value if the transaction fails. 
 
@@ -737,13 +738,13 @@ But for this contest, it will be enough to run the following commands:
 To run the whole test suite:
 
 ```bash
-cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 =0.8.17" 
+cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.17" 
 ```
 
 Or select the specific test, like `transfer` from `ERC20/test.json`:
 
 ```bash
-cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 =0.8.17" --path=ERC20/test.json::transfer
+cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.17" --path=ERC20/test.json::transfer
 ```
 
 Other instructions can be found in the test suite [README](https://github.com/matter-labs/compiler-tester#compiler-tester-integration-test-framework).
