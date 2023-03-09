@@ -246,11 +246,11 @@ All usages in Yul code are a part of the bootloader implementation.
 
 In order to use `nearCall` i.e. to call a local function, while providing a limit of gas that this function can use, the following syntax is used:
 
-The function's name should contain `ZKSYNC_nearCall` string in its name and accept at least 1 input parameter. The first input parameter is the packed ABI of the `nearCall`. Currently, it is equal to the number of gas to be passed with the `nearCall`.
+The function's name should contain `ZKSYNC_NEAR_CALL` string in its name and accept at least 1 input parameter. The first input parameter is the packed ABI of the `nearCall`. Currently, it is equal to the number of gas to be passed with the `nearCall`.
 
-Whenever a `nearCall` panics, the `ZKSYNC_CATCH_nearCall` function is called.
+Whenever a `nearCall` panics, the `ZKSYNC_CATCH_NEAR_CALL` function is called.
 
-*Important note:* the compiler behaves in a way that if there is a `revert` in the bootloader, the `ZKSYNC_CATCH_nearCall` is not called and the parent frame is reverted as well. The only way to revert only the `nearCall` frame is to trigger VM's *panic* (it can be triggered with either an invalid opcode or out of gas error).
+*Important note:* the compiler behaves in a way that if there is a `revert` in the bootloader, the `ZKSYNC_CATCH_NEAR_CALL` is not called and the parent frame is reverted as well. The only way to revert only the `nearCall` frame is to trigger VM's *panic* (it can be triggered with either an invalid opcode or out of gas error).
 
 *Important note 2:* The 63/64 rule does not apply to `nearCall`.
 
