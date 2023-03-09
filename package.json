@@ -40,6 +40,8 @@
     ]
   },
   "scripts": {
+    "prepare": "bash build.sh",
+    "test": "cd era-compiler-tester && cargo run --release --bin compiler-tester -- --verbose --mode='Y+MzB3 0.8.19'",
     "build": "hardhat compile && yarn preprocess && yarn ts-node scripts/compile-yul.ts",
     "clean": "hardhat clean",
     "fmt": "prettier --config prettier.js --write contracts/*.sol contracts/**/*.sol",
