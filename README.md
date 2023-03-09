@@ -64,7 +64,7 @@ Automated findings output for the contest can be found [here](add link to report
 
 # Overview
 
-## System contracts/bootloader description (VM v1.3.0)
+## System contracts/bootloader description
 
 ### Introduction
 
@@ -76,7 +76,7 @@ On standard Ethereum clients, the workflow for executing blocks is the following
 2. Gather the state changes (if the transaction has not reverted), apply them to the state. 
 3. Go back to step (1) if the block gas limit has not been yet exceeded.
 
-However, having such flow on zkSync (i.e. processing transaction one-by-one) would be too inefficient, since we have to run the entire proving workflow for each individual transaction. That's what we need the *bootloader* for: instead of running N transactions separately, we run the entire block as a single program that accepts the array of transactions as well as some other block metadata and processes them inside a single big "transaction". The easiest way to think about the bootloader is to think in terms of EntryPoint from EIP4337: it also accepts the array of transactions and facilitates the Account Abstraction protocol.
+However, having such flow on zkSync Era (i.e. processing transaction one-by-one) would be too inefficient, since we have to run the entire proving workflow for each individual transaction. That's what we need the *bootloader* for: instead of running N transactions separately, we run the entire block as a single program that accepts the array of transactions as well as some other block metadata and processes them inside a single big "transaction". The easiest way to think about the bootloader is to think in terms of EntryPoint from EIP4337: it also accepts the array of transactions and facilitates the Account Abstraction protocol.
 
 The hash of the code of the bootloader is stored on L1 and can only be changed as a part of a system upgrade. Note, that unlike system contracts, the bootloader's code is not stored anywhere on L2. That's why we may sometimes refer to the bootloader's address as formal. It only exists for the sake of providing some value to `this`/`msg.sender`/etc. When someone calls the bootloader address (e.g. to pay fees) the [EmptyContract's](#empty-contracts) code is actually invoked.
 
@@ -88,7 +88,7 @@ The use of each system contract will be explained down below.
 
 ### zkEVM internals
 
-Full specification of the zkEVM is beyond the scope of this document. However, this section will give you most of the details needed for understanding the L2 system smart contracts & basic differences between EVM and zkEVM.
+Full specification of the zkEVM is beyond the scope of this contest. However, this section will give you most of the details needed for understanding the L2 system smart contracts & basic differences between EVM and zkEVM.
 
 ### Registers and memory management
 
@@ -107,7 +107,7 @@ Unlike EVM, which is stack machine, zkEVM has 16 registers. Instead of receiving
 - Shrink the pointer by reducing the slice to which pointer points to.
 - Receive the pointer to the returndata/as a calldata.
 - Pointers can be stored only on stack/registers to make sure that the other contracts can not read memory/returndata of contracts they are not supposed to.
-- A pointer can be converted to the u256 integer representing it, but an integer can not be converted to a pointer to prevent unallowed memory access.
+- A pointer can be converted to the `uint256` integer representing it, but an integer can not be converted to a pointer to prevent unallowed memory access.
 - It is not possible to return a pointer that points to a memory page with id smaller than the one for the current page. What this means is that it is only possible to use only pointer to the memory of the current frame or one of the pointers returned by the subcalls of the current frame.
 
 #### Memory areas in zkEVM
@@ -143,7 +143,7 @@ There is no need to copy returned data if the B returns a slice of the returndat
 
 Note, that you can *not* use the pointer that you received as calldata as returndata (i.e. return it at the end of the execution frame). Otherwise, it would be possible that returndata points to the memory slice of the active frame and allow editing the `returndata`. It means that in the examples above, C could not return a slice of its calldata without memory copying.
 
-These memory optimizations have not been utilized yet by the compiler.
+These memory optimizations are not expressible in standard Solidity. However, developers may use [compiler simulations](#simulations-via-our-compiler) to manipulate pointers by themselves or use `EfficientCall.sol` library to forward the calldata to the child call.
 
 #### Returndata & precompiles
 
@@ -186,12 +186,12 @@ Here are opcodes that can be generally accessed by any contract. Note that while
 - `near_call`. It is basically a "framed" jump to some location of the code of your contract. The difference between the near_call and ordinary jump are:
 1) It is possible to provide an gasLimit for it
 2) If the near call frame panics, all state changes made by it are reversed. Please note, that the memory changes will **not** be reverted.
-- `getMeta`. Returns an u256 packed value of [ZkSyncMeta](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol#L16) struct. Note that this is not tight packing. The struct is formed by the [following rust code](https://github.com/matter-labs/era-zkevm_opcode_defs/blob/main/src/definitions/abi/meta.rs#L14).
+- `getMeta`. Returns an `uint256` packed value of [ZkSyncMeta](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol#L16) struct. Note that this is not tight packing. The struct is formed by the [following rust code](https://github.com/matter-labs/era-zkevm_opcode_defs/blob/main/src/definitions/abi/meta.rs#L14).
 - `getCodeAddress` — receives the address of the executed code. This is different from `this` , since in case of delegatecalls `this` is preserved, but `codeAddress` is not.
 
 #### Flags for calls
 
-Besides the calldata, it is also possible to provide additional information to the callee when doing `call` , `mimic_call`, `delegate_call`. The called contract will receive the following information in its first 12 registers at the start of execution:
+Besides the calldata, it is also possible to provide additional information to the callee when doing `call`, `mimic_call`, `delegate_call`. The called contract will receive the following information in its first 12 registers at the start of execution:
 
 - *r1* — the pointer to the calldata.
 - *r2* — the pointer with flags of the call. This is a mask, where each bit is set only if certain flags have been set to the call. Currently, two flags are supported:
@@ -284,9 +284,9 @@ A call to a contract with invalid bytecode can not be proven. That is why it is 
 
 One of the other important features of zkSync is the support of account abstraction. It is highly recommended to read the documentation on our AA protocol here: [https://v2-docs.zksync.io/dev/developer-guides/aa.html#introduction](https://v2-docs.zksync.io/dev/developer-guides/aa.html#introduction).
 
-### Features included in the audit
+### Features included in the scope
 
-While the description above gives an overview of zkSync account abstraction functionality, there are some changes introduced before the audit that are not available on testnet (and thus not reflected in the documentation above).
+While the description above gives an overview of zkSync Era account abstraction functionality, there are some changes not reflected in the documentation.
 
 #### Refactoring in method naming
 
@@ -493,6 +493,8 @@ The code hashes of accounts are stored inside the storage of this contract. When
 
 Whenever a contract is called, the VM asks the operator to provide the preimage for the codehash of the account. That is why data availability of the code hashes is paramount. You can read more on data availability for the code hashes [here](#knowncodestorage). 
 
+The contract is also used by the compiler for simulation `extcodehash` and `extcodesize` opcodes.
+
 #### Constructing vs Non-constructing code hash
 
 In order to prevent contracts from being able to call a contract during its construction, we set the marker (i.e. second byte of the bytecode hash of the account) as `1`. This way, the VM will ensure that whenever a contract is called without the `is_constructor` flag, the bytecode of the default account (i.e. EOA) will be substituted instead of the original bytecode. 
@@ -512,7 +514,15 @@ The code of the default account is used. The main purpose of this contract is to
 
 ### Ecrecover
 
-Implementation of the ecrecover precompile.
+The implementation of the ecrecover precompile. It is expected to be used frequently, so written in pure yul with a custom memory layout.
+
+The contract accepts the calldata in the same format as EVM precompile, i.e. the first 32 bytes are the hash, the next 32 bytes are the v, the next 32 bytes are the r, and the last 32 bytes are the s. 
+
+It also validates the input by the same rules as the EVM precompile:
+- The v should be either 27 or 28,
+- The r and s should be less than the curve order.
+
+After that, it makes a precompile call and returns empty bytes if the call failed, and the recovered address otherwise.
 
 ### Empty contracts
 
@@ -520,9 +530,15 @@ Some of the contracts are relied upon to have EOA-like behaviour, i.e. they can 
 
 For these contracts, we insert the `EmptyContract` code upon genesis. It is basically a noop code, which does nothing and returns `success=1`.
 
-### Keccak256
+### Keccak256 & SHA256
 
-Note that unlike Ethereum, keccak256 is a precompile (*not an opcode*) on zkSync. This is the implementation of the keccak256 precompile on zkSync.
+Note that, unlike Ethereum, keccak256 is a precompile (*not an opcode*) on zkSync. 
+
+These system contracts act as wrappers for their respective crypto precompile implementations. They are expected to be used frequently, especially keccak256, since Solidity computes storage slots for mapping and dynamic arrays with its help. That's we wrote contracts on pure yul with optimizing the short input case.
+
+The system contracts accept the input and transform it into the format that the zk-circuit expects. This way, some of the work is shifted from the crypto to smart contracts, which are easier to audit and maintain.
+
+Both contracts should apply padding to the input according to their respective specifications, and then make a precompile call with the padded data. All other hashing work will be done in the zk-circuit. It's important to note that the crypto part of the precompiles expects to work with padded data. This means that a bug in applying padding may lead to an unprovable transaction.
 
 ### L2EthToken & MsgValueSimulator
 
@@ -609,7 +625,7 @@ If the call succeeded, the address of the deployed contract is returned. If the 
 The implementation of the default account abstraction. This is the code that is used by default for all addresses that are not in kernel space and have no contract deployed on them. This address:
 
 - Contains minimal implementation of our account abstraction protocol. Note that it supports the [built-in paymaster flows](https://v2-docs.zksync.io/dev/developer-guides/aa.html#paymasters).
-- When anyone (except bootloader) calls it, it behaves in the same way as a call to an EOA, i.e. it always returns `success = 1, returndatasize = 0` for calls from anyone except for the bootloader.
+- When anyone (except bootloader) calls/delegate calls it, it behaves in the same way as a call to an EOA, i.e. it always returns `success = 1, returndatasize = 0` for calls from anyone except for the bootloader.
 
 ### L1Messenger
 
@@ -630,13 +646,9 @@ Note that nonces do not necessarily have to be monotonic (this is needed to supp
 
 The accounts upon creation can also provide which type of nonce ordering do they want: Sequential (i.e. it should be expected that the nonces grow one by one, just like EOA) or Arbitrary, the nonces may have any values. This ordering is not enforced in any way by system contracts, but it is more of a suggestion to the operator on how it should order the transactions in the mempool.
 
-### SHA256
-
-The implementation of the sha256 precompile
-
 ### EventWriter
 
-A system contract responsible for emitting events. 
+A system contract responsible for emitting events. Contract is called every time when other contract emits an event. Expected to be called frequently, so it is written in pure yul to save users gas.
 
 It accepts in its 0-th extra abi data param the number of topics. In the rest of the extraAbiParams he accepts topics for the event to emit. Note, that in reality the event the first topic of the event contains the address of the account. Generally, the users should not interact with this contract directly, but only through Solidity syntax of `emit`-ing new events.
 
@@ -688,13 +700,6 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 | [contracts/KnownCodesStorage.sol](contracts/KnownCodesStorage.sol) | 63 | | |
 | [contracts/SystemContext.sol](contracts/SystemContext.sol) | 62 | | |
 | [contracts/L1Messenger.sol](contracts/L1Messenger.sol) | 24 | | |
-
-## Out of scope
-
-The protocol, while conceptually complete, contains some known issues which will be resolved very soon. 
-
-- Fee modeling is generally not ready, i.e. the final pricing of the opcodes, refunds for transactions (i.e. refunding users for any gas unused during the execution).
-- Most certainly we'll add some kind of default implementation for the contracts in the kernel space (i.e. if called, they wouldn't revert but behave like an EOA).
 
 ## Scoping Details 
 ```
