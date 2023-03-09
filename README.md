@@ -714,34 +714,9 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 | [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
 
 
-## Scoping Details 
-```
-- If you have a public code repo, please share it here:  https://github.com/matter-labs/era-system-contracts
-- How many contracts are in scope?:   40
-- Total SLoC for these contracts?:  2464
-- How many external imports are there?: 0 
-- How many separate interfaces and struct definitions are there for the contracts within scope?:  
-- Does most of your code generally use composition or inheritance?:   Inheritance
-- How many external calls?:   0
-- What is the overall line coverage percentage provided by your tests?:  
-- Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?:  Yes 
-- Please describe required context:   Bootloader - a piece of software that takes care of the execution environment initialization
-- Does it use an oracle?:  No
-- Does the token conform to the ERC20 standard?:  No
-- Are there any novel or unique curve logic or mathematical models?: Nothing in this code
-- Does it use a timelock function?:  No
-- Is it an NFT?: No
-- Does it have an AMM?:   No
-- Is it a fork of a popular project?:   No
-- Does it use rollups?:   Yes
-- Is it multi-chain?:  No
-- Does it use a side-chain?: No
-- Describe any specific areas you would like addressed. E.g. Please try to break XYZ.: The focus is on the system contracts, but the bootloader will also be shared and any problems in it are generally in scope
-```
-
 # Tests
 
-This contest is different from others in that it is not a standard EVM Solidity contract, but a core part of the zkEVM system contracts. The usual unit tests don't really helpful here due to the specific use of the contracts, zkEVM, and the compiler.
+This contest is different from others in that it is not a standard EVM Solidity contract, but a core part of the zkEVM system contracts. The usual unit tests are not really helpful here due to the specific use of the contracts, zkEVM, and the compiler.
 
 Instead, we propose to run the big integration test suite. You will be able to run a huge dataset of tests on the original/modified system contracts and compare the results, or add a new test to check the PoC!
 
