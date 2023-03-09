@@ -373,15 +373,19 @@ The block information slots [are used at the beginning of the block](https://git
 #### **Temporary data for debug & transaction processing purposes**
 
 - [8..39] words — 32 reserved slots for debugging purposes.
-- [40..72] words — 33 slots for holding the paymaster context data for the current transaction. The role of the paymaster context is similar to the [EIP4337](https://eips.ethereum.org/EIPS/eip-4337)'s one. You can read more about it in the account abstraction documentation.
+- [40..72] words — 33 slots for holding the paymaster context data for the current transaction. The role of the paymaster context is similar to the [EIP4337](https://eips.ethereum.org/EIPS/eip-4337)’s one. You can read more about it in the account abstraction documentation.
 - [73..74] words — 2 slots for signed and explorer transaction hash of the currently processed L2 transaction.
 - [75..110] words — 36 slots for the calldata for the KnownCodesContract call.
-- [111..366] words — 256 slots for the refunds for the transactions.
-- [367..622] words — 256 slots for the overhead for block for the transactions. This overhead is suggested by the operator, i.e. the bootloader will still double-check that the operator does not overcharge the user.
-
+- [111..1134] words — 1024 slots for the refunds for the transactions.
+- [1135..2158] words — 1024 slots for the overhead for block for the transactions. This overhead is suggested by the operator, i.e. the bootloader will still double-check that the operator does not overcharge the user.
+- [2159..3182] words — 1024 slots for the “trusted” gas limits by the operator. The user’s transaction will have at its disposal `min(MAX_TX_GAS(), trustedGasLimit)`, where `MAX_TX_GAS` is a constant guaranteed by the system. Currently, it is equal to 80 million gas. In the future, this feature will be removed.
+- [3183..35951] words — 32768 slots used for compressed bytecodes each in the following format: 
+- 32 bytecode hash
+- 32 zeroes (but then it will be modified to contain 28 zeroes and then the 4-byte selector of the `publishCompressedBytecode` function of the `BytecodeCompresor` 
+- The calldata to the bytecode compressor (without the selector).
 ### **Transaction's meta descriptions**
 
-- [623..1135] words — 512 slots for 256 transaction's meta descriptions (their structure is explained below).
+- [35952..487272] words — 2048 slots for 1024 transaction’s meta descriptions (their structure is explained below).
 
 For internal reasons related to possible future integrations of zero-knowledge proofs about some of the contents of the bootloader's memory, the array of the transactions is not passed as the ABI-encoding of the array of transactions, but:
 
@@ -403,15 +407,15 @@ struct BootloaderTxDescription {
 
 #### **Reserved slots for the calldata for the paymaster's postOp operation**
 
-- [1136..1175] words — 40 slots which could be used for encoding the calls for postOp methods of the paymaster.
+- [487273..487312] words — 40 slots which could be used for encoding the calls for postOp methods of the paymaster.
 
 To avoid additional copying of transactions for calls for the account abstraction, we reserve some of the slots which could be then used to form the calldata for the `postOp` call for the account abstraction without having to copy the entire transaction's data.
 
 #### **The actual transaction's descriptions**
 
-[1175..2^24-258]
+- [487313..2^24-258]
 
-Starting from the 653 word, the actual descriptions of the transactions start. (The struct can be found by this [link](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/TransactionHelper.sol#L25)). The bootloader enforces that:
+Starting from the 487313 word, the actual descriptions of the transactions start. (The struct can be found by this [link](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/TransactionHelper.sol#L25)). The bootloader enforces that:
 
 - They are correctly ABI encoded representations of the struct above.
 - They are located without any gaps in memory (the first transaction starts at word 653 and each transaction goes right after the next one).
@@ -419,15 +423,15 @@ Starting from the 653 word, the actual descriptions of the transactions start. (
 
 #### **VM hook pointers**
 
-[2^24-257..2^24 - 255]
+- [2^24-1025..2^24 - 1023]
 
 These are memory slots that are used purely for debugging purposes (when the VM writes to these slots, the server side can catch these calls and give important insight information for debugging issues).
 
 #### **Result ptr pointer**
 
-[2^24 - 254..2^24]
+- [2^24 - 1023..2^24]
 
-These are memory slots that are used to track the success status of a transaction. If the transaction with number `i` succeeded, the slot `2^24 - 254 + i` will be marked as 1 and 0 otherwise.
+These are memory slots that are used to track the success status of a transaction. If the transaction with number `i` succeeded, the slot `2^24 - 1023 + i` will be marked as 1 and 0 otherwise.
 
 ### General flow of the bootloader's execution
 
