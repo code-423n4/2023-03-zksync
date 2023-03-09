@@ -759,11 +759,11 @@ Instead, we propose to run the big integration test suite. You will be able to r
 
 ## Setup
 
-The exact setup is described in the [here](https://github.com/matter-labs/compiler-tester#building).
+The exact setup is described in the [here](https://github.com/matter-labs/era-compiler-tester#building).
 
 ## Running the tests
 
-The generic command to run the tests can be found [here](https://github.com/matter-labs/compiler-tester#usage).
+The generic command to run the tests can be found [here](https://github.com/matter-labs/era-compiler-tester#usage).
 
 But for this contest, it will be enough to run the following commands:
 
