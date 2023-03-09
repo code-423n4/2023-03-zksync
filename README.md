@@ -720,6 +720,8 @@ Instead, we propose to run the big integration test suite. You will be able to r
 yarn prepare
 ```
 
+Some Mac users may need to install recent LLVM/[Clang](https://clang.llvm.org) compiler, e.g. via [Xcode](https://developer.apple.com/xcode/), [Apple’s Command Line Tools](https://developer.apple.com/library/archive/technotes/tn2339/_index.html), or your preferred package manager.
+
 ## Running the tests
 
 ```
