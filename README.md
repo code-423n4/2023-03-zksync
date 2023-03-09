@@ -186,7 +186,7 @@ Here are opcodes that can be generally accessed by any contract. Note that while
 - `near_call`. It is basically a "framed" jump to some location of the code of your contract. The difference between the near_call and ordinary jump are:
 1) It is possible to provide an gasLimit for it
 2) If the near call frame panics, all state changes made by it are reversed. Please note, that the memory changes will **not** be reverted.
-- `getMeta`. Returns an u256 packed value of [ZkSyncMeta](contracts/libraries/SystemContractHelper.sol#L16) struct. Note that this is not tight packing. The struct is formed by the [following rust code](https://github.com/matter-labs/era-zkevm_opcode_defs/blob/main/src/definitions/abi/meta.rs#L14).
+- `getMeta`. Returns an u256 packed value of [ZkSyncMeta](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol#L16) struct. Note that this is not tight packing. The struct is formed by the [following rust code](https://github.com/matter-labs/era-zkevm_opcode_defs/blob/main/src/definitions/abi/meta.rs#L14).
 - `getCodeAddress` — receives the address of the executed code. This is different from `this` , since in case of delegatecalls `this` is preserved, but `codeAddress` is not.
 
 #### Flags for calls
@@ -236,8 +236,8 @@ We also use verbatim-like statements to access zkSync-specific opcodes in the bo
 
 All the usages of the simulations in our Solidity code are implemented in these two files:
 
-- [contracts/libraries/SystemContractHelper.sol](contracts/libraries/SystemContractHelper.sol)
-- [contracts/libraries/SystemContractsCaller.sol](contracts/libraries/SystemContractsCaller.sol)
+- [https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol)
+- [https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractsCaller.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractsCaller.sol)
 
 All usages in Yul code are a part of the bootloader implementation
 
@@ -332,11 +332,11 @@ It is enforced by the ZKPs, that the state of the bootloader is equivalent to th
 
 For additional efficiency (and our convenience), the bootloader receives its parameters inside its memory. This is the only point of non-determinism: the bootloader *starts with its memory pre-filled with any data the operator wants*. That's why it is responsible for validating the correctness of it and it should never rely on the initial contents of the memory to be correct & valid.
 
-For instance, for each transaction, we check that it is [properly ABI-encoded](bootloader/bootloader.yul#L478) and that the transactions [go exactly one after another](bootloader/bootloader.yul#L471). We also ensure that transactions do not exceed the limits of the memory space allowed for transactions.
+For instance, for each transaction, we check that it is [properly ABI-encoded](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L478) and that the transactions [go exactly one after another](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L471). We also ensure that transactions do not exceed the limits of the memory space allowed for transactions.
 
 ### Transaction types & their validation
 
-While the main transaction format is the internal `Transaction` [format](contracts/libraries/TransactionHelper.sol#L25), it is a struct that is used to represent various kinds of transactions types. It contains a lot of `reserved` fields that could be used depending in the future types of transactions without need for AA to change the interfaces of their contracts.
+While the main transaction format is the internal `Transaction` [format](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/TransactionHelper.sol#L25), it is a struct that is used to represent various kinds of transactions types. It contains a lot of `reserved` fields that could be used depending in the future types of transactions without need for AA to change the interfaces of their contracts.
 
 While most of the fields are self-explanatory, the following two reserved fields are used in all of the current transactions types, except for L1→L2 transactions:
 
@@ -351,9 +351,9 @@ The exact type of the transaction is marked by the `txType` field of the transac
 - `txType`: 1. It means that the transaction is of type 1, i.e. transactions access list. zkSync does not support access lists in any way, so no benefits of fulfilling this list will be provided. The access list is assumed to be empty. The same restrictions as for type 0 are enforced, but also `reserved0` must be 0.
 - `txType`: 2. It is EIP1559 transactions. The same restrictions as for type 1 apply, but now `maxFeePerGas` may not be equal to `getMaxPriorityFeePerGas`.
 - `txType`: 113. It is zkSync transaction type. This transaction type is intended for AA support. The only restriction that applies to this transaction type: fields `reserved0..reserved4` must be equal to 0.
-- `txType`: 255. It is a transaction that comes from L1. There are no restrictions explicitly imposed upon this type of transaction, since the bootloader after executing this transaction [sends the hash of its struct to L1](bootloader/bootloader.yul#L911). The L1 contract ensures that the hash did indeed match the [hash of the encoded struct](https://github.com/matter-labs/era-contracts/blob/main/ethereum/contracts/zksync/facets/Mailbox.sol#L340) on L1.
+- `txType`: 255. It is a transaction that comes from L1. There are no restrictions explicitly imposed upon this type of transaction, since the bootloader after executing this transaction [sends the hash of its struct to L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L911). The L1 contract ensures that the hash did indeed match the [hash of the encoded struct](https://github.com/matter-labs/era-contracts/blob/main/ethereum/contracts/zksync/facets/Mailbox.sol#L340) on L1.
 
-However, as already stated, the bootloader's memory is not deterministic and the operator is free to put anything it wants there. For all of the transaction types above the restrictions are imposed in the following [method](bootloader/bootloader.yul#L2370), which is called before even starting processing the [transaction](bootloader/bootloader.yul#L489).
+However, as already stated, the bootloader's memory is not deterministic and the operator is free to put anything it wants there. For all of the transaction types above the restrictions are imposed in the following [method](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L2370), which is called before even starting processing the [transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L489).
 
 ### Structure of the bootloader's memory
 
@@ -370,7 +370,7 @@ The bootloader expects the following structure of the memory (here by word we de
 - 6 word — the base fee for the block that is expected by the operator. While the base fee is deterministic, it is still provided to the bootloader just to make sure that the data that the operator has coincides with the data provided by the bootloader.
 - 7 word — reserved word. Unused on proved block.
 
-The block information slots [are used at the beginning of the block](bootloader/bootloader.yul#L50). Once read, these slots can be used for temporary data. 
+The block information slots [are used at the beginning of the block](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L50). Once read, these slots can be used for temporary data. 
 
 #### **Temporary data for debug & transaction processing purposes**
 
@@ -413,7 +413,7 @@ To avoid additional copying of transactions for calls for the account abstractio
 
 [1175..2^24-258]
 
-Starting from the 653 word, the actual descriptions of the transactions start. (The struct can be found by this [link](contracts/libraries/TransactionHelper.sol#L25)). The bootloader enforces that:
+Starting from the 653 word, the actual descriptions of the transactions start. (The struct can be found by this [link](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/TransactionHelper.sol#L25)). The bootloader enforces that:
 
 - They are correctly ABI encoded representations of the struct above.
 - They are located without any gaps in memory (the first transaction starts at word 653 and each transaction goes right after the next one).
@@ -445,18 +445,18 @@ Note, that if you call an account that is in kernel space and does not have any 
 
 We process the L2 transactions according to our account abstraction protocol: [https://v2-docs.zksync.io/dev/tutorials/custom-aa-tutorial.html#prerequisite](https://v2-docs.zksync.io/dev/tutorials/custom-aa-tutorial.html#prerequisite). 
 
-1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1013](bootloader/bootloader.yul#L1013). You can read more on how that works in the fee model [description](https://www.notion.so/zkSync-fee-model-8e6c9196f4f84105a958a0e2463c3b39).
-2. Then we [calculate the gasPrice](bootloader/bootloader.yul#L1018) for these transactions according to the EIP1559 rules.
-3. We conduct the validation step of the AA protocol: [bootloader/bootloader.yul#L1018](bootloader/bootloader.yul#L1018):
- - We [calculate](bootloader/bootloader.yul#L1108) the hash of the transaction.
- - If enough gas has been provided, we [near_call](bootloader/bootloader.yul#L1124) the validation function in the bootloader. It sets the tx.origin to the address of the bootloader, sets the gasPrice. It also marks the factory dependencies provided by the transaction as marked and then invokes the validation method of the account and verifies the returned magic.
- - Calls the accounts and, if needed, the paymaster to receive the payment for the transaction. Note, that accounts may not use `block.baseFee` context variable, so they have no way to know what exact sum to pay. That's why the accounts typically firstly send `tx.maxFeePerGas * tx.gasLimit` and the bootloader [refunds](bootloader/bootloader.yul#L711) for any excess funds sent. 
-4. [We perform the execution of the transaction](bootloader/bootloader.yul#L1026). Note, that if the sender is an EOA, tx.origin is set equal to the `from` the value of the transaction. 
-5. We [refund](bootloader/bootloader.yul#L1034) the user for any excess funds he spent on the transaction:
-- Firstly, the postTransaction operation is [called](bootloader/bootloader.yul#L1248) to the paymaster.
-- The bootloader [asks](bootloader/bootloader.yul#L1268) the operator to provide a refund. During the first VM run without proofs the provide directly inserts the refunds in the memory of the bootloader. During the run for the proved blocks, the operator already knows what which values have to be inserted there. You can read more about it in the [documentation](https://www.notion.so/zkSync-fee-model-8e6c9196f4f84105a958a0e2463c3b39) of the fee model.
-- The bootloader [refunds](bootloader/bootloader.yul#L1285) the user.
-6. We notify the operator about the [refund](bootloader/bootloader.yul#L1042) that was granted to the user. It will be used for the correct displaying of gasUsed for the transaction in explorer.
+1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1013](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1013). You can read more on how that works in the fee model [description](https://www.notion.so/zkSync-fee-model-8e6c9196f4f84105a958a0e2463c3b39).
+2. Then we [calculate the gasPrice](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018) for these transactions according to the EIP1559 rules.
+3. We conduct the validation step of the AA protocol: [bootloader/bootloader.yul#L1018](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018):
+ - We [calculate](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1108) the hash of the transaction.
+ - If enough gas has been provided, we [near_call](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1124) the validation function in the bootloader. It sets the tx.origin to the address of the bootloader, sets the gasPrice. It also marks the factory dependencies provided by the transaction as marked and then invokes the validation method of the account and verifies the returned magic.
+ - Calls the accounts and, if needed, the paymaster to receive the payment for the transaction. Note, that accounts may not use `block.baseFee` context variable, so they have no way to know what exact sum to pay. That's why the accounts typically firstly send `tx.maxFeePerGas * tx.gasLimit` and the bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L711) for any excess funds sent. 
+4. [We perform the execution of the transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1026). Note, that if the sender is an EOA, tx.origin is set equal to the `from` the value of the transaction. 
+5. We [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1034) the user for any excess funds he spent on the transaction:
+- Firstly, the postTransaction operation is [called](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1248) to the paymaster.
+- The bootloader [asks](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1268) the operator to provide a refund. During the first VM run without proofs the provide directly inserts the refunds in the memory of the bootloader. During the run for the proved blocks, the operator already knows what which values have to be inserted there. You can read more about it in the [documentation](https://www.notion.so/zkSync-fee-model-8e6c9196f4f84105a958a0e2463c3b39) of the fee model.
+- The bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1285) the user.
+6. We notify the operator about the [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1042) that was granted to the user. It will be used for the correct displaying of gasUsed for the transaction in explorer.
 
 ### L1 transactions
 
@@ -464,7 +464,7 @@ We assume that `from` has already authorized the L1→L2 transactions. It also h
 
 Most of the steps from the execution of L2 transactions are omitted and we set `tx.origin` to the `from`, and `gasPrice` to the one provided by transaction. After that, we use mimicCall to provide the operation itself from the name of the sender account.
 
-[For transactions coming from L1](bootloader/bootloader.yul#L822), we hash them as well as the result of the transaction (i.e. 1 if successful, 0 otherwise) and [send](bootloader/bootloader.yul#L911) via L2→L1 messaging mechanism. The L1 contracts are responsible for tracking the consistency and order of the executed L1→L2 transactions.
+[For transactions coming from L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L822), we hash them as well as the result of the transaction (i.e. 1 if successful, 0 otherwise) and [send](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L911) via L2→L1 messaging mechanism. The L1 contracts are responsible for tracking the consistency and order of the executed L1→L2 transactions.
 
 Note, that for L1→L2 transactions, `reserved0` field denotes the amount of ETH that should be minted on L2 as a result of this transaction. `reserved1` is the refund receiver address, i.e. the address that would receive the refund for the transaction as well as the msg.value if the transaction fails. 
 
@@ -644,50 +644,50 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 
 | Contract | SLOC | Purpose | Libraries used |
 | ----------- | ----------- | ----------- | ----------- |
-| [./contracts/openzeppelin/utils/Address.sol](./contracts/openzeppelin/utils/Address.sol) | 160 | | |
-| [./contracts/openzeppelin/token/ERC20/IERC20.sol](./contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
-| [./contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](./contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
-| [./contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](./contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
-| [./contracts/test-contracts/TestSystemContract.sol](./contracts/test-contracts/TestSystemContract.sol) | 145 | | |
-| [./contracts/test-contracts/TestSystemContractHelper.sol](./contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
-| [./contracts/ImmutableSimulator.sol](./contracts/ImmutableSimulator.sol) | 20 | | |
-| [./contracts/MsgValueSimulator.sol](./contracts/MsgValueSimulator.sol) | 33 | | |
-| [./contracts/interfaces/IImmutableSimulator.sol](./contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
-| [./contracts/interfaces/IContractDeployer.sol](./contracts/interfaces/IContractDeployer.sol) | 62 | | |
-| [./contracts/interfaces/IAccount.sol](./contracts/interfaces/IAccount.sol) | 26 | | |
-| [./contracts/interfaces/IKnownCodesStorage.sol](./contracts/interfaces/IKnownCodesStorage.sol) | 7 | | |
-| [./contracts/interfaces/IBootloaderUtilities.sol](./contracts/interfaces/IBootloaderUtilities.sol) | 7 | | |
-| [./contracts/interfaces/IL1Messenger.sol](./contracts/interfaces/IL1Messenger.sol) | 5 | | |
-| [./contracts/interfaces/ISystemContext.sol](./contracts/interfaces/ISystemContext.sol) | 15 | | |
-| [./contracts/interfaces/IPaymaster.sol](./contracts/interfaces/IPaymaster.sol) | 22 | | |
-| [./contracts/interfaces/IAccountCodeStorage.sol](./contracts/interfaces/IAccountCodeStorage.sol) | 8 | | |
-| [./contracts/interfaces/IMailbox.sol](./contracts/interfaces/IMailbox.sol) | 10 | | |
-| [./contracts/interfaces/IEthToken.sol](./contracts/interfaces/IEthToken.sol) | 14 | | |
-| [./contracts/interfaces/IPaymasterFlow.sol](./contracts/interfaces/IPaymasterFlow.sol) | 5 | | |
-| [./contracts/interfaces/IBytecodeCompressor.sol](./contracts/interfaces/IBytecodeCompressor.sol) | 4 | | |
-| [./contracts/interfaces/IL2StandardToken.sol](./contracts/interfaces/IL2StandardToken.sol) | 9 | | |
-| [./contracts/interfaces/INonceHolder.sol](./contracts/interfaces/INonceHolder.sol) | 14 | | |
-| [./contracts/BootloaderUtilities.sol](./contracts/BootloaderUtilities.sol) | 233 | | |
-| [./contracts/BytecodeCompressor.sol](./contracts/BytecodeCompressor.sol) | 32 | | |
-| [./contracts/EmptyContract.sol](./contracts/EmptyContract.sol) | 5 | | |
-| [./contracts/L2EthToken.sol](./contracts/L2EthToken.sol) | 59 | | |
-| [./contracts/NonceHolder.sol](./contracts/NonceHolder.sol) | 82 | | |
-| [./contracts/DefaultAccount.sol](./contracts/DefaultAccount.sol) | 114 | | |
-| [./contracts/ContractDeployer.sol](./contracts/ContractDeployer.sol) | 199 | | |
-| [./contracts/Constants.sol](./contracts/Constants.sol) | 40 | | |
-| [./contracts/libraries/SystemContractsCaller.sol](./contracts/libraries/SystemContractsCaller.sol) | 149 | | |
-| [./contracts/libraries/SystemContractHelper.sol](./contracts/libraries/SystemContractHelper.sol) | 177 | | |
-| [./contracts/libraries/Utils.sol](./contracts/libraries/Utils.sol) | 46 | | |
-| [./contracts/libraries/UnsafeBytesCalldata.sol](./contracts/libraries/UnsafeBytesCalldata.sol) | 15 | | |
-| [./contracts/libraries/TransactionHelper.sol](./contracts/libraries/TransactionHelper.sol) | 313 | | |
-| [./contracts/libraries/EfficientCall.sol](./contracts/libraries/EfficientCall.sol) | 145 | | |
-| [./contracts/libraries/RLPEncoder.sol](./contracts/libraries/RLPEncoder.sol) | 75 | | |
-| [./contracts/tests/TransactionHelperTest.sol](./contracts/tests/TransactionHelperTest.sol) | 8 | | |
-| [./contracts/tests/Counter.sol](./contracts/tests/Counter.sol) | 7 | | |
-| [./contracts/AccountCodeStorage.sol](./contracts/AccountCodeStorage.sol) | 54 | | |
-| [./contracts/KnownCodesStorage.sol](./contracts/KnownCodesStorage.sol) | 63 | | |
-| [./contracts/SystemContext.sol](./contracts/SystemContext.sol) | 62 | | |
-| [./contracts/L1Messenger.sol](./contracts/L1Messenger.sol) | 24 | | |
+| [contracts/openzeppelin/utils/Address.sol](contracts/openzeppelin/utils/Address.sol) | 160 | | |
+| [contracts/openzeppelin/token/ERC20/IERC20.sol](contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
+| [contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
+| [contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
+| [contracts/test-contracts/TestSystemContract.sol](contracts/test-contracts/TestSystemContract.sol) | 145 | | |
+| [contracts/test-contracts/TestSystemContractHelper.sol](contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
+| [contracts/ImmutableSimulator.sol](contracts/ImmutableSimulator.sol) | 20 | | |
+| [contracts/MsgValueSimulator.sol](contracts/MsgValueSimulator.sol) | 33 | | |
+| [contracts/interfaces/IImmutableSimulator.sol](contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
+| [contracts/interfaces/IContractDeployer.sol](contracts/interfaces/IContractDeployer.sol) | 62 | | |
+| [contracts/interfaces/IAccount.sol](contracts/interfaces/IAccount.sol) | 26 | | |
+| [contracts/interfaces/IKnownCodesStorage.sol](contracts/interfaces/IKnownCodesStorage.sol) | 7 | | |
+| [contracts/interfaces/IBootloaderUtilities.sol](contracts/interfaces/IBootloaderUtilities.sol) | 7 | | |
+| [contracts/interfaces/IL1Messenger.sol](contracts/interfaces/IL1Messenger.sol) | 5 | | |
+| [contracts/interfaces/ISystemContext.sol](contracts/interfaces/ISystemContext.sol) | 15 | | |
+| [contracts/interfaces/IPaymaster.sol](contracts/interfaces/IPaymaster.sol) | 22 | | |
+| [contracts/interfaces/IAccountCodeStorage.sol](contracts/interfaces/IAccountCodeStorage.sol) | 8 | | |
+| [contracts/interfaces/IMailbox.sol](contracts/interfaces/IMailbox.sol) | 10 | | |
+| [contracts/interfaces/IEthToken.sol](contracts/interfaces/IEthToken.sol) | 14 | | |
+| [contracts/interfaces/IPaymasterFlow.sol](contracts/interfaces/IPaymasterFlow.sol) | 5 | | |
+| [contracts/interfaces/IBytecodeCompressor.sol](contracts/interfaces/IBytecodeCompressor.sol) | 4 | | |
+| [contracts/interfaces/IL2StandardToken.sol](contracts/interfaces/IL2StandardToken.sol) | 9 | | |
+| [contracts/interfaces/INonceHolder.sol](contracts/interfaces/INonceHolder.sol) | 14 | | |
+| [contracts/BootloaderUtilities.sol](contracts/BootloaderUtilities.sol) | 233 | | |
+| [contracts/BytecodeCompressor.sol](contracts/BytecodeCompressor.sol) | 32 | | |
+| [contracts/EmptyContract.sol](contracts/EmptyContract.sol) | 5 | | |
+| [contracts/L2EthToken.sol](contracts/L2EthToken.sol) | 59 | | |
+| [contracts/NonceHolder.sol](contracts/NonceHolder.sol) | 82 | | |
+| [contracts/DefaultAccount.sol](contracts/DefaultAccount.sol) | 114 | | |
+| [contracts/ContractDeployer.sol](contracts/ContractDeployer.sol) | 199 | | |
+| [contracts/Constants.sol](contracts/Constants.sol) | 40 | | |
+| [contracts/libraries/SystemContractsCaller.sol](contracts/libraries/SystemContractsCaller.sol) | 149 | | |
+| [contracts/libraries/SystemContractHelper.sol](contracts/libraries/SystemContractHelper.sol) | 177 | | |
+| [contracts/libraries/Utils.sol](contracts/libraries/Utils.sol) | 46 | | |
+| [contracts/libraries/UnsafeBytesCalldata.sol](contracts/libraries/UnsafeBytesCalldata.sol) | 15 | | |
+| [contracts/libraries/TransactionHelper.sol](contracts/libraries/TransactionHelper.sol) | 313 | | |
+| [contracts/libraries/EfficientCall.sol](contracts/libraries/EfficientCall.sol) | 145 | | |
+| [contracts/libraries/RLPEncoder.sol](contracts/libraries/RLPEncoder.sol) | 75 | | |
+| [contracts/tests/TransactionHelperTest.sol](contracts/tests/TransactionHelperTest.sol) | 8 | | |
+| [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
+| [contracts/AccountCodeStorage.sol](contracts/AccountCodeStorage.sol) | 54 | | |
+| [contracts/KnownCodesStorage.sol](contracts/KnownCodesStorage.sol) | 63 | | |
+| [contracts/SystemContext.sol](contracts/SystemContext.sol) | 62 | | |
+| [contracts/L1Messenger.sol](contracts/L1Messenger.sol) | 24 | | |
 
 ## Out of scope
 
