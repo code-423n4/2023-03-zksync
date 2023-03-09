@@ -716,24 +716,16 @@ Instead, we propose to run the big integration test suite. You will be able to r
 
 ## Setup
 
-The exact setup is described in the [here](https://github.com/matter-labs/era-compiler-tester#building).
+```
+yarn prepare
+```
 
 ## Running the tests
 
-The generic command to run the tests can be found [here](https://github.com/matter-labs/era-compiler-tester#usage).
-
-But for this contest, it will be enough to run the following commands:
-
-To run the whole test suite:
-
-```bash
-cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.17" 
+```
+yarn test
 ```
 
-Or select the specific test, like `transfer` from `ERC20/test.json`:
+Please note, we are not running standard hardhat tests, but use the `era-compiler-tester` tool. 
 
-```bash
-cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 0.8.17" --path=ERC20/test.json::transfer
-```
-
-Other instructions can be found in the test suite [README](https://github.com/matter-labs/compiler-tester#compiler-tester-integration-test-framework).
+Other instructions can be found in the test suite [README](https://github.com/matter-labs/era-compiler-tester#compiler-tester-integration-test-framework).
