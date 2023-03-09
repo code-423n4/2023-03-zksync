@@ -282,7 +282,7 @@ A call to a contract with invalid bytecode can not be proven. That is why it is 
 
 ## Account abstraction
 
-One of the other important features of zkSync is the support of account abstraction. It is highly recommended to read the documentation on our AA protocol here: [https://v2-docs.zksync.io/dev/developer-guides/aa.html#introduction](https://v2-docs.zksync.io/dev/developer-guides/aa.html#introduction).
+One of the other important features of zkSync is the support of account abstraction. It is highly recommended to read the documentation on our AA protocol here: [https://era.zksync.io/docs/dev/developer-guides/aa.html#introduction](https://era.zksync.io/docs/dev/developer-guides/aa.html#introduction).
 
 ### Features included in the scope
 
@@ -338,19 +338,17 @@ For instance, for each transaction, we check that it is [properly ABI-encoded](h
 
 While the main transaction format is the internal `Transaction` [format](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/TransactionHelper.sol#L25), it is a struct that is used to represent various kinds of transactions types. It contains a lot of `reserved` fields that could be used depending in the future types of transactions without need for AA to change the interfaces of their contracts.
 
-While most of the fields are self-explanatory, the following two reserved fields are used in all of the current transactions types, except for L1→L2 transactions:
-
-They might be renamed to `nonce` and `value` in the future.
-
 The exact type of the transaction is marked by the `txType` field of the transaction type. There are 5 types currently supported:
 
 - `txType`: 0. It means that this transaction is of legacy transaction type. The following restrictions are enforced:
-- `maxFeePerGas=getMaxPriorityFeePerGas` (since it is pre-EIP1559 tx type.
-- `reserved1..reserved4` as well as `paymaster` are 0. `paymasterInput` is zero.
-- Note, that unlike type 1 and type 2 transactions, `reserved0` field can be set to a non-zero value, denoting that this legacy transaction is EIP-155-compatible and its RLP encoding (as well as signature) should contain the `chainId` of the system.
+  - `maxFeePerGas=getMaxPriorityFeePerGas` (since it is pre-EIP1559 tx type.
+  - `reserved1..reserved3` as well as `paymaster` are 0. 
+  - `paymasterInput` is empty.
+
+Note, that unlike type 1 and type 2 transactions, `reserved0` field can be set to a non-zero value, denoting that this legacy transaction is EIP-155-compatible and its RLP encoding (as well as signature) should contain the `chainId` of the system.
 - `txType`: 1. It means that the transaction is of type 1, i.e. transactions access list. zkSync does not support access lists in any way, so no benefits of fulfilling this list will be provided. The access list is assumed to be empty. The same restrictions as for type 0 are enforced, but also `reserved0` must be 0.
 - `txType`: 2. It is EIP1559 transactions. The same restrictions as for type 1 apply, but now `maxFeePerGas` may not be equal to `getMaxPriorityFeePerGas`.
-- `txType`: 113. It is zkSync transaction type. This transaction type is intended for AA support. The only restriction that applies to this transaction type: fields `reserved0..reserved4` must be equal to 0.
+- `txType`: 113. It is zkSync transaction type. This transaction type is intended for AA support. The only restriction that applies to this transaction type: fields `reserved0..reserved3` must be equal to 0.
 - `txType`: 255. It is a transaction that comes from L1. There are no restrictions explicitly imposed upon this type of transaction, since the bootloader after executing this transaction [sends the hash of its struct to L1](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L911). The L1 contract ensures that the hash did indeed match the [hash of the encoded struct](https://github.com/matter-labs/era-contracts/blob/main/ethereum/contracts/zksync/facets/Mailbox.sol#L340) on L1.
 
 However, as already stated, the bootloader's memory is not deterministic and the operator is free to put anything it wants there. For all of the transaction types above the restrictions are imposed in the following [method](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L2370), which is called before even starting processing the [transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L489).
@@ -443,7 +441,7 @@ On zkSync, every address is a contract. Users can start transactions from their 
 
 Note, that if you call an account that is in kernel space and does not have any code deployed there, right now, the transaction will revert. This will likely be changed in the future.
 
-We process the L2 transactions according to our account abstraction protocol: [https://v2-docs.zksync.io/dev/tutorials/custom-aa-tutorial.html#prerequisite](https://v2-docs.zksync.io/dev/tutorials/custom-aa-tutorial.html#prerequisite). 
+We process the L2 transactions according to our account abstraction protocol: [https://era.zksync.io/docs/dev/tutorials/custom-aa-tutorial.html#prerequisite](https://era.zksync.io/docs/dev/tutorials/custom-aa-tutorial.html#prerequisite). 
 
 1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1013](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1013). You can read more on how that works in the fee model [description](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf).
 2. Then we [calculate the gasPrice](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018) for these transactions according to the EIP1559 rules.
@@ -501,7 +499,13 @@ In order to prevent contracts from being able to call a contract during its cons
 
 ### BootloaderUtilities
 
-This contract contains some of the methods which are needed purely for the bootloader functionality but were moved out from the bootloader itself for the convenience of not writing this logic in Yul.
+This contract contains only one external function that calculates the canonical transaction hash. It is used by the bootloader to determine the hash of the transaction for surreptitious use in AA and infrastructure.
+
+It is separated from the bootloader itself for the convenience of not writing this logic in Yul.
+
+### BytecodeCompressor
+
+This contract is designed to save the L1 gas on publishing the bytecodes on L1. It accepts the original bytecode and its compressed version verifies whether it is possible to restore the original bytecode knowing only the compressed data and the compression algorithm. Then it calls the [KnownCodeStorage](#knowncodestorage) to save the bytecode as known and publish the compressed version on L1.
 
 ### DefaultAccount
 
@@ -559,7 +563,9 @@ This contract is used to store whether a certain code hash is "known", i.e. can 
 The factory dependencies field provided by the user for each transaction contains the list of the contract's bytecode hashes to be marked as known. We can not simply trust the operator to "know" these bytecodehashes as the operator might be malicious and hide the preimage. We ensure the availability of the bytecode in the following way:
 
 - If the transaction comes from L1, i.e. all its factory dependencies have already been published on L1, we can simply mark these dependencies as "known".
-- If the transaction comes from L2, i.e. (the factory dependencies are yet to publish on L1), we make the user pays by burning gas proportional to the bytecode's length. After that, we send the L2→L1 log with the bytecode hash of the contract. It is the responsibility of the L1 contracts to verify that the corresponding bytecode hash has been published on L1.
+- If the transaction comes from L2, i.e. (the factory dependencies are yet to publish on L1), the operator prepares the compress the bytecode offchain and then verifies that the bytecode was compressed correctly. After that, we send the L2→L1 log with the compressed bytecode of the contract. It is the responsibility of the L1 contracts to verify that the corresponding bytecode hash has been published on L1.
+
+It is the responsibility of the [BytecodeCompressor](#bytecodecompressor) system contract to verify that the operator has compressed the bytecode correctly.
 
 It is the responsibility of the [ContractDeployer](#contractdeployer--immutablesimulator) system contract to deploy only those code hashes that are known.
 
@@ -624,7 +630,7 @@ If the call succeeded, the address of the deployed contract is returned. If the 
 
 The implementation of the default account abstraction. This is the code that is used by default for all addresses that are not in kernel space and have no contract deployed on them. This address:
 
-- Contains minimal implementation of our account abstraction protocol. Note that it supports the [built-in paymaster flows](https://v2-docs.zksync.io/dev/developer-guides/aa.html#paymasters).
+- Contains minimal implementation of our account abstraction protocol. Note that it supports the [built-in paymaster flows](https://era.zksync.io/docs/dev/developer-guides/aa.html#paymasters).
 - When anyone (except bootloader) calls/delegate calls it, it behaves in the same way as a call to an EOA, i.e. it always returns `success = 1, returndatasize = 0` for calls from anyone except for the bootloader.
 
 ### L1Messenger
@@ -703,31 +709,55 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 
 ## Scoping Details 
 ```
-- If you have a public code repo, please share it here:  
+- If you have a public code repo, please share it here:  https://github.com/matter-labs/era-system-contracts
 - How many contracts are in scope?:   44
 - Total SLoC for these contracts?:  2700
 - How many external imports are there?: 0 
 - How many separate interfaces and struct definitions are there for the contracts within scope?:  
 - Does most of your code generally use composition or inheritance?:   Inheritance
 - How many external calls?:   0
-- What is the overall line coverage percentage provided by your tests?:  111111
-- Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?:  true 
+- What is the overall line coverage percentage provided by your tests?:  
+- Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?:  Yes 
 - Please describe required context:   Bootloader - a piece of software that takes care of the execution environment initialization
 - Does it use an oracle?:  No
-- Does the token conform to the ERC20 standard?:  
+- Does the token conform to the ERC20 standard?:  No
 - Are there any novel or unique curve logic or mathematical models?: Nothing in this code
-- Does it use a timelock function?:  
-- Is it an NFT?: 
-- Does it have an AMM?:   
-- Is it a fork of a popular project?:   false
+- Does it use a timelock function?:  No
+- Is it an NFT?: No
+- Does it have an AMM?:   No
+- Is it a fork of a popular project?:   No
 - Does it use rollups?:   Yes
-- Is it multi-chain?:  
-- Does it use a side-chain?: false
+- Is it multi-chain?:  No
+- Does it use a side-chain?: No
 - Describe any specific areas you would like addressed. E.g. Please try to break XYZ.: The focus is on the system contracts, but the bootloader will also be shared and any problems in it are generally in scope
 ```
 
 # Tests
 
-*Provide every step required to build the project from a fresh git clone, as well as steps to run the tests with a gas report.* 
+This contest is different from others in that it is not a standard EVM Solidity contract, but a core part of the zkEVM system contracts. The usual unit tests don't really helpful here due to the specific use of the contracts, zkEVM, and the compiler.
 
-*Note: Many wardens run Slither as a first pass for testing.  Please document any known errors with no workaround.* 
+Instead, we propose to run the big integration test suite. You will be able to run a huge dataset of tests on the original/modified system contracts and compare the results, or add a new test to check the PoC!
+
+## Setup
+
+The exact setup is described in the [here](https://github.com/matter-labs/compiler-tester#building).
+
+## Running the tests
+
+The generic command to run the tests can be found [here](https://github.com/matter-labs/compiler-tester#usage).
+
+But for this contest, it will be enough to run the following commands:
+
+To run the whole test suite:
+
+```bash
+cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 =0.8.17" 
+```
+
+Or select the specific test, like `transfer` from `ERC20/test.json`:
+
+```bash
+cargo run --release --bin compiler-tester -- --verbose --mode="Y+MzB3 =0.8.17" --path=ERC20/test.json::transfer
+```
+
+Other instructions can be found in the test suite [README](https://github.com/matter-labs/compiler-tester#compiler-tester-integration-test-framework).
