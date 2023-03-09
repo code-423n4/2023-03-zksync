@@ -228,11 +228,11 @@ In the example above, the compiler will detect that the static call is done to t
 
 Full list of opcode simulations can be found here:
 
-[https://www.notion.so/matterlabs/VM-specific-v1-3-0-opcodes-simulation-ca97fa8cb1a7492daa21178c6df2a793](https://www.notion.so/VM-specific-v1-3-0-opcodes-simulation-ca97fa8cb1a7492daa21178c6df2a793)
+[https://github.com/code-423n4/2023-03-zksync/tree/main/docs/VM-specific_v1.3.0_opcodes_simulation.pdf](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/VM-specific_v1.3.0_opcodes_simulation.pdf)
 
 We also use verbatim-like statements to access zkSync-specific opcodes in the bootloader:
 
-[https://www.notion.so/matterlabs/VM-specific-v1-2-0-opcodes-simulation-verbatim-a641281b39e740c296a99cd6d238d90a](https://www.notion.so/VM-specific-v1-3-0-opcodes-simulation-verbatim-fbe4be0122a640ff9a9e8d3973c75490)
+[https://github.com/code-423n4/2023-03-zksync/tree/main/docs/VM-specific_v1.3.0_opcodes_simulation_verbatim.pdf](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/VM-specific_v1.3.0_opcodes_simulation_verbatim.pdf)
 
 All the usages of the simulations in our Solidity code are implemented in these two files:
 
@@ -445,7 +445,7 @@ Note, that if you call an account that is in kernel space and does not have any 
 
 We process the L2 transactions according to our account abstraction protocol: [https://v2-docs.zksync.io/dev/tutorials/custom-aa-tutorial.html#prerequisite](https://v2-docs.zksync.io/dev/tutorials/custom-aa-tutorial.html#prerequisite). 
 
-1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1013](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1013). You can read more on how that works in the fee model [description](https://www.notion.so/zkSync-fee-model-8e6c9196f4f84105a958a0e2463c3b39).
+1. We deduct the transaction's upfront payment for the overhead for the block's processing: [bootloader/bootloader.yul#L1013](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1013). You can read more on how that works in the fee model [description](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf).
 2. Then we [calculate the gasPrice](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018) for these transactions according to the EIP1559 rules.
 3. We conduct the validation step of the AA protocol: [bootloader/bootloader.yul#L1018](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1018):
  - We [calculate](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1108) the hash of the transaction.
@@ -454,7 +454,7 @@ We process the L2 transactions according to our account abstraction protocol: [h
 4. [We perform the execution of the transaction](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1026). Note, that if the sender is an EOA, tx.origin is set equal to the `from` the value of the transaction. 
 5. We [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1034) the user for any excess funds he spent on the transaction:
 - Firstly, the postTransaction operation is [called](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1248) to the paymaster.
-- The bootloader [asks](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1268) the operator to provide a refund. During the first VM run without proofs the provide directly inserts the refunds in the memory of the bootloader. During the run for the proved blocks, the operator already knows what which values have to be inserted there. You can read more about it in the [documentation](https://www.notion.so/zkSync-fee-model-8e6c9196f4f84105a958a0e2463c3b39) of the fee model.
+- The bootloader [asks](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1268) the operator to provide a refund. During the first VM run without proofs the provide directly inserts the refunds in the memory of the bootloader. During the run for the proved blocks, the operator already knows what which values have to be inserted there. You can read more about it in the [documentation](https://github.com/code-423n4/2023-03-zksync/tree/main/docs/zkSync_fee_model.pdf) of the fee model.
 - The bootloader [refunds](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1285) the user.
 6. We notify the operator about the [refund](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul#L1042) that was granted to the user. It will be used for the correct displaying of gasUsed for the transaction in explorer.
 
