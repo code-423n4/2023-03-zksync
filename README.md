@@ -718,12 +718,12 @@ Please note that gas reports are out of scope for this contest. The system contr
 ```
 - If you have a public code repo, please share it here:  https://github.com/matter-labs/era-system-contracts
 - How many contracts are in scope?:   40
-- Total SLoC for these contracts?:  2464
+- Total SLoC for these contracts?:  2418
 - How many external imports are there?: 0 
 - How many separate interfaces and struct definitions are there for the contracts within scope?:  
 - Does most of your code generally use composition or inheritance?:   Inheritance
 - How many external calls?:   0
-- What is the overall line coverage percentage provided by your tests?:  
+- What is the overall line coverage percentage provided by your tests?:  -
 - Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?:  Yes 
 - Please describe required context:   Bootloader - a piece of software that takes care of the execution environment initialization
 - Does it use an oracle?:  No
