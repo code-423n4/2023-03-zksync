@@ -69,7 +69,7 @@ contract BytecodeCompressor is IBytecodeCompressor {
 
     /// @notice Decode the raw compressed data into the dictionary and the encoded data.
     /// @param _rawCompressedData The compressed bytecode in a format of:
-    ///    - 32 bytes: the bytes length of the dictionary
+    ///    - 2 bytes: the bytes length of the dictionary
     ///    - N bytes: the dictionary
     ///    - M bytes: the encoded data
     function _decodeRawBytecode(
