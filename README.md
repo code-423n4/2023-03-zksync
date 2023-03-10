@@ -646,60 +646,68 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 
 # Scope
 
-| Contract | SLOC | Purpose | Libraries used |
-| ----------- | ----------- | ----------- | ----------- |
-| [contracts/openzeppelin/utils/Address.sol](contracts/openzeppelin/utils/Address.sol) | 160 | | |
-| [contracts/openzeppelin/token/ERC20/IERC20.sol](contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
-| [contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
-| [contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
-| [contracts/ImmutableSimulator.sol](contracts/ImmutableSimulator.sol) | 20 | | |
-| [contracts/MsgValueSimulator.sol](contracts/MsgValueSimulator.sol) | 33 | | |
-| [contracts/interfaces/IImmutableSimulator.sol](contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
-| [contracts/interfaces/IContractDeployer.sol](contracts/interfaces/IContractDeployer.sol) | 62 | | |
-| [contracts/interfaces/IAccount.sol](contracts/interfaces/IAccount.sol) | 26 | | |
-| [contracts/interfaces/IKnownCodesStorage.sol](contracts/interfaces/IKnownCodesStorage.sol) | 7 | | |
-| [contracts/interfaces/IBootloaderUtilities.sol](contracts/interfaces/IBootloaderUtilities.sol) | 7 | | |
-| [contracts/interfaces/IL1Messenger.sol](contracts/interfaces/IL1Messenger.sol) | 5 | | |
-| [contracts/interfaces/ISystemContext.sol](contracts/interfaces/ISystemContext.sol) | 15 | | |
-| [contracts/interfaces/IPaymaster.sol](contracts/interfaces/IPaymaster.sol) | 22 | | |
-| [contracts/interfaces/IAccountCodeStorage.sol](contracts/interfaces/IAccountCodeStorage.sol) | 8 | | |
-| [contracts/interfaces/IMailbox.sol](contracts/interfaces/IMailbox.sol) | 10 | | |
-| [contracts/interfaces/IEthToken.sol](contracts/interfaces/IEthToken.sol) | 14 | | |
-| [contracts/interfaces/IPaymasterFlow.sol](contracts/interfaces/IPaymasterFlow.sol) | 5 | | |
-| [contracts/interfaces/IBytecodeCompressor.sol](contracts/interfaces/IBytecodeCompressor.sol) | 4 | | |
-| [contracts/interfaces/IL2StandardToken.sol](contracts/interfaces/IL2StandardToken.sol) | 9 | | |
-| [contracts/interfaces/INonceHolder.sol](contracts/interfaces/INonceHolder.sol) | 14 | | |
-| [contracts/BootloaderUtilities.sol](contracts/BootloaderUtilities.sol) | 233 | | |
-| [contracts/BytecodeCompressor.sol](contracts/BytecodeCompressor.sol) | 32 | | |
-| [contracts/EmptyContract.sol](contracts/EmptyContract.sol) | 5 | | |
-| [contracts/L2EthToken.sol](contracts/L2EthToken.sol) | 59 | | |
-| [contracts/NonceHolder.sol](contracts/NonceHolder.sol) | 82 | | |
-| [contracts/DefaultAccount.sol](contracts/DefaultAccount.sol) | 114 | | |
-| [contracts/ContractDeployer.sol](contracts/ContractDeployer.sol) | 199 | | |
-| [contracts/Constants.sol](contracts/Constants.sol) | 40 | | |
-| [contracts/libraries/SystemContractsCaller.sol](contracts/libraries/SystemContractsCaller.sol) | 149 | | |
-| [contracts/libraries/SystemContractHelper.sol](contracts/libraries/SystemContractHelper.sol) | 177 | | |
-| [contracts/libraries/Utils.sol](contracts/libraries/Utils.sol) | 46 | | |
-| [contracts/libraries/UnsafeBytesCalldata.sol](contracts/libraries/UnsafeBytesCalldata.sol) | 15 | | |
-| [contracts/libraries/TransactionHelper.sol](contracts/libraries/TransactionHelper.sol) | 313 | | |
-| [contracts/libraries/EfficientCall.sol](contracts/libraries/EfficientCall.sol) | 145 | | |
-| [contracts/libraries/RLPEncoder.sol](contracts/libraries/RLPEncoder.sol) | 75 | | |
-| [contracts/AccountCodeStorage.sol](contracts/AccountCodeStorage.sol) | 54 | | |
-| [contracts/KnownCodesStorage.sol](contracts/KnownCodesStorage.sol) | 63 | | |
-| [contracts/SystemContext.sol](contracts/SystemContext.sol) | 62 | | |
-| [contracts/L1Messenger.sol](contracts/L1Messenger.sol) | 24 | | |
+## Files in scope
 
-# Out of Scope
+|File|[SLOC](#nowhere "(nSLOC, SLOC, Lines)")|
+|:-|:-:|
+|_Contracts (13)_|
+|[contracts/EmptyContract.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/EmptyContract.sol) [💰](#nowhere "Payable Functions")|[5](#nowhere "(nSLOC:5, SLOC:5, Lines:14)")|
+|[contracts/ImmutableSimulator.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/ImmutableSimulator.sol) [Σ](#nowhere "Unchecked Blocks")|[20](#nowhere "(nSLOC:20, SLOC:20, Lines:44)")|
+|[contracts/L1Messenger.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/L1Messenger.sol) [Σ](#nowhere "Unchecked Blocks")|[24](#nowhere "(nSLOC:24, SLOC:24, Lines:53)")|
+|[contracts/MsgValueSimulator.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/MsgValueSimulator.sol) [🖥](#nowhere "Uses Assembly") [💰](#nowhere "Payable Functions")|[33](#nowhere "(nSLOC:33, SLOC:33, Lines:64)")|
+|[contracts/BytecodeCompressor.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/BytecodeCompressor.sol) [💰](#nowhere "Payable Functions") [Σ](#nowhere "Unchecked Blocks")|[45](#nowhere "(nSLOC:40, SLOC:45, Lines:85)")|
+|[contracts/AccountCodeStorage.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/AccountCodeStorage.sol) [🖥](#nowhere "Uses Assembly")|[58](#nowhere "(nSLOC:58, SLOC:58, Lines:124)")|
+|[contracts/L2EthToken.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/L2EthToken.sol) [💰](#nowhere "Payable Functions") [Σ](#nowhere "Unchecked Blocks")|[59](#nowhere "(nSLOC:59, SLOC:59, Lines:118)")|
+|[contracts/SystemContext.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/SystemContext.sol)|[62](#nowhere "(nSLOC:57, SLOC:62, Lines:136)")|
+|[contracts/KnownCodesStorage.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/KnownCodesStorage.sol) [🖥](#nowhere "Uses Assembly") [Σ](#nowhere "Unchecked Blocks")|[72](#nowhere "(nSLOC:63, SLOC:72, Lines:132)")|
+|[contracts/NonceHolder.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/NonceHolder.sol) [Σ](#nowhere "Unchecked Blocks")|[82](#nowhere "(nSLOC:82, SLOC:82, Lines:175)")|
+|[contracts/DefaultAccount.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/DefaultAccount.sol) [🖥](#nowhere "Uses Assembly") [💰](#nowhere "Payable Functions") [🔖](#nowhere "Handles Signatures: ecrecover")|[117](#nowhere "(nSLOC:96, SLOC:117, Lines:233)")|
+|[contracts/ContractDeployer.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/ContractDeployer.sol) [💰](#nowhere "Payable Functions") [🧮](#nowhere "Uses Hash-Functions")|[182](#nowhere "(nSLOC:146, SLOC:182, Lines:328)")|
+|[contracts/BootloaderUtilities.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/BootloaderUtilities.sol) [🧮](#nowhere "Uses Hash-Functions") [Σ](#nowhere "Unchecked Blocks")|[233](#nowhere "(nSLOC:231, SLOC:233, Lines:319)")|
+|_Abstracts (1)_|
+|[contracts/libraries/SystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/SystemContractHelper.sol) [🖥](#nowhere "Uses Assembly")|[177](#nowhere "(nSLOC:171, SLOC:177, Lines:346)")|
+|_Libraries (8)_|
+|[contracts/libraries/UnsafeBytesCalldata.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/UnsafeBytesCalldata.sol) [🖥](#nowhere "Uses Assembly")|[15](#nowhere "(nSLOC:15, SLOC:15, Lines:31)")|
+|[contracts/libraries/Utils.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/Utils.sol) [Σ](#nowhere "Unchecked Blocks")|[48](#nowhere "(nSLOC:48, SLOC:48, Lines:91)")|
+|[contracts/libraries/RLPEncoder.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/RLPEncoder.sol) [🖥](#nowhere "Uses Assembly") [Σ](#nowhere "Unchecked Blocks")|[75](#nowhere "(nSLOC:75, SLOC:75, Lines:102)")|
+|[contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) [Σ](#nowhere "Unchecked Blocks")|[109](#nowhere "(nSLOC:76, SLOC:109, Lines:151)")|
+|[contracts/libraries/SystemContractsCaller.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/SystemContractsCaller.sol) [🖥](#nowhere "Uses Assembly")|[144](#nowhere "(nSLOC:118, SLOC:144, Lines:266)")|
+|[contracts/libraries/EfficientCall.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/EfficientCall.sol) [🖥](#nowhere "Uses Assembly") [👥](#nowhere "DelegateCall")|[153](#nowhere "(nSLOC:116, SLOC:153, Lines:277)")|
+|[contracts/openzeppelin/utils/Address.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/openzeppelin/utils/Address.sol) [🖥](#nowhere "Uses Assembly") [👥](#nowhere "DelegateCall")|[160](#nowhere "(nSLOC:99, SLOC:160, Lines:308)")|
+|[contracts/libraries/TransactionHelper.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/TransactionHelper.sol) [🖥](#nowhere "Uses Assembly") [🧮](#nowhere "Uses Hash-Functions") [Σ](#nowhere "Unchecked Blocks")|[258](#nowhere "(nSLOC:258, SLOC:258, Lines:413)")|
+|_Interfaces (17)_|
+|[contracts/interfaces/IL1Messenger.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IL1Messenger.sol)|[5](#nowhere "(nSLOC:5, SLOC:5, Lines:11)")|
+|[contracts/interfaces/IPaymasterFlow.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IPaymasterFlow.sol)|[5](#nowhere "(nSLOC:5, SLOC:5, Lines:16)")|
+|[contracts/interfaces/IBootloaderUtilities.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IBootloaderUtilities.sol)|[7](#nowhere "(nSLOC:5, SLOC:7, Lines:11)")|
+|[contracts/interfaces/IBytecodeCompressor.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IBytecodeCompressor.sol) [💰](#nowhere "Payable Functions")|[7](#nowhere "(nSLOC:4, SLOC:7, Lines:10)")|
+|[contracts/interfaces/IAccountCodeStorage.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IAccountCodeStorage.sol)|[8](#nowhere "(nSLOC:8, SLOC:8, Lines:15)")|
+|[contracts/interfaces/IImmutableSimulator.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IImmutableSimulator.sol)|[9](#nowhere "(nSLOC:9, SLOC:9, Lines:14)")|
+|[contracts/interfaces/IL2StandardToken.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IL2StandardToken.sol)|[9](#nowhere "(nSLOC:9, SLOC:9, Lines:17)")|
+|[contracts/interfaces/IMailbox.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IMailbox.sol)|[10](#nowhere "(nSLOC:4, SLOC:10, Lines:13)")|
+|[contracts/interfaces/IKnownCodesStorage.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IKnownCodesStorage.sol)|[11](#nowhere "(nSLOC:7, SLOC:11, Lines:17)")|
+|[contracts/interfaces/IEthToken.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IEthToken.sol) [💰](#nowhere "Payable Functions")|[14](#nowhere "(nSLOC:14, SLOC:14, Lines:27)")|
+|[contracts/interfaces/INonceHolder.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/INonceHolder.sol)|[14](#nowhere "(nSLOC:14, SLOC:14, Lines:47)")|
+|[contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol)|[14](#nowhere "(nSLOC:6, SLOC:14, Lines:60)")|
+|[contracts/interfaces/ISystemContext.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/ISystemContext.sol)|[15](#nowhere "(nSLOC:15, SLOC:15, Lines:36)")|
+|[contracts/openzeppelin/token/ERC20/IERC20.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/openzeppelin/token/ERC20/IERC20.sol)|[15](#nowhere "(nSLOC:11, SLOC:15, Lines:82)")|
+|[contracts/interfaces/IPaymaster.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IPaymaster.sol) [💰](#nowhere "Payable Functions")|[22](#nowhere "(nSLOC:11, SLOC:22, Lines:51)")|
+|[contracts/interfaces/IAccount.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IAccount.sol) [💰](#nowhere "Payable Functions")|[26](#nowhere "(nSLOC:10, SLOC:26, Lines:47)")|
+|[contracts/interfaces/IContractDeployer.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/interfaces/IContractDeployer.sol) [💰](#nowhere "Payable Functions")|[54](#nowhere "(nSLOC:30, SLOC:54, Lines:91)")|
+|_Constants (1)_|
+|[contracts/Constants.sol](https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/Constants.sol)|[42](#nowhere "(nSLOC:42, SLOC:42, Lines:81)")|
+|Total (over 40 files):| [2418](#nowhere "(nSLOC:2099, SLOC:2418, Lines:4456)") 
 
-| Contract | SLOC | Purpose | Libraries used |
-| ----------- | ----------- | ----------- | ----------- |
-| [bootloader/bootloader.yul](bootloader/bootloader.yul) | 3060 | | |
-| [contracts/test-contracts/TestSystemContract.sol](contracts/test-contracts/TestSystemContract.sol) | 145 | | |
-| [contracts/test-contracts/TestSystemContractHelper.sol](contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
-| [contracts/tests/TransactionHelperTest.sol](contracts/tests/TransactionHelperTest.sol) | 8 | | |
-| [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
+## All other source contracts (not in scope)
 
-Important, while the bootloader is out of scope, we may reward an additional bounty for valid bugs found in it by our judgement!
+|File|[SLOC](#nowhere "(nSLOC, SLOC, Lines)")|
+|:-|:-:|
+|[bootloader/bootloader.yul](https://github.com/code-423n4/2023-03-zksync/blob/main/bootloader/bootloader.yul)|[2826](#nowhere "(nSLOC:2826, SLOC:2826, Lines:3298)"))|
+| [contracts/test-contracts/TestSystemContract.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/test-contracts/TestSystemContract.sol) | [113](#nowhere "(nSLOC:113, SLOC:113, Lines:136)") | | |
+| [contracts/test-contracts/TestSystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/test-contracts/TestSystemContractHelper.sol) | [95](#nowhere "(nSLOC:95, SLOC:95, Lines:108)") | | |
+| [contracts/tests/TransactionHelperTest.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/tests/TransactionHelperTest.sol) | [8](#nowhere "(nSLOC:8, SLOC:8, Lines:13)") | | |
+| [contracts/tests/Counter.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/tests/Counter.sol) | [7](#nowhere "(nSLOC:7, SLOC:7, Lines:11)") | | |
+
+**Important**, while the bootloader is out of scope, we may reward an additional bounty for valid bugs found in it by our judgement!
 
 # Build
 
