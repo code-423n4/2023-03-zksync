@@ -11,7 +11,7 @@
 - Starts March 10, 2023 20:00 UTC
 - Ends March 19, 2023 20:00 UTC
 
-**Note for C4 wardens: For this contest, gas optimizations are out of scope. The zkSync team will not be awarding prize funds for gas-specific submissions.**
+**Note for C4 wardens: For this contest, gas optimizations are out of scope. The zkSync team will not be awarding prize funds for gas-specific submissions.**  
 **Note for C4 wardens: For this contest, while the [bootloader/bootloader.yul](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul) is out of scope, zkSync team may reward an additional bounty for valid bugs found in it. Such bounty if any will not come from the prize pool, but will be paid on top.**
 
 ## Automated Findings / Publicly Known Issues
