@@ -648,56 +648,56 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 
 | Contract | SLOC | Purpose | Libraries used |
 | ----------- | ----------- | ----------- | ----------- |
-| [contracts/openzeppelin/utils/Address.sol](contracts/openzeppelin/utils/Address.sol) | 160 | | |
-| [contracts/openzeppelin/token/ERC20/IERC20.sol](contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
-| [contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
-| [contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
-| [contracts/ImmutableSimulator.sol](contracts/ImmutableSimulator.sol) | 20 | | |
-| [contracts/MsgValueSimulator.sol](contracts/MsgValueSimulator.sol) | 33 | | |
-| [contracts/interfaces/IImmutableSimulator.sol](contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
-| [contracts/interfaces/IContractDeployer.sol](contracts/interfaces/IContractDeployer.sol) | 62 | | |
-| [contracts/interfaces/IAccount.sol](contracts/interfaces/IAccount.sol) | 26 | | |
-| [contracts/interfaces/IKnownCodesStorage.sol](contracts/interfaces/IKnownCodesStorage.sol) | 7 | | |
-| [contracts/interfaces/IBootloaderUtilities.sol](contracts/interfaces/IBootloaderUtilities.sol) | 7 | | |
-| [contracts/interfaces/IL1Messenger.sol](contracts/interfaces/IL1Messenger.sol) | 5 | | |
-| [contracts/interfaces/ISystemContext.sol](contracts/interfaces/ISystemContext.sol) | 15 | | |
-| [contracts/interfaces/IPaymaster.sol](contracts/interfaces/IPaymaster.sol) | 22 | | |
-| [contracts/interfaces/IAccountCodeStorage.sol](contracts/interfaces/IAccountCodeStorage.sol) | 8 | | |
-| [contracts/interfaces/IMailbox.sol](contracts/interfaces/IMailbox.sol) | 10 | | |
-| [contracts/interfaces/IEthToken.sol](contracts/interfaces/IEthToken.sol) | 14 | | |
-| [contracts/interfaces/IPaymasterFlow.sol](contracts/interfaces/IPaymasterFlow.sol) | 5 | | |
-| [contracts/interfaces/IBytecodeCompressor.sol](contracts/interfaces/IBytecodeCompressor.sol) | 4 | | |
-| [contracts/interfaces/IL2StandardToken.sol](contracts/interfaces/IL2StandardToken.sol) | 9 | | |
-| [contracts/interfaces/INonceHolder.sol](contracts/interfaces/INonceHolder.sol) | 14 | | |
-| [contracts/BootloaderUtilities.sol](contracts/BootloaderUtilities.sol) | 233 | | |
-| [contracts/BytecodeCompressor.sol](contracts/BytecodeCompressor.sol) | 32 | | |
-| [contracts/EmptyContract.sol](contracts/EmptyContract.sol) | 5 | | |
-| [contracts/L2EthToken.sol](contracts/L2EthToken.sol) | 59 | | |
-| [contracts/NonceHolder.sol](contracts/NonceHolder.sol) | 82 | | |
-| [contracts/DefaultAccount.sol](contracts/DefaultAccount.sol) | 114 | | |
-| [contracts/ContractDeployer.sol](contracts/ContractDeployer.sol) | 199 | | |
-| [contracts/Constants.sol](contracts/Constants.sol) | 40 | | |
-| [contracts/libraries/SystemContractsCaller.sol](contracts/libraries/SystemContractsCaller.sol) | 149 | | |
-| [contracts/libraries/SystemContractHelper.sol](contracts/libraries/SystemContractHelper.sol) | 177 | | |
-| [contracts/libraries/Utils.sol](contracts/libraries/Utils.sol) | 46 | | |
-| [contracts/libraries/UnsafeBytesCalldata.sol](contracts/libraries/UnsafeBytesCalldata.sol) | 15 | | |
-| [contracts/libraries/TransactionHelper.sol](contracts/libraries/TransactionHelper.sol) | 313 | | |
-| [contracts/libraries/EfficientCall.sol](contracts/libraries/EfficientCall.sol) | 145 | | |
-| [contracts/libraries/RLPEncoder.sol](contracts/libraries/RLPEncoder.sol) | 75 | | |
-| [contracts/AccountCodeStorage.sol](contracts/AccountCodeStorage.sol) | 54 | | |
-| [contracts/KnownCodesStorage.sol](contracts/KnownCodesStorage.sol) | 63 | | |
-| [contracts/SystemContext.sol](contracts/SystemContext.sol) | 62 | | |
-| [contracts/L1Messenger.sol](contracts/L1Messenger.sol) | 24 | | |
+| [contracts/openzeppelin/utils/Address.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/openzeppelin/utils/Address.sol) | 160 | | |
+| [contracts/openzeppelin/token/ERC20/IERC20.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/openzeppelin/token/ERC20/IERC20.sol) | 15 | | |
+| [contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/openzeppelin/token/ERC20/utils/SafeERC20.sol) | 109 | | |
+| [contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/openzeppelin/token/ERC20/extensions/IERC20Permit.sol) | 14 | | |
+| [contracts/ImmutableSimulator.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/ImmutableSimulator.sol) | 20 | | |
+| [contracts/MsgValueSimulator.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/MsgValueSimulator.sol) | 33 | | |
+| [contracts/interfaces/IImmutableSimulator.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IImmutableSimulator.sol) | 9 | | |
+| [contracts/interfaces/IContractDeployer.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IContractDeployer.sol) | 62 | | |
+| [contracts/interfaces/IAccount.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IAccount.sol) | 26 | | |
+| [contracts/interfaces/IKnownCodesStorage.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IKnownCodesStorage.sol) | 7 | | |
+| [contracts/interfaces/IBootloaderUtilities.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IBootloaderUtilities.sol) | 7 | | |
+| [contracts/interfaces/IL1Messenger.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IL1Messenger.sol) | 5 | | |
+| [contracts/interfaces/ISystemContext.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/ISystemContext.sol) | 15 | | |
+| [contracts/interfaces/IPaymaster.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IPaymaster.sol) | 22 | | |
+| [contracts/interfaces/IAccountCodeStorage.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IAccountCodeStorage.sol) | 8 | | |
+| [contracts/interfaces/IMailbox.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IMailbox.sol) | 10 | | |
+| [contracts/interfaces/IEthToken.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IEthToken.sol) | 14 | | |
+| [contracts/interfaces/IPaymasterFlow.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IPaymasterFlow.sol) | 5 | | |
+| [contracts/interfaces/IBytecodeCompressor.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IBytecodeCompressor.sol) | 4 | | |
+| [contracts/interfaces/IL2StandardToken.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/IL2StandardToken.sol) | 9 | | |
+| [contracts/interfaces/INonceHolder.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/interfaces/INonceHolder.sol) | 14 | | |
+| [contracts/BootloaderUtilities.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/BootloaderUtilities.sol) | 233 | | |
+| [contracts/BytecodeCompressor.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/BytecodeCompressor.sol) | 32 | | |
+| [contracts/EmptyContract.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/EmptyContract.sol) | 5 | | |
+| [contracts/L2EthToken.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/L2EthToken.sol) | 59 | | |
+| [contracts/NonceHolder.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/NonceHolder.sol) | 82 | | |
+| [contracts/DefaultAccount.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/DefaultAccount.sol) | 114 | | |
+| [contracts/ContractDeployer.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/ContractDeployer.sol) | 199 | | |
+| [contracts/Constants.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/Constants.sol) | 40 | | |
+| [contracts/libraries/SystemContractsCaller.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractsCaller.sol) | 149 | | |
+| [contracts/libraries/SystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/SystemContractHelper.sol) | 177 | | |
+| [contracts/libraries/Utils.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/Utils.sol) | 46 | | |
+| [contracts/libraries/UnsafeBytesCalldata.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/UnsafeBytesCalldata.sol) | 15 | | |
+| [contracts/libraries/TransactionHelper.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/TransactionHelper.sol) | 313 | | |
+| [contracts/libraries/EfficientCall.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/EfficientCall.sol) | 145 | | |
+| [contracts/libraries/RLPEncoder.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/libraries/RLPEncoder.sol) | 75 | | |
+| [contracts/AccountCodeStorage.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/AccountCodeStorage.sol) | 54 | | |
+| [contracts/KnownCodesStorage.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/KnownCodesStorage.sol) | 63 | | |
+| [contracts/SystemContext.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/SystemContext.sol) | 62 | | |
+| [contracts/L1Messenger.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/L1Messenger.sol) | 24 | | |
 
 # Out of Scope
 
 | Contract | SLOC | Purpose | Libraries used |
 | ----------- | ----------- | ----------- | ----------- |
-| [bootloader/bootloader.yul](bootloader/bootloader.yul) | 3060 | | |
-| [contracts/test-contracts/TestSystemContract.sol](contracts/test-contracts/TestSystemContract.sol) | 145 | | |
-| [contracts/test-contracts/TestSystemContractHelper.sol](contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
-| [contracts/tests/TransactionHelperTest.sol](contracts/tests/TransactionHelperTest.sol) | 8 | | |
-| [contracts/tests/Counter.sol](contracts/tests/Counter.sol) | 7 | | |
+| [bootloader/bootloader.yul](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul) | 3060 | | |
+| [contracts/test-contracts/TestSystemContract.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/test-contracts/TestSystemContract.sol) | 145 | | |
+| [contracts/test-contracts/TestSystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/test-contracts/TestSystemContractHelper.sol) | 76 | | |
+| [contracts/tests/TransactionHelperTest.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/tests/TransactionHelperTest.sol) | 8 | | |
+| [contracts/tests/Counter.sol](https://github.com/code-423n4/2023-03-zksync/tree/main/contracts/tests/Counter.sol) | 7 | | |
 
 Important, while the bootloader is out of scope, we may reward an additional bounty for valid bugs found in it by our judgement!
 
