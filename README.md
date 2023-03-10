@@ -11,7 +11,8 @@
 - Starts March 10, 2023 20:00 UTC
 - Ends March 19, 2023 20:00 UTC
 
-**Note for C4 wardens: For this contest, gas optimizations are out of scope. The zkSync team will not be awarding prize funds for gas-specific submissions.**
+**Note for C4 wardens: For this contest, gas optimizations are out of scope. The zkSync team will not be awarding prize funds for gas-specific submissions.**  
+**Note for C4 wardens: For this contest, while the [bootloader/bootloader.yul](https://github.com/code-423n4/2023-03-zksync/tree/main/bootloader/bootloader.yul) is out of scope, zkSync team may reward an additional bounty for valid bugs found in it. Such bounty if any will not come from the prize pool, but will be paid on top.**
 
 ## Automated Findings / Publicly Known Issues
 
@@ -709,13 +710,35 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 
 **Important**, while the bootloader is out of scope, we may reward an additional bounty for valid bugs found in it by our judgement!
 
-# Build
+## Scoping Details 
+```
+- If you have a public code repo, please share it here:  https://github.com/matter-labs/era-system-contracts
+- How many contracts are in scope?:   40
+- Total SLoC for these contracts?:  2464
+- How many external imports are there?: 0 
+- How many separate interfaces and struct definitions are there for the contracts within scope?:  
+- Does most of your code generally use composition or inheritance?:   Inheritance
+- How many external calls?:   0
+- What is the overall line coverage percentage provided by your tests?:  
+- Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?:  Yes 
+- Please describe required context:   Bootloader - a piece of software that takes care of the execution environment initialization
+- Does it use an oracle?:  No
+- Does the token conform to the ERC20 standard?:  No
+- Are there any novel or unique curve logic or mathematical models?: Nothing in this code
+- Does it use a timelock function?:  No
+- Is it an NFT?: No
+- Does it have an AMM?:   No
+- Is it a fork of a popular project?:   No
+- Does it use rollups?:   Yes
+- Is it multi-chain?:  No
+- Does it use a side-chain?: No
+- Describe any specific areas you would like addressed. E.g. Please try to break XYZ.: The focus is on the system contracts, but the bootloader will also be shared and any problems in it are generally in scope
+```
 
-Ensure you have `solc` 0.8.16 on your system, you can download it here: https://github.com/ethereum/solidity/releases/tag/v0.8.16
+# Quickstart command
 
 ```bash
-yarn install --ignore-engines
-yarn build
+rm -Rf 2023-03-zksync || true && git clone https://github.com/code-423n4/2023-03-zksync.git -j8 --recurse-submodules && cd 2023-03-zksync && nvm install 18.0 && yarn install --ignore-engines && yarn prepare && yarn build && yarn test
 ```
 
 # Tests
