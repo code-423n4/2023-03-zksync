@@ -9,7 +9,7 @@ elif [[ -f '/etc/arch-release' ]]; then
         sudo pacman -S cmake ninja clang lld parallel1
 	ln -s solc-linux ../solc
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt install cmake ninja-build clang-13 lld-13 parallel pkg-config clang lld libstdc++-12-dev
+        sudo apt install cmake ninja-build clang-13 lld-13 parallel pkg-config clang lld build-essential
 	ln -s solc-linux ../solc
 else
         echo "Unsupported OS"
