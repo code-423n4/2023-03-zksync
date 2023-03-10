@@ -734,21 +734,22 @@ Please note, we are not running standard hardhat tests, but use the `era-compile
 
 Other instructions can be found in the test suite [README](https://github.com/matter-labs/era-compiler-tester#compiler-tester-integration-test-framework).
 
+## Add a new test
+
 If you want to add a new test, you can add it to the `era-compiler-tester/tests/solidity` folder.
 
-## Matter Labs(simple/complex) test format description
+### Test format
 
-Each test consists of source code file(s) and metadata.
+There are two types of Solidity tests: simple and complex. Each test consists of source code file(s) and metadata.
 
-Simple test - that's only one source file, metadata is located in the comments started with `!`, for example `//!` for solidity.
+* Simple test - only one source file, metadata is located in the comments started with `!`, for example `//!` for solidity.
+* Complex test metadata can be described using the `test.json` file and metadata refers to source code files (more info below).
 
-Complex test metadata can be described using the `test.json` file and metadata refers to source code files(more info below).
+#### Metadata
 
-### Metadata
+Metadata - JSON with the next fields:
 
-Metadata - that's JSON with the next fields:
-
-- `cases` - the description of the test cases (See more info below)
+- `cases` - the description of the test cases (see more info below).
 - `contracts` - this field should be used only for the complex tests to describe the contract instances to deploy, for example:
 ```
 "contracts": {
@@ -764,8 +765,8 @@ For simple tests will be deployed only one instance `Test` - the contract with t
     "libraries/Math.sol": { "Math": "Math" }
 },
 ```
-- `ignore` - optional flag to disable test
-- `modes` - optional field to specify modes filters for tests, the compiler versions(for solidity and vyper) can be specified as SemVer range. Example:
+- `ignore` - optional flag to disable test.
+- `modes` - optional field to specify modes filters for tests, the compiler versions (for solidity and vyper) can be specified as SemVer range. Example:
 ```
 "modes": [
     "Y-",
@@ -774,8 +775,8 @@ For simple tests will be deployed only one instance `Test` - the contract with t
     "E+ 0.5"
 ]
 ```
-- `system_mode` - optional system mode compiler flag(`false` by default)
-- `group` - optional string field to specify tests group, mostly used for benchmarking
+- `system_mode` - optional system mode compiler flag(`false` by default). Set it to true if want to check the compiler simulation.
+- `group` - optional string field to specify tests group, mostly used for benchmarking.
 
 #### Case
 
@@ -783,35 +784,35 @@ All the test cases are executed in a clean context, so they are independent of e
 
 Each test case contains the next fields:
 
-- `name` - string name
-- `comment` - optional string comment
-- `inputs` - the test case inputs(see description below)
-- `expected` - the expected return data for the last input(Format described below in the input section)
+- `name` - string name.
+- `comment` - optional string comment.
+- `inputs` - the test case inputs (see description below).
+- `expected` - the expected return data for the last input (format described below in the input section).
 - `ignore`, `modes` - the same as in the test metadata.
 
 #### Input
 
 Inputs are used to describe the contract calls in the test case. Input fields:
 
-- `comment` - optional string comment
-- `instance` - optional string field, the contract instance to call, `Test` by default
-- `caller` - optional string field, the caller address, `deadbeef01000000000000000000000000000000` by default
+- `comment` - optional string comment.
+- `instance` - optional string field, the contract instance to call, `Test` by default.
+- `caller` - optional string field, the caller address, `deadbeef01000000000000000000000000000000` by default.
 - `method` - string field, here is 3 options:
-  1. `#deployer` for the deployer call
-  2. `#fallback` to perform a call with the raw calldata
-  3. Any other string will be recognized as a function name to call. The function selector will be appended at the beginning of the calldata
+  1. `#deployer` for the deployer call.
+  2. `#fallback` to perform a call with the raw calldata.
+  3. Any other string will be recognized as a function name to call. The function selector will be appended at the beginning of the calldata.
 - `calldata` - input calldata, here are two variants:
-  1. The hexadecimal string, for example: `"calldata": "0x00"`
-  2. The numbers array, hex and decimal(including negative) literals or instance addresses(like `Test.address`) are supported. Every number will be padded to 32 bytes. Example: `"calldata": [ "1", "2"]`
-- `value` - optional string field to specify `msg.value`, decimal number with the ` wei` or ` ETH` suffix
-- `storage` - storage values to set before the call, mapping, the key is the contract address(`InstanceName.address` can be used), and the value is array or mapping. Example:
+  1. The hexadecimal string, for example: `"calldata": "0x00"`.
+  2. The numbers array, hex and decimal (including negative) literals or instance addresses (like `Test.address`) are supported. Every number will be padded to 32 bytes. Example: `"calldata": [ "1", "2"]`.
+- `value` - optional string field to specify `msg.value`, decimal number with the `wei` or `ETH` suffix.
+- `storage` - storage values to set before the call, mapping, the key is the contract address (`InstanceName.address` can be used), and the value is array or mapping. Example:
 ```
 "storage": { "Test.address": [
     "1", "2", "3", "4"
 ] }
 ```
 - `expected` - the expected return data for the input. Here 2 variants of the format:
-  1. Array of the numbers, the same as calldata, example: `"expected": [ "1", "2"]`
+  1. Array of the numbers, the same as calldata, example: `"expected": [ "1", "2"]`.
   2. Extended expected, contains 3 main fields `return_data` - array, `exception` - bool flag if the revert is expected, `events` - an array of the expected events, each event contains `address`, `topics`, `value` fields. Example:
 ```
 "expected": {
@@ -833,10 +834,10 @@ Inputs are used to describe the contract calls in the test case. Input fields:
     "exception": false
 }
 ```
+
 Also `expected` field can be an array of the objects described above. Makes sense when you want to specify different expected data for the different compiler versions.
 `compiler_version` as SemVer range can be specified for the extended expected.
 The expected field is optional for the input, the default value is empty return data.
-
 
 Some more important notes:
 - usually, you can use `InstanceName.address` string instead of the numbers (in the expected, calldata, storage), it will insert the contract instance address. You can use it even before the instance deployer call.
