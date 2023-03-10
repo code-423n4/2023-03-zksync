@@ -841,6 +841,6 @@ The expected field is optional for the input, the default value is empty return 
 
 Some more important notes:
 - usually, you can use `InstanceName.address` string instead of the numbers (in the expected, calldata, storage), it will insert the contract instance address. You can use it even before the instance deployer call.
-- If you have not specified the deployer call for some instance, it will be generated automatically with the empty calldata.
+- if you have not specified the deployer call for some instance, it will be generated automatically with the empty calldata.
 
 You can find a lot of the examples in the `era-compiler-tester/tests` folder.
