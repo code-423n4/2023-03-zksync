@@ -37,10 +37,6 @@ export async function compileYul(path: string, files: string[], outputDirName: s
     }
     let paths = preparePaths(path, files, outputDirName);
 
-    // HACK: DON'T LET IT BE MERGED INTO PROD:
-    // What we are doing here is using the local compiler to compile the yul file. Here we simply
-    // rely on the coincidence in naming rather than the semantic meaning of the `paths` object.
-
     const zksolcLocation = await compilerLocation();
     await spawn(
         `${zksolcLocation} ${paths.absolutePathSources}/${paths.outputDir} --system-mode --yul --optimize --bin --overwrite -o ${paths.absolutePathArtifacts}/${paths.outputDir}`
