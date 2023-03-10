@@ -727,6 +727,12 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 - Describe any specific areas you would like addressed. E.g. Please try to break XYZ.: The focus is on the system contracts, but the bootloader will also be shared and any problems in it are generally in scope
 ```
 
+# Quickstart command
+
+```bash
+rm -Rf 2023-03-zksync || true && git clone https://github.com/code-423n4/2023-03-zksync.git -j8 --recurse-submodules && cd 2023-03-zksync && nvm install 18.0 && yarn install --ignore-engines && yarn prepare && yarn build && yarn test
+```
+
 # Tests
 
 This contest is different from others in that it is not a standard EVM Solidity contract, but a core part of the zkEVM system contracts. The usual unit tests are not really helpful here due to the specific use of the contracts, zkEVM, and the compiler.
