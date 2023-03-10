@@ -702,7 +702,7 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 
 |File|[SLOC](#nowhere "(nSLOC, SLOC, Lines)")|
 |:-|:-:|
-|[bootloader/bootloader.yul](https://github.com/code-423n4/2023-03-zksync/blob/main/bootloader/bootloader.yul)|[2826](#nowhere "(nSLOC:2826, SLOC:2826, Lines:3298)"))|
+|[bootloader/bootloader.yul](https://github.com/code-423n4/2023-03-zksync/blob/main/bootloader/bootloader.yul)|[2826](#nowhere "(nSLOC:2826, SLOC:2826, Lines:3298)")|
 | [contracts/test-contracts/TestSystemContract.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/test-contracts/TestSystemContract.sol) | [113](#nowhere "(nSLOC:113, SLOC:113, Lines:136)") | | |
 | [contracts/test-contracts/TestSystemContractHelper.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/test-contracts/TestSystemContractHelper.sol) | [95](#nowhere "(nSLOC:95, SLOC:95, Lines:108)") | | |
 | [contracts/tests/TransactionHelperTest.sol](https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/tests/TransactionHelperTest.sol) | [8](#nowhere "(nSLOC:8, SLOC:8, Lines:13)") | | |
