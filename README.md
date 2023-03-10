@@ -714,7 +714,7 @@ It accepts in its 0-th extra abi data param the number of topics. In the rest of
 ```
 - If you have a public code repo, please share it here:  https://github.com/matter-labs/era-system-contracts
 - How many contracts are in scope?:   40
-- Total SLoC for these contracts?:  2456
+- Total SLoC for these contracts?:  2418
 - How many external imports are there?: 0 
 - How many separate interfaces and struct definitions are there for the contracts within scope?:  
 - Does most of your code generally use composition or inheritance?:   Inheritance
