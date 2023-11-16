@@ -1,0 +1,331 @@
+git clone https://github.com/code-423n4/2023-03-zksync.git -j8 --recurse-submodules && cd 2023-03-zksync && nvm install 18.0 && yarn install --ignore-engines && yarn prepare && yarn build && yarn test
+Cloning into '2023-03-zksync'...
+remote: Enumerating objects: 418, done.
+remote: Counting objects: 100% (167/167), done.
+remote: Compressing objects: 100% (88/88), done.
+remote: Total 418 (delta 84), reused 137 (delta 78), pack-reused 251
+Receiving objects: 100% (418/418), 19.11 MiB | 21.29 MiB/s, done.
+Resolving deltas: 100% (208/208), done.
+Submodule 'era-compiler-tester' (https://github.com/matter-labs/era-compiler-tester.git) registered for path 'era-compiler-tester'
+Cloning into '/home/franfran/tmp/2023-03-zksync/era-compiler-tester'...
+remote: Enumerating objects: 436, done.        
+remote: Counting objects: 100% (436/436), done.        
+remote: Compressing objects: 100% (244/244), done.        
+remote: Total 436 (delta 192), reused 433 (delta 190), pack-reused 0        
+Receiving objects: 100% (436/436), 232.28 KiB | 430.00 KiB/s, done.
+Resolving deltas: 100% (192/192), done.
+Submodule path 'era-compiler-tester': checked out '0e54ffb420bb48415975edb0ac1aa71c0b45b0d2'
+Submodule 'solidity' (https://github.com/ethereum/solidity) registered for path 'era-compiler-tester/solidity'
+Submodule 'tests' (https://github.com/matter-labs/era-compiler-tests) registered for path 'era-compiler-tester/tests'
+Cloning into '/home/franfran/tmp/2023-03-zksync/era-compiler-tester/solidity'...
+remote: Enumerating objects: 188662, done.        
+remote: Counting objects: 100% (604/604), done.        
+remote: Compressing objects: 100% (364/364), done.        
+remote: Total 188662 (delta 306), reused 452 (delta 237), pack-reused 188058        
+Receiving objects: 100% (188662/188662), 67.45 MiB | 24.91 MiB/s, done.
+Resolving deltas: 100% (140980/140980), done.
+Cloning into '/home/franfran/tmp/2023-03-zksync/era-compiler-tester/tests'...
+remote: Enumerating objects: 4019, done.        
+remote: Counting objects: 100% (4019/4019), done.        
+remote: Compressing objects: 100% (2823/2823), done.        
+remote: Total 4019 (delta 1146), reused 4019 (delta 1146), pack-reused 0        
+Receiving objects: 100% (4019/4019), 1.09 MiB | 4.43 MiB/s, done.
+Resolving deltas: 100% (1146/1146), done.
+Submodule path 'era-compiler-tester/solidity': checked out '812e26640ccba7fafc95f71509c6e21c8434efec'
+Submodule path 'era-compiler-tester/tests': checked out 'f4a7e663a7d8185fdbaae464fe506b5bdf01a16a'
+v18.0.0 is already installed.
+Now using node v18.0.0 (npm v8.6.0)
+yarn install v1.22.19
+warning ../../package.json: No license field
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+warning " > @matterlabs/hardhat-zksync-deploy@0.5.2" has incorrect peer dependency "zksync-web3@^0.11.1".
+warning " > @matterlabs/hardhat-zksync-solc@0.3.14-beta.3" has incorrect peer dependency "hardhat@^2.12.6".
+warning " > @typechain/ethers-v5@2.0.0" has incorrect peer dependency "typechain@^3.0.0".
+[4/4] Building fresh packages...
+$ bash build-tester.sh
+[sudo] password for franfran: 
+warning: cmake-3.25.2-1 is up to date -- reinstalling
+warning: clang-15.0.7-1 is up to date -- reinstalling
+warning: lld-15.0.7-1 is up to date -- reinstalling
+error: target not found: parallel1
+info: downloading installer
+
+Welcome to Rust!
+
+This will download and install the official compiler for the Rust
+programming language, and its package manager, Cargo.
+
+Rustup metadata and toolchains will be installed into the Rustup
+home directory, located at:
+
+  /home/franfran/.rustup
+
+This can be modified with the RUSTUP_HOME environment variable.
+
+The Cargo home directory is located at:
+
+  /home/franfran/.cargo
+
+This can be modified with the CARGO_HOME environment variable.
+
+The cargo, rustc, rustup and other commands will be added to
+Cargo's bin directory, located at:
+
+  /home/franfran/.cargo/bin
+
+This path will then be added to your PATH environment variable by
+modifying the profile files located at:
+
+  /home/franfran/.profile
+  /home/franfran/.bash_profile
+  /home/franfran/.bashrc
+  /home/franfran/.zshenv
+
+You can uninstall at any time with rustup self uninstall and
+these changes will be reverted.
+
+Current installation options:
+
+
+   default host triple: x86_64-unknown-linux-gnu
+     default toolchain: stable (default)
+               profile: default
+  modify PATH variable: yes
+
+1) Proceed with installation (default)
+2) Customize installation
+3) Cancel installation
+>3
+
+info: aborting installation
+    Updating crates.io index
+     Ignored package `compiler-llvm-builder v1.0.14` is already installed, use --force to override
+/usr/bin/git
+Cloning into './llvm'...
+remote: Enumerating objects: 124943, done.
+remote: Counting objects: 100% (45/45), done.
+remote: Compressing objects: 100% (45/45), done.
+remote: Total 124943 (delta 0), reused 3 (delta 0), pack-reused 124898
+Receiving objects: 100% (124943/124943), 176.25 MiB | 17.84 MiB/s, done.
+Resolving deltas: 100% (20270/20270), done.
+Updating files: 100% (118658/118658), done.
+/usr/bin/cmake
+/usr/bin/clang
+/usr/bin/clang++
+/usr/bin/lld
+which: no ninja in (/tmp/yarn--1679169504723-0.22690359571955132:/home/franfran/tmp/2023-03-zksync/node_modules/.bin:/home/franfran/.config/yarn/link/node_modules/.bin:/home/franfran/.yarn/bin:/home/franfran/.nvm/versions/node/v18.0.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/home/franfran/.nvm/versions/node/v18.0.0/lib/node_modules/npm/bin/node-gyp-bin:/home/franfran/.nvm/versions/node/v18.0.0/bin/node_modules/npm/bin/node-gyp-bin:/home/franfran/.nvm/versions/node/v18.0.0/bin:/home/franfran/.nix-profile/bin:/home/franfran/.cargo/bin:/home/franfran/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/cuda/bin:/opt/cuda/nsight_compute:/opt/cuda/nsight_systems/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/franfran/.huff/bin:/home/franfran/.foundry/bin:/usr/local/texlive/2022/bin/x86_64-linux:/home/franfran/.fzf/bin:/home/franfran/.bin:/home/franfran/.local/share/gem/ruby/3.0.0/bin)
+Error: Tool `ninja` is missing. Please install
+   Compiling autocfg v1.1.0
+   Compiling proc-macro2 v1.0.51
+   Compiling unicode-ident v1.0.8
+   Compiling quote v1.0.23
+   Compiling syn v1.0.109
+   Compiling libc v0.2.140
+   Compiling cfg-if v1.0.0
+   Compiling version_check v0.9.4
+   Compiling serde_derive v1.0.154
+   Compiling serde v1.0.154
+   Compiling memchr v2.5.0
+   Compiling cc v1.0.79
+   Compiling typenum v1.16.0
+   Compiling bytes v1.4.0
+   Compiling generic-array v0.14.6
+   Compiling indexmap v1.9.2
+   Compiling subtle v2.4.1
+   Compiling itoa v1.0.6
+   Compiling log v0.4.17
+   Compiling once_cell v1.17.1
+   Compiling hashbrown v0.12.3
+   Compiling bitflags v1.3.2
+   Compiling radium v0.6.2
+   Compiling crunchy v0.2.2
+   Compiling toml_datetime v0.6.1
+   Compiling winnow v0.3.5
+   Compiling pin-project-lite v0.2.9
+   Compiling getrandom v0.2.8
+   Compiling ppv-lite86 v0.2.17
+   Compiling rustc-hex v2.1.0
+   Compiling ryu v1.0.13
+   Compiling rand_core v0.6.4
+   Compiling proc-macro-error-attr v1.0.4
+   Compiling rand_chacha v0.3.1
+   Compiling wyz v0.2.0
+   Compiling tap v1.0.1
+   Compiling byteorder v1.4.3
+   Compiling futures-core v0.3.26
+   Compiling funty v1.1.0
+   Compiling static_assertions v1.1.0
+   Compiling rlp v0.5.2
+   Compiling rand v0.8.5
+   Compiling proc-macro-error v1.0.4
+   Compiling tiny-keccak v2.0.2
+   Compiling arrayvec v0.7.2
+   Compiling byte-slice-cast v1.2.2
+   Compiling lazy_static v1.4.0
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling bitvec v0.20.4
+   Compiling digest v0.10.6
+   Compiling impl-rlp v0.3.0
+   Compiling num_cpus v1.15.0
+   Compiling slab v0.4.8
+   Compiling num-traits v0.2.15
+   Compiling fixed-hash v0.7.0
+   Compiling futures-task v0.3.26
+   Compiling futures-sink v0.3.26
+   Compiling hex v0.4.3
+   Compiling serde_json v1.0.94
+   Compiling cpufeatures v0.2.5
+   Compiling futures-channel v0.3.26
+   Compiling unicode-segmentation v1.10.1
+   Compiling semver v1.0.16
+   Compiling unicode-width v0.1.10
+   Compiling uint v0.9.5
+   Compiling textwrap v0.11.0
+   Compiling ring v0.16.20
+   Compiling scopeguard v1.1.0
+   Compiling heck v0.3.3
+   Compiling futures-util v0.3.26
+   Compiling toml_edit v0.19.4
+   Compiling clap v2.34.0
+   Compiling num-integer v0.1.45
+   Compiling pin-utils v0.1.0
+   Compiling anyhow v1.0.69
+   Compiling futures-io v0.3.26
+   Compiling keccak v0.1.3
+   Compiling tokio v1.26.0
+   Compiling fnv v1.0.7
+   Compiling untrusted v0.7.1
+   Compiling zeroize v1.5.7
+   Compiling smallvec v1.10.0
+   Compiling spin v0.5.2
+   Compiling thiserror v1.0.39
+   Compiling http v0.2.9
+   Compiling mio v0.8.6
+   Compiling proc-macro-crate v1.3.1
+   Compiling socket2 v0.4.9
+   Compiling tracing-core v0.1.30
+   Compiling lock_api v0.4.9
+   Compiling num-bigint v0.4.3
+   Compiling parking_lot_core v0.9.7
+   Compiling aho-corasick v0.7.20
+   Compiling atty v0.2.14
+   Compiling tinyvec_macros v0.1.1
+   Compiling const-oid v0.9.2
+   Compiling regex-syntax v0.6.28
+   Compiling crossbeam-utils v0.8.15
+   Compiling der v0.6.1
+   Compiling tinyvec v1.6.0
+   Compiling sha2 v0.10.6
+   Compiling num-rational v0.4.1
+   Compiling memoffset v0.8.0
+   Compiling impl-trait-for-tuples v0.2.2
+   Compiling parity-scale-codec-derive v2.3.1
+   Compiling futures-macro v0.3.26
+   Compiling structopt-derive v0.4.18
+   Compiling tracing-attributes v0.1.23
+   Compiling thiserror-impl v1.0.39
+   Compiling regex v1.7.1
+   Compiling structopt v0.3.26
+   Compiling webpki v0.22.0
+   Compiling tracing v0.1.37
+   Compiling num-iter v0.1.43
+   Compiling httparse v1.8.0
+   Compiling base64ct v1.6.0
+   Compiling rustls v0.20.8
+   Compiling spki v0.6.0
+   Compiling tokio-util v0.7.7
+   Compiling sct v0.7.0
+   Compiling unicode-normalization v0.1.22
+   Compiling parking_lot v0.12.1
+   Compiling crossbeam-epoch v0.9.14
+   Compiling try-lock v0.2.4
+   Compiling httpdate v1.0.2
+   Compiling unicode-bidi v0.3.11
+   Compiling percent-encoding v2.2.0
+   Compiling compiler-common v1.3.1 (https://github.com/matter-labs/era-compiler-common?rev=a6c5b02e4f149f82f1c3821a6f258363308abd2a#a6c5b02e)
+   Compiling form_urlencoded v1.1.0
+   Compiling want v0.3.0
+   Compiling h2 v0.3.16
+   Compiling futures-executor v0.3.26
+   Compiling pkcs8 v0.9.0
+   Compiling parity-scale-codec v2.3.1
+   Compiling impl-serde v0.3.2
+   Compiling ethbloom v0.11.1
+   Compiling http-body v0.4.5
+   Compiling num-complex v0.4.3
+   Compiling llvm-sys v150.0.5 (https://github.com/matter-labs-forks/llvm-sys.rs?branch=llvm-15.0#71d3d59e)
+   Compiling impl-codec v0.5.1
+   Compiling crypto-bigint v0.4.9
+   Compiling primitive-types v0.10.1
+   Compiling sha3 v0.10.6
+   Compiling ff v0.12.1
+   Compiling secp256k1-sys v0.4.2
+   Compiling either v1.8.1
+   Compiling base16ct v0.1.1
+   Compiling humantime v2.1.0
+   Compiling termcolor v1.2.0
+   Compiling block-padding v0.2.1
+   Compiling tower-service v0.3.2
+   Compiling minimal-lexical v0.2.1
+   Compiling hyper v0.14.24
+   Compiling ethereum-types v0.12.1
+   Compiling env_logger v0.9.3
+   Compiling nom v7.1.3
+   Compiling block-buffer v0.9.0
+   Compiling sec1 v0.3.0
+   Compiling zkevm_opcode_defs v1.3.1 (https://github.com/matter-labs/era-zkevm_opcode_defs?branch=main#f936ff20)
+   Compiling group v0.12.1
+   Compiling num v0.4.0
+   Compiling tokio-rustls v0.23.4
+   Compiling futures v0.3.26
+   Compiling idna v0.3.0
+   Compiling hmac v0.12.1
+   Compiling digest v0.9.0
+   Compiling psm v0.1.21
+   Compiling opaque-debug v0.3.0
+   Compiling base64 v0.13.1
+   Compiling md5 v0.7.0
+   Compiling mime v0.3.16
+   Compiling unsafe-libyaml v0.2.7
+   Compiling rayon-core v1.11.0
+   Compiling inkwell v0.1.0 (https://github.com/matter-labs-forks/inkwell?branch=llvm-15#9e380683)
+   Compiling base64 v0.21.0
+   Compiling url v2.3.1
+   Compiling sha3 v0.9.1
+   Compiling serde_yaml v0.9.19
+   Compiling rustls-pemfile v1.0.2
+   Compiling crossbeam-deque v0.8.3
+   Compiling rfc6979 v0.3.1
+   Compiling zkevm-assembly v1.3.1 (https://github.com/matter-labs/era-zkEVM-assembly?branch=main#f5f9d4ad)
+   Compiling hyper-rustls v0.23.2
+   Compiling elliptic-curve v0.12.3
+   Compiling serde_urlencoded v0.7.1
+   Compiling crossbeam-channel v0.5.7
+   Compiling webpki-roots v0.22.6
+error: No suitable version of LLVM was found system-wide or pointed
+              to by LLVM_SYS_150_PREFIX.
+       
+              Consider using `llvmenv` to compile an appropriate copy of LLVM, and
+              refer to the llvm-sys documentation for more information.
+       
+              llvm-sys: https://crates.io/crates/llvm-sys
+              llvmenv: https://crates.io/crates/llvmenv
+   --> /home/franfran/.cargo/git/checkouts/llvm-sys.rs-7666aadd79ceca8d/71d3d59/src/lib.rs:489:1
+    |
+489 | / std::compile_error!(concat!(
+490 | |     "No suitable version of LLVM was found system-wide or pointed
+491 | |        to by LLVM_SYS_",
+492 | |     env!("CARGO_PKG_VERSION_MAJOR"),
+...   |
+499 | |        llvmenv: https://crates.io/crates/llvmenv"
+500 | | ));
+    | |__^
+
+   Compiling pin-project-internal v1.0.12
+error: could not compile `llvm-sys` due to previous error
+warning: build failed, waiting for other jobs to finish...
+error Command failed with exit code 101.
+info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
