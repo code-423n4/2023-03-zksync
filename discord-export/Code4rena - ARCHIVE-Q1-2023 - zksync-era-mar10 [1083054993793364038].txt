@@ -1,0 +1,1902 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-Q1-2023 / zksync-era-mar10
+==============================================================
+
+[03/08/2023 16:09] paroxysm9999 (pinned)
+👋 Hello and welcome to the contest channel for the $180,500 **zkSync Era System Contracts** contest!
+
+📆 Contest opens 03/10/2023 20:00 (20:00 UTC) and runs through 03/19/2023 20:00 (20:00 UTC) (9 days).
+
+Please give a warm welcome to the zkSync team, particularly @Barichek @riptide @mishap @zksync | ML @bender-ml @AntonD @Vlad B | zkSync, who will be available for questions either here in the channel or via DM.
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this contest, consider enabling notifications for this channel. 🐺 ⏰
+
+Contest Page: https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest
+
+{Reactions}
+🥳 (20) 🔥 (15) 👋 (5) 
+
+[03/08/2023 16:09] paroxysm9999
+Pinned a message.
+
+
+[03/08/2023 16:11] kartoonjoy
+Hi All 👋! Let's please limit conversation until the contest begins. Thanks!
+
+{Reactions}
+🙌 (9) 
+
+[03/09/2023 15:23] kartoonjoy (pinned)
+ℹ️ @🐺wardens, please note that for this contest, gas optimizations are out of scope. The zkSync team will not be awarding prize funds for gas-specific submissions.
+
+{Reactions}
+👍🏻 (56) 😍 (5) 4739_Skeletor (3) 
+
+[03/09/2023 15:24] kartoonjoy
+Pinned a message.
+
+
+[03/10/2023 20:45] thepicodes (pinned)
+Automated Findings: https://gist.github.com/Picodes/4fda93fac0db99cf9f2e260a073b38e4 (contains Gas report although they are not rewarded)
+
+{Reactions}
+👍 (3) thankyou (3) 
+
+[03/10/2023 20:46] itsmetechjay (pinned)
+Wardens, please note that the automated findings output is posted below. These are considered publicly known issues and are not eligible for awards.
+
+**Automated findings: **
+https://gist.github.com/Picodes/4fda93fac0db99cf9f2e260a073b38e4
+
+{Embed}
+https://gist.github.com/Picodes/4fda93fac0db99cf9f2e260a073b38e4
+4naly3er-2023-03-zksync.md
+GitHub Gist: instantly share code, notes, and snippets.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/gist-og-image-17482.png
+
+{Reactions}
+👍 (2) 
+
+[03/10/2023 20:46] kartoonjoy
+Pinned a message.
+
+
+[03/10/2023 20:46] dontonka
+This contest will definitely be a big learning and a technical challenge 😄 , good luck everyone.
+
+{Reactions}
+🔥 (9) 🕵️‍♂️ (3) hi5 (2) 🦾 (4) ☝️ (3) 
+
+[03/10/2023 20:47] kartoonjoy
+Pinned a message.
+
+
+[03/10/2023 21:26] 0x1337xyz
+is this contest open to anyone?
+
+
+[03/10/2023 21:28] 0x1337xyz
+Asking because this page says "contest details are not available" but I can still click "View Repo" and "submit Finding"? https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest
+
+{Embed}
+https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest
+Code4rena zkSync Era System Contracts contest
+$180,500 USDC
+10 March 2023—19 March 2023
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/c4-og-banner-0FCFA.png
+
+
+[03/10/2023 21:29] kartoonjoy
+Yes, its open. what happens when you refresh the page?
+
+
+[03/10/2023 21:29] nishx0
+Yes It's open for All Refresh the page
+
+
+[03/10/2023 21:29] 0x1337xyz
+Oh yeah Refresh does the trick :thankyou:
+
+{Reactions}
+hi5 
+
+[03/10/2023 23:19] kiki_dev
+Just want to double check. because the automated findings say dont use encodPpacked. Anything we find related to hash collisions would be invlaid correct?
+
+
+[03/10/2023 23:36] vladbochok
+Ofc no, if you find a high severity hash collision bug it will be rewarded.
+
+{Reactions}
+👍 (5) 
+
+[03/10/2023 23:41] benderml.
+Let me expand a bit. Simply saying "encodePacked should not be used" is not good enough, but "here is how I can cause hash collision that allows to steal tokens" is high value report, no matter if the fix is to remove `encodePacked`
+
+{Reactions}
+👍 (10) 
+
+[03/11/2023 00:26] kiki_dev
+Cool thank you both for clarifying
+
+{Reactions}
+🚀 
+
+[03/11/2023 08:04] 0xhacksmithh
+one quick question, there are some symbol after each contract file name, in Scope table. I believe they are some meaning for each symbol.
+
+
+[03/11/2023 08:08] nishx0
+symbol are what type of sol file is  that, put mouse pointer on it , it will give  clarity
+
+
+[03/11/2023 08:15] supernovahs
+Any previous audits done ? Are they public
+
+
+[03/11/2023 08:15] supernovahs
+?
+
+
+[03/11/2023 08:54] 0xriptide
+see here for audits ser: https://era.zksync.io/docs/dev/troubleshooting/audit-bug-bounty.html
+
+{Embed}
+https://era.zksync.io/docs/dev/troubleshooting/audit-bug-bounty.html
+Audits and Bug Bounty Program
+zkSync Era takes security seriously and as such, we have completed multiple audits in all different parts of the protocol. On top of that, there is an ongoing massive bug bounty...
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/share_image-A9244.png
+
+{Reactions}
+👍 
+
+[03/11/2023 09:00] gjaldon
+I'm trying to run `zkevm-llvm clone && zkevm-llvm build` but get an `Error: No such file or directory (os error 2)` error on macos m1 Ventura
+
+
+[03/11/2023 09:01] gjaldon
+Any idea how to troubleshoot this issue?
+
+
+[03/11/2023 09:03] 0xriptide
+is your llvm 15.0.7
+
+
+[03/11/2023 09:06] gjaldon
+it looks like it's 14.0.0. ok will try updating it
+
+{Reactions}
+👍 
+
+[03/11/2023 09:17] supernovahs
+Any sponsor available for a DM right now ?
+Thx
+
+
+[03/11/2023 09:27] 0xsomeone
+Hello, can you add me for a quick Q? Thanks!
+
+{Reactions}
+👍 (2) 
+
+[03/11/2023 13:57] supernovahs
+?
+
+
+[03/11/2023 13:57] supernovahs
+WHo should I dm
+
+
+[03/11/2023 13:59] vladbochok
+Feel free to dm me
+
+
+[03/11/2023 15:09] 0xweiss
+Hi @Vlad B | zkSync can you accept the friend request? Thanks
+
+{Reactions}
+👍 
+
+[03/11/2023 15:11] dontonka
+when trying installing/setup, im getting error
+`yarn: error: no such option: --ignore-engines` 
+
+what is the yarn version required ?
+mine is `0.32+git` and im under WSL2
+
+
+[03/11/2023 15:12] vladbochok
+```
+vlad@Vlads-MacBook-Pro-2 2023-03-zksync % yarn -v
+1.22.19
+```
+
+{Reactions}
+👍 
+
+[03/11/2023 15:13] dontonka
+wow, my version is way behind, will try to update it, ty.
+
+{Reactions}
+✅ 
+
+[03/11/2023 15:19] dontonka
+ok resolved, will this be an issue ?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-84299.png
+
+
+[03/11/2023 15:25] vladbochok
+I think so... Are you running the quickstart command?
+
+
+[03/11/2023 15:25] dontonka
+yup
+
+
+[03/11/2023 15:26] vladbochok
+What is in the end of the command?
+
+
+[03/11/2023 15:27] dontonka
+i just ran from the point it failed (bad yarn version), so my current command is
+```yarn install --ignore-engines && yarn prepare && yarn build && yarn test```
+
+
+[03/11/2023 15:29] vladbochok
+Let's move to DM
+
+
+[03/11/2023 15:30] saksham#7993
+I got the same error if you guys resolve this pls do share
+
+
+[03/11/2023 15:34] dontonka
+basic question: YUL vs SOL file. 
+- Which compiler compile YUL files and in which VM are those contract executed (ETH or ZK)? Why writing in YUL save gas compare to SOL?
+- All the SOL files are compiled with the same compiler, and run on which VM ?
+
+
+[03/11/2023 15:35] vladbochok
+All contracts are supposed to be run on zkEVM, even more it is kinda a part of zkSync Era protocol. That's why we called them "system contracts".  The zkEVM Solidity compiler is used.
+
+{Reactions}
+✅ 
+
+[03/11/2023 15:35] nishx0
+when installing zkevm-compile-llvm,  clone and build getting error
+
+
+[03/11/2023 15:37] vladbochok
+When we write the contracts on pure yul, we may manage the memory layout on our own. So, no free memory pointer, and all arithmetics that we do may be much more optimized.
+
+{Reactions}
+✅ (2) 
+
+[03/11/2023 15:38] vladbochok
+Please share the error and OS version in DM, thanks
+
+
+[03/11/2023 16:15] minh___
+`basically a packed struct with 4 elements: the memory page id, start and length of the slice to which it points to` I only count 3, what is the fourth?
+
+
+[03/11/2023 16:24] vladbochok
+It is actually 4, the better explanation may be found here - https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/libraries/EfficientCall.sol#L15
+
+{Reactions}
+👍 (2) 
+
+[03/11/2023 17:15] sa3083
+@Vlad B | zkSync  what are the differences between calling a contract constructor on zkEVM compared wtih EVM ?
+
+
+[03/11/2023 17:20] vladbochok
+There is a general explanation:
+https://github.com/code-423n4/2023-03-zksync#constructor
+
+Feel free to ask more specific questions
+
+{Reactions}
+🕵️‍♂️ 
+
+[03/11/2023 18:07] benderml. (pinned)
+For anyone having build issues on Ubuntu or Debian, please try removing `clang-13 lld-13` from here: https://github.com/code-423n4/2023-03-zksync/blob/main/build-tester.sh#L12. `lld clang` that remains will install whatever latest version is available for your system which should be enough.
+
+{Reactions}
+👍 
+
+[03/11/2023 18:09] kartoonjoy
+Pinned a message.
+
+
+[03/11/2023 19:30] supernovahs
+@bender-ml dmed u .
+Thx
+
+
+[03/11/2023 19:48] zouvier
+Hey y'all, I'm trying to build the contracts using Foundry but i keep running into this issue. Any thoughts?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/Screenshot_2023-03-11_at_11.48.16_AM-2A16F.png
+
+
+[03/11/2023 19:51] vladbochok (pinned)
+We are using a different Solidity compilers that compile into zkEVM bytecode (it is different from EVM). The foundry uses the standard compiler, so that's a reason for failure. Please use the default script instead
+
+
+[03/11/2023 19:53] zouvier
+ah gotcha, ty
+
+
+[03/11/2023 20:46] dontonka
+That worked for me, ty .. im gonna pop the champagne, now i can start my real duty XD.
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-8A6CE.png
+
+{Reactions}
+🔥 
+
+[03/11/2023 21:17] kartoonjoy
+Pinned a message.
+
+
+[03/11/2023 21:34] dontonka
+what does mean all the ```CPR-xxx``` in the tests? does it mean there was a bug at some point (which was reported in the corresponding CPR) and got fixed?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-23BA0.png
+
+
+[03/11/2023 22:57] vladbochok
+Right, it is linear tasks for the issues that we resolved
+
+{Reactions}
+👍 
+
+[03/11/2023 23:52] dontonka
+what would be the best way to test specific System Contract that doesn't seems to be tested when we run simple test 🤔 ? For example, I would like to test further the logic of **BytecodeCompressor**, how would you suggest todo that efficiently, or there are actually some test that trigger this code already?
+
+
+[03/11/2023 23:56] dontonka
+Which system contract are actually tested during a test, beside the obvious **ContractDeployer** ?
+
+
+[03/12/2023 00:23] vladbochok
+I don't think there is a tests for this in era-compiler-tester, but you could run your own test if you want. Just follow the instruction from the doc - https://github.com/code-423n4/2023-03-zksync#add-a-new-test
+
+{Reactions}
+👍 
+
+[03/12/2023 00:33] vladbochok
+Many of them. A simple example is keccak256/sha256/ecrecover, they are called whenever Solidity code calls the corresponding precompile. 
+
+Others:
+- Event writer is called whenever an event is emitted. 
+- SystemContext is called when the block.timestamp/block.number, etc are called in Solidity code.
+- MsgValueSimulator/L2EthToken when the msg.value is present in the call.
+- ImmutableSimulator on deploys (deployer calls it) and when the contract get the immutable variable
+- KnownCodesStorage on deploys.
+- AccountCodeStorage on deploys and every time user call the contract (it derives what code will be executed).
+- Empty contract on call to zero address.
+
+And others
+
+{Reactions}
+👍 (2) 
+
+[03/12/2023 00:54] diki8312
+Possible to request funds for testnet through here or do we go through the route mentioned on the FAQ? (via Twitter)
+
+
+[03/12/2023 01:55] 0xriptide
+FAQ is probably the best bet. Let us know if you are unable to obtain any
+
+{Reactions}
+👍 
+
+[03/12/2023 01:57] gjaldon
+Hi riptide 👋 I sent a DM about an error when doing `zkevm-llvm clone && zkevm-llvm build`
+
+
+[03/12/2023 01:57] gjaldon
+Should I send it here instead?
+
+
+[03/12/2023 02:00] 0xriptide
+Hey just saw- I'm on Linux so let me check internally
+
+{Reactions}
+🙏🏼 👍 
+
+[03/12/2023 02:00] gjaldon
+Thank you!
+
+
+[03/12/2023 02:18] gjaldon
+So System Contracts in zkSync are similar to precompiles in Ethereum?
+
+{Reactions}
+👍 
+
+[03/12/2023 05:04] .ellar
+Hi is there anyone from zkSync I could DM a few questions to?
+
+{Reactions}
+👍 (2) 
+
+[03/12/2023 07:31] .ellar
+@riptide Could you send me a friend request so I could dm you?
+
+{Reactions}
+👍 
+
+[03/12/2023 08:01] supernovahs
+Dmed to vlad and bendel , if anyone is online
+
+{Reactions}
+👍 
+
+[03/12/2023 08:09] vladbochok
+bootloader and some system contracts are analog consensus layers for state transition rule. Ethereum does many jobs besides the EVM execution, validating transactions (checking signatures, verify and updating nonce), taking fees, etc. Besides that, Ethereum implements precompile separate from EVM. All of this is done as system contracts.
+- NonceHolder - manage account nonces
+- KnownCodeStorage - specifies which bytecodes can be deployed
+- DefaultAccount (of custom account if a user wants to) - manage the transaction validation rule, etc.
+
+Some contracts are more like a way to mimic EVM behavior (to support Solidity codebase without changes) or L2-specific system feature:
+- L2EthToken/MsgValueSimulator - brings `msg.value` into zkEVM, since it isn't in the VM specification
+- BytecodeCompressor - contracts that help to publish fewer data onchain by compressing it on L2
+- ImmutableSimulator - brings the `Immutable` Solidity feature, since the way contracts are deployed on L2 is different from L1 (the L2 deployment is much cheaper by design)
+- L1Messenger - helps to send an arbitrary amount of bytes to L1
+
+That being said, precompile is a part of system contracts too. We have 3 precompiles - sha256/ecrecover/keccak256. Please note, keccak256 is a precompile in our architecture, not an opcode as it has been done in the EVM.
+
+{Reactions}
+🙏🏼 (3) 
+
+[03/12/2023 08:09] vladbochok
+Feel free to DM!
+
+
+[03/12/2023 09:18] koolexc
+`error: could not find `Cargo.toml` in `/Users/share/2023-03-zksync/era-compiler-tester` or any parent directory`
+
+
+[03/12/2023 09:18] koolexc
+I'm getting this error when I run `yarn prepare`
+
+
+[03/12/2023 09:40] vladbochok
+You haven't used the quick start command, have you?
+
+
+[03/12/2023 09:40] koolexc
+I haven't. I will try it
+
+{Reactions}
+👍 
+
+[03/12/2023 09:49] koolexc
+@Vlad B | zkSync DMed for a question
+
+{Reactions}
+👍 
+
+[03/12/2023 10:47] a14u
+is zksolc closed source? https://github.com/matter-labs/zksolc-bin
+
+{Embed}
+https://github.com/matter-labs/zksolc-bin
+GitHub - matter-labs/zksolc-bin: This repository contains current a...
+This repository contains current and historical builds of the zkEVM Solidity Compiler.  - GitHub - matter-labs/zksolc-bin: This repository contains current and historical builds of the zkEVM Solidi...
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/zksolc-bin-D4F46
+
+
+[03/12/2023 10:58] mishap1226
+@a14u it's open, here is the relevant repo https://github.com/matter-labs/era-compiler-solidity
+
+{Embed}
+https://github.com/matter-labs/era-compiler-solidity
+GitHub - matter-labs/era-compiler-solidity: The zkEVM Solidity comp...
+The zkEVM Solidity compiler. Contribute to matter-labs/era-compiler-solidity development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/era-compiler-solidity-275F8
+
+
+[03/12/2023 11:04] koolexc
+A general question, will all contracts be deployed on zkSync only? are there contracts that will be deployed on L1? 
+I appreciate some insights on this. still trying to understand the concept (high level)
+
+.
+
+
+[03/12/2023 11:09] koolexc
+.
+
+
+[03/12/2023 11:09] vladbochok
+These contracts are supposed to be predeployed to the zkSync network. It is only an L2 contract and shouldn't be deployed anywhere else. 
+
+For the basic concept, I can recommend reading the docs from the previous contest. https://code4rena.com/contests/2022-10-zksync-v2-contest
+
+{Embed}
+https://code4rena.com/contests/2022-10-zksync-v2-contest
+Code4rena zkSync v2 contest
+$165,500 USDC
+28 October 2022—9 November 2022
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/c4-og-banner-0FCFA.png
+
+{Reactions}
+👍🏻 
+
+[03/12/2023 11:10] koolexc
+Thank you. I will check this out
+
+
+[03/12/2023 11:10] vladbochok
+L1 - Ethereum, L2 - zkSync. 
+
+https://ethereum.org/en/layer-2/
+
+{Embed}
+https://ethereum.org/en/layer-2/
+Layer 2 | ethereum.org
+Introduction page to layer 2
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/hero-6A971.png
+
+{Reactions}
+👍🏻 
+
+[03/12/2023 11:11] koolexc
+Thanks! and regarding this comment?  
+> * - The contract on L1 accepts all sent messages and if the message came from this system contract
+> * it requires that the preimage of value be provided.
+e.g. what L1 contract is meant by here?
+
+
+[03/12/2023 11:12] koolexc
+Is it any L1 contract? or a specific one?
+
+
+[03/12/2023 11:14] vladbochok
+It is a specific L1 contract that we have audited in the previous c4 (and tier 1 audit companies to be exact)
+
+
+[03/12/2023 11:14] koolexc
+gotcha. Thanks a lot!
+
+
+[03/12/2023 11:25] koolexc
+Could you please provide a link to an up-to-date L1 contracts repo? since the ones at: https://github.com/code-423n4/2022-10-zksync could have some differences.
+
+
+[03/12/2023 11:47] koolexc
+found this https://github.com/matter-labs/era-contracts/tree/main/ethereum/contracts ? Is it the right one?
+
+
+[03/12/2023 11:56] vladbochok
+It is not the latest version actually, because we made the changes before the contest. But it is the closest open sourced version.
+
+{Reactions}
+👍🏻 
+
+[03/12/2023 11:58] koolexc
+Thanks. I would consider this then as the one to rely on for understanding the interactions when it comes to L1 <> L2 messaging
+
+{Reactions}
+👍 
+
+[03/12/2023 12:51] 0xweiss
+It seems like the link on the contest page is wrong, it redirects to the same c4 page:                  Bootloader
+Bootloader is the program that accepts an array of transactions and executes the entire zkSync block. The introduction to why it's needed can be found here.    <-- There is a like on here, but redirects to c4 again
+
+
+[03/12/2023 12:53] vladbochok
+I see, it is probably a frontend issue. Because it works perfectly on the .md file via github UI 
+- https://github.com/code-423n4/2023-03-zksync#bootloader-1
+
+{Reactions}
+👍🏻 
+
+[03/12/2023 13:06] supernovahs
+Since the goal of Zksync is to be equivalent to L1 in terms of dev experience. Specification inconsistencies are considered low severity or Med?
+
+
+[03/12/2023 13:12] vladbochok
+If you mean EVM/Ethereum specification, then it depends in discrepancy, if there is a real significant impact for the existed protocols, it may be even high-severity issue. Please note, we are not bytecode equivalent also the gas model is different, so some differences are quite expected.
+
+{Reactions}
+💯 
+
+[03/12/2023 13:13] vladbochok
+In case you mean our specification, idk, most likely low/QA, but again depends on the impact.
+
+
+[03/12/2023 13:14] vladbochok
+Lastly, it's the judge that decides, so all that I mentioned is only my view as a dev and warden.
+
+{Reactions}
+👍 
+
+[03/12/2023 16:12] supernovahs
+Where will `setValueUnderNonce` be called?
+
+
+[03/12/2023 16:24] vladbochok
+It is supposed to be called by custom accounts (smart contracts wallet)
+
+{Reactions}
+👍 
+
+[03/12/2023 18:36] sa3083
+How can we run just the test we added into the `era-compiler-tester/tests/solidity `?
+
+
+[03/12/2023 18:49] dontonka
+to run a single test, you specify it in the path
+`yarn test --path='tests/solidity/simple/immutable/unaligned/method_chain.sol'`
+
+{Reactions}
+🙏 
+
+[03/12/2023 18:49] koolexc
+Is the VM's source open?
+
+
+[03/12/2023 18:55] sa3083
+Thank you 🙌
+
+{Reactions}
+👍 (2) 
+
+[03/12/2023 19:43] vladbochok
+Yes, it is fully open sourced
+- https://github.com/matter-labs/era-zk_evm
+- https://github.com/matter-labs/era-sync_vm
+
+{Reactions}
+thankyou (3) 
+
+[03/12/2023 19:50] allarious
+@Vlad B | zkSync Friend request sent, thanks 😁
+
+{Reactions}
+✅ (2) 
+
+[03/13/2023 07:02] supernovahs
+How does this function working under the hood
+```
+function getCallFlags() internal view returns (uint256 callFlags) {
+        address callAddr = CALLFLAGS_CALL_ADDRESS;
+        assembly {
+            callFlags := staticcall(0, callAddr, 0, 0xFFFF, 0, 0)
+        }
+    }
+```
+
+
+[03/13/2023 07:02] supernovahs
+Do we have the callflags_call_address source code?
+
+{Reactions}
+👍🏼 
+
+[03/13/2023 07:19] barichek
+That is not a smart contract.
+
+I believe that compiler just replaces such specific call with zkEVM special opcode to get the callFlags.
+
+
+[03/13/2023 07:32] supernovahs
+So it's compiler's duty to check if the call is system call or not ?
+
+
+[03/13/2023 07:32] supernovahs
+Because it will pass the 2-bit
+
+
+[03/13/2023 07:59] Deleted User
+Hello All, How do I test with hardhat test?  I am having a mare with yarn test.
+
+
+[03/13/2023 09:01] Deleted User
+git clone recursive is not downloading everything in era-compiler-tester sub-folder.  Can anybody help?
+
+
+[03/13/2023 09:05] barichek
+That is not a "system call". It's just a way to tell the compiler that a particular special one zkEVM opcode should be used.
+
+
+[03/13/2023 09:23] vladbochok
+@supernova https://github.com/code-423n4/2023-03-zksync#simulations-via-our-compiler
+
+{Reactions}
+👍 
+
+[03/13/2023 09:28] vladbochok
+Please use the quick command, it is the easiest way to make everything work
+
+
+[03/13/2023 09:29] Deleted User
+Thanks!
+
+
+[03/13/2023 16:32] zaevlad
+@Vlad B | zkSync dm you, thanks
+
+{Reactions}
+👍 
+
+[03/13/2023 16:47] dontonka
+@AntonD is there a way to get a link to the compiler source code (even if not included in the contest) where msg.value get simulated?
+
+
+[03/13/2023 16:47] dontonka
+i assume its open source too
+
+
+[03/13/2023 20:28] matin6517
+Friend request sent🙏
+
+{Reactions}
+✅ 
+
+[03/14/2023 00:17] __ex9
+does Era have anything to do with =nil's zkLLVM?
+
+
+[03/14/2023 00:26] vladbochok
+nothing afaik
+
+{Reactions}
+👍 
+
+[03/14/2023 08:58] supernovahs
+Receving this error on yarn test
+solc-bin JSON `https://raw.githubusercontent.com/ethereum/solc-bin/gh-pages/macosx-amd64/list.json`
+thread 'main' panicked at 'solc-bin JSON list downloading error: error sending request for url (https://raw.githubusercontent.com/ethereum/solc-bin/gh-pages/macosx-amd64/list.json): error trying to connect: Connection reset by peer (os error 54)
+
+Caused by:
+    0: error trying to connect: Connection reset by peer (os error 54)
+    1: Connection reset by peer (os error 54)', compiler_tester/src/compilers/downloader/mod.rs:95:30
+stack backtrace:
+
+
+[03/14/2023 08:58] supernovahs
+I have cloned by using the quickstart oommand
+
+
+[03/14/2023 09:01] mishap1226
+Have you retried `yart test`?
+
+
+[03/14/2023 09:01] supernovahs
+yes
+
+
+[03/14/2023 09:02] mishap1226
+and same error, right?
+
+
+[03/14/2023 09:02] supernovahs
+yes
+
+
+[03/14/2023 09:06] mishap1226
+@AntonD maybe you have any ideas what could go wrong?
+
+
+[03/14/2023 09:22] benderml.
+Could you try `curl -v https://raw.githubusercontent.com/ethereum/solc-bin/gh-pages/macosx-amd64/list.json`?
+
+
+[03/14/2023 09:45] supernovahs
+Now it's throwing this 
+```
+Caused by:
+    0: error trying to connect: Connection reset by peer (os error 54)
+    1: Connection reset by peer (os error 54)', compiler_tester/src/compilers/downloader/mod.rs:95:30
+stack backtrace:
+```
+
+
+[03/14/2023 11:07] benderml.
+This is not `curl` output
+
+
+[03/14/2023 11:08] antond3
+you can find it here: https://github.com/matter-labs/era-compiler-llvm-context/blob/main/src/evm/call.rs#L524
+
+{Reactions}
+🫡 
+
+[03/14/2023 11:52] supernovahs
+Curl output was :
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/message-3BE42.txt
+
+
+[03/14/2023 11:52] supernovahs
+After that I ran yarn test
+
+
+[03/14/2023 14:01] dontonka
+seems like about **22 reports** have been submitted already which can be among QA/Medium/High, if I reserve engineer properly the way C4 issues link works 😃 . LFG!
+
+{Reactions}
+🤔 (2) 
+
+[03/14/2023 14:19] chaindev
+how do you know it? why 22?
+
+
+[03/14/2023 14:31] benderml.
+Did you run the quickstart command before doing `yarn test`? This error happens because your `yarn` is trying to get `solc` from github (which I should have noticed since you are downloading `list.json`), but it has been deprecated over 3 years ago. I could imagine this happens because of an old `yarn` or `npm` version that still looks for `solc` on github. Could you post `yarn --version` and `npm --version` output?
+
+
+[03/14/2023 14:31] supernovahs
+yarn version 1.22.19
+npm version 8.15.0
+
+
+[03/14/2023 14:33] benderml.
+OK, this npm is over 4 years old, the latest is 19. We are aware that many distros bring in an extremely outdated npm version via default package manager (e.g. Ubuntu), but this will not work. Please update your `npm` to at least 16 or later and give it a try again.
+
+
+[03/14/2023 14:37] supernovahs
+node version is 16 only
+
+
+[03/14/2023 14:37] supernovahs
+node --version
+
+
+[03/14/2023 14:37] supernovahs
+I have updated them although
+
+
+[03/14/2023 14:41] benderml.
+Let's move to DM
+
+
+[03/14/2023 16:25] ak19966
+the link is not referring correct page
+
+
+[03/14/2023 16:25] ak19966
+
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-A0C75.png
+
+
+[03/14/2023 16:25] ak19966
+can you pls check @Vlad B | zkSync
+
+
+[03/14/2023 16:31] mishap1226
+@ak1 are you sure? It refers to https://github.com/code-423n4/2023-03-zksync#empty-contracts and works for me
+
+
+[03/14/2023 16:32] ak19966
+it takes to c4 contest page
+
+
+[03/14/2023 16:34] nishx0
+this link will work    https://github.com/code-423n4/2023-03-zksync#empty-contracts
+
+{Embed}
+https://github.com/code-423n4/2023-03-zksync
+GitHub - code-423n4/2023-03-zksync
+Contribute to code-423n4/2023-03-zksync development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/dd3017cd-c65d-4d26-a384-4b58490795c5-C6F68
+
+
+[03/14/2023 16:36] ak19966
+
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-2E3EB.png
+
+
+[03/14/2023 16:37] mishap1226
+Oh, I see, for some reason anchors doesn't work at this page https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest. But they work here https://github.com/code-423n4/2023-03-zksync
+
+
+[03/14/2023 16:37] ak19966
+tnq.. for the quick update
+
+
+[03/14/2023 18:43] reentrant
+Is there a similarly architected VM for another platform/language/etc we can compare this architecture to?
+
+
+[03/14/2023 18:43] reentrant
+sorry of the question is vague
+
+
+[03/14/2023 18:48] reentrant
+ie. I wonder if testing scenarios and fuzz parameters for this will be useful tools
+
+
+[03/14/2023 18:49] reentrant
+looking at QEMU's test suite
+
+
+[03/15/2023 11:25] saberdz
+Where to submit issues?
+
+
+[03/15/2023 11:37] 0xriptide
+submit finding on codearena page
+
+{Reactions}
+💯 
+
+[03/15/2023 13:47] zaevlad
+@Barichek dm, thanks
+
+
+[03/15/2023 17:16] evokid
+who's proj's dev here to dm?
+
+
+[03/15/2023 18:41] vladbochok
+Feel free to DM me
+
+{Reactions}
+👍🏻 
+
+[03/15/2023 18:49] orbitalautodev
+Worked for me too. Just to help out anyone stuck: Step 1: git clone https://github.com/code-423n4/2023-03-zksync.git -j8 --recurse-submodules    Step 2: cd 2023-03-zksync   Step 3: open build-tester.sh and delete "clang-13 lld-13"  Step 4:  nvm install 18.0 && yarn install --ignore-engines && yarn prepare && yarn build && yarn test
+
+{Embed}
+https://github.com/code-423n4/2023-03-zksync.git
+GitHub - code-423n4/2023-03-zksync
+Contribute to code-423n4/2023-03-zksync development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/dd3017cd-c65d-4d26-a384-4b58490795c5-C6F68
+
+
+[03/15/2023 18:50] orbitalautodev
+I'm late to the party here and this is a very technical project. Giving it a shot anyway.
+
+
+[03/15/2023 19:02] vladbochok
+It is never to late 🙂
+
+{Reactions}
+👍 
+
+[03/15/2023 21:35] reentrant
+@Vlad B | zkSync are we able to run a local zksync node to play with these contracts, or is it intended to be done through a hardhat node?
+
+
+[03/15/2023 21:51] dontonka
+the test will imply running most of them, but not all of them, and some only partially.
+
+{Reactions}
+👍 
+
+[03/15/2023 21:51] dontonka
+you can scroll up above, i asked a similar question
+
+
+[03/15/2023 21:55] reentrant
+Did you ask about running this on a node?
+
+
+[03/15/2023 21:55] dontonka
+nope
+
+
+[03/15/2023 21:56] reentrant
+So you're talking about this question?
+
+{Reactions}
+✅ 
+
+[03/15/2023 21:59] reentrant
+Appreciate the help, was supposing this
+
+{Reactions}
+✅ 
+
+[03/15/2023 22:19] vladbochok
+You may run the local node fore sure, but I am not sure how this will be helpful.  Basically the system contract & bootloader is "sewn" inside. So no way to change the system contracts and run node again.
+
+
+[03/15/2023 22:19] reentrant
+okay, that's clarifying, thank you
+
+
+[03/15/2023 23:47] orbitalautodev
+This is a very interesting and ambitious project.
+
+
+[03/16/2023 01:03] minh___
+If I wanted to look through the code end to end (including the Rust parts, but discounting things like compilation, only the transaction flow), which are all the repos I would need to look at?
+
+
+[03/16/2023 01:05] minh___
+probably only repos that contain "era" in the name? while others are for other versions of zksync I would assume
+
+{Reactions}
+👍 
+
+[03/16/2023 09:03] ubl4nk#1934
+@dontonka hi, how did you run the test contracts ?
+
+
+[03/16/2023 09:05] ubl4nk#1934
+Just run the command presented in contest page ?
+
+
+[03/16/2023 09:18] vladbochok
+https://github.com/matter-labs/zksync-era
+
+{Embed}
+https://github.com/matter-labs/zksync-era
+GitHub - matter-labs/zksync-era: zkSync era
+zkSync era. Contribute to matter-labs/zksync-era development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/zksync-era-10124
+
+{Reactions}
+👍 
+
+[03/16/2023 10:01] evokid
+not sure if we allowed to say such a thing/ if we know anyway
+
+
+[03/16/2023 14:22] dontonka
+check the following message and what Vlad answered me .. by running tests (yarn test) it will involve most of the system contract, but not all of them either, and some only partially. https://discord.com/channels/810916927919620096/1083054993793364038/1084262565766516736
+
+
+[03/16/2023 14:23] dontonka
+true and i am aware,  which is why i didn't really disclosed anything further, but good point will not do it again.
+
+{Reactions}
+👍🏻 
+
+[03/16/2023 15:36] vdrg
+this is really helpful, thanks. I'm still not exactly sure of how I can test things like calldata pointers, or the stuff in L1Messenger.sol . Can I just import things like `EfficientCall.sol` in a test and it will manipulate pointers behind the scenes? And for L1Messenger, can I just interact with it by calling functions in the  `L1_MESSENGER_CONTRACT` address? I didn't see any tests that import the system contracts or their interfaces so that's why I'm asking. cc: @Vlad B | zkSync
+
+
+[03/16/2023 17:42] vladbochok
+> Can I just import things like EfficientCall.sol in a test and it will manipulate pointers behind the scenes?
+Ofc
+> And for L1Messenger, can I just interact with it by calling functions in the  L1_MESSENGER_CONTRACT address?
+Yeap
+> I didn't see any tests that import the system contracts or their interfaces so that's why I'm asking.
+On the compiler-tester we mostly test the system contracts that is integrated into system
+
+{Reactions}
+👍 
+
+[03/16/2023 21:50] Franfran#5067
+This is an interesting behaviour, is there an example where there is a call to a contract and then a call to the keccak precompile to show how the returndata should be handled in this case ?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-99A02.png
+
+
+[03/16/2023 21:52] Franfran#5067
+Is this one ? : https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/libraries/EfficientCall.sol#L217
+
+{Embed}
+https://github.com/code-423n4/2023-03-zksync/blob/main/contracts/libraries/EfficientCall.sol
+2023-03-zksync/EfficientCall.sol at main · code-423n4/2023-03-zksync
+Contribute to code-423n4/2023-03-zksync development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/dd3017cd-c65d-4d26-a384-4b58490795c5-C6F68
+
+
+[03/16/2023 22:07] Franfran#5067
+Also, what is the reason of using this function, rather than specifying the value variable in the `call` or `mimicCall` ?
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/image-55D61.png
+
+
+[03/16/2023 22:19] Franfran#5067
+the README is really great ! 👏
+
+
+[03/16/2023 22:29] vladbochok
+Any keccak256/eventWriter call, you may run any test that use keccak256 or emit event and see how it change the memory
+
+
+[03/16/2023 22:30] vladbochok
+This one has different purpose and don't use the auxiliary heap
+
+
+[03/16/2023 22:34] vladbochok
+We design the VM to `call`/`staticcall`/`delegatecall`/`mimiccall` to be as zk-friendly as possible, it improves the performance and makes audits easier. So we exclude the `msg.value` from there and found a way to integrate it as a system contract (see `MsgValueSimulator`/`L2EthToken`)
+
+{Reactions}
+👍 
+
+[03/16/2023 22:34] koolexc
+Is EventWriter.yul in scope?
+
+
+[03/16/2023 22:40] vladbochok
+Yeap
+
+{Reactions}
+👍🏻 
+
+[03/16/2023 22:45] evokid
+would you locate the system contacts tests under era-compiler-tester folder ?
+
+
+[03/16/2023 23:12] vladbochok
+We are not pointing to the specific ones, that being said tests covers the all conection between zkEVM Solidity and system contracts. So when you see tests for the events it is the test for the EventWriter
+
+
+[03/16/2023 23:22] evokid
+hmm we need to create our own 👍🏻
+
+
+[03/16/2023 23:31] vladbochok
+You are more than welcome to do so 🙂
+
+{Reactions}
+💎 
+
+[03/17/2023 01:19] minh___
+can operators censor transactions or are they "obligated" to include all transactions that they receive?
+
+
+[03/17/2023 01:22] minh___
+is it possible to have a look at the operator code?
+
+
+[03/17/2023 08:07] vladbochok
+> can operators censor transactions or are they "obligated" to include all transactions that they receive?
+Operator can sensor. 
+> is it possible to have a look at the operator code?
+What do you mean by operator code? Server code? Or the zkCircuits?
+
+{Reactions}
+👍 
+
+[03/17/2023 11:49] minh___
+the code where transactions are selected and bootloader memory is initialized, not sure which part that is tbh
+
+
+[03/17/2023 15:04] vladbochok
+https://github.com/matter-labs/zksync-era/blob/main/core/lib/vm/src/vm_with_bootloader.rs
+
+{Reactions}
+🙏 
+
+[03/17/2023 15:05] vladbochok
+I hope this will be useful. Please note, that server version behind contracts. So, it is kinds not 1 to 1 compatible
+
+
+[03/17/2023 15:06] vladbochok
+Server is out of scope anyway, same as bootloader. The assumption is any memory bootloader works as expected.
+
+
+[03/17/2023 15:08] beirao
+Once deployed, L1 bootloader and L2 system contract can't be upgraded or changed right ?
+
+
+[03/17/2023 15:09] vladbochok
+They may be upgraded via force deploy mechanism. See deployer smart contract
+
+{Reactions}
+👍🏼 (2) 
+
+[03/17/2023 18:25] Franfran#5067
+What happens if a contract that is out of the kernel space gets self-destructed, is that going to set the bytecode to 0 or put it back to the `DefaultAccount` ?
+
+
+[03/17/2023 18:39] dicethedev
+having some issues submitting my finding
+
+
+[03/17/2023 18:40] vladbochok
+There is no selfdestruct 🙂
+
+
+[03/17/2023 18:41] Franfran#5067
+nice, immutability ! Is there an equivalent like sendall or not at all ?
+
+
+[03/17/2023 18:42] vladbochok
+At the moment there is no sendall opcode. Btw, do you think it is useful?
+
+
+[03/17/2023 18:43] Franfran#5067
+It could, first use-case on the top of my head is the force send ETH. I think that it's one of the libraries of OZ, or maybe in some kind of contract that does a "call" with x value to an address, and if that reverts, selfdestruct into it
+
+{Reactions}
+👍 (2) 
+
+[03/17/2023 20:50] evokid
+SystemConfig.json will be deployed on L2 as what form exactly ?
+
+
+[03/17/2023 20:51] vladbochok
+.json file won't be deployed on L2, it is just used for configuration of the contracts
+
+
+[03/17/2023 20:53] evokid
+those ones already inside the VM or somewhere on deployment ?
+
+
+[03/17/2023 20:56] Franfran#5067
+may I dm you @Vlad B | zkSync ?
+
+
+[03/17/2023 21:56] vladbochok
+Sure!
+
+
+[03/17/2023 21:56] vladbochok
+Already inside VM
+
+{Reactions}
+👍🏻 
+
+[03/18/2023 02:03] 0xsmartcontractsamurai
+I'm attempting to check the bootloader.yul file's code. I havent checked any messages here to see if same question was already posted, so forgive my ignorance.
+Newbie here.
+
+I cannot for the life of me get the bootloader.yul compiled, because it's littered with "errors"/placeholders/non-standard Yul code, undeclared variables, duplicate variables, and the list goes on.
+
+So, I assume it's manual check only then (3200+ lines of code).👀
+
+
+[03/18/2023 10:24] evokid
+you need to check more than that actually it is a hard work but worthy!
+
+{Reactions}
+🔥 
+
+[03/18/2023 11:48] Franfran#5067
+That should compile with their custom compiler tho
+
+
+[03/18/2023 11:52] supernovahs
+Technically not in scope . But is in scope. 🥲
+
+
+[03/18/2023 13:25] vladbochok
+It will be rewarded on top of the pool. So, for the whitehats competing for the HM rewards it doesn't change the picture.
+
+
+[03/18/2023 13:33] 0xsmartcontractsamurai
+They have a custom compiler?
+
+
+[03/18/2023 13:33] 0xsmartcontractsamurai
+🥷
+
+
+[03/18/2023 13:35] vladbochok
+Yeap
+
+
+[03/18/2023 13:46] chaduke3730
+for UnsafeBytesCalldata, can you explailn why "30" and "24" here? How to retrieve offset and start?
+
+
+[03/18/2023 13:46] chaduke3730
+https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/UnsafeBytesCalldata.sol
+
+{Embed}
+https://github.com/code-423n4/2023-03-zksync//blob/main/contracts/libraries/UnsafeBytesCalldata.sol
+2023-03-zksync/UnsafeBytesCalldata.sol at main · code-423n4/2023-03...
+Contribute to code-423n4/2023-03-zksync development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/dd3017cd-c65d-4d26-a384-4b58490795c5-C6F68
+
+
+[03/18/2023 13:49] vladbochok
+30 = 32 - 2, the `uint16` is 2 byte long
+24 = 32 - 8, the `uint64` is 8 byte long
+
+The idea is to get the offset where last X-bytes of the words is the expected payload data (`uint16`/`uint64`).
+
+
+[03/18/2023 13:52] Franfran#5067
++ as the return type is uint16/uint64, it gets down-casted. It got me for some time, thought that the calldataload would load neighbour words from the byte array as well
+
+{Reactions}
+👍 
+
+[03/18/2023 14:02] chaduke3730
+@Vlad B | zkSyncthanks, that's helpful
+
+
+[03/18/2023 14:07] 0xsmartcontractsamurai
+But it's for their zkEVM smart contracts written in solidity, no?
+Not for the bootloader.yul?
+
+
+[03/18/2023 14:30] vladbochok
+Please read the documentation, it will help to understand the state of the things better. Answering your question, all contracts including bootloader and system contracts are compiler via zkEVM compiler that produce zkEVM bytecode
+
+
+[03/18/2023 14:33] 0xsmartcontractsamurai
+Thanks.👊
+
+
+[03/18/2023 19:04] Franfran#5067
+any help for setting up the env ? Looks like it cannot find llvm, even if my version is 15.0.7.
+
+```sh
+error: No suitable version of LLVM was found system-wide or pointed
+              to by LLVM_SYS_150_PREFIX.
+       
+              Consider using `llvmenv` to compile an appropriate copy of LLVM, and
+              refer to the llvm-sys documentation for more information.
+       
+              llvm-sys: https://crates.io/crates/llvm-sys
+              llvmenv: https://crates.io/crates/llvmenv
+   --> /home/franfran/.cargo/git/checkouts/llvm-sys.rs-7666aadd79ceca8d/71d3d59/src/lib.rs:489:1
+    |
+489 | / std::compile_error!(concat!(
+490 | |     "No suitable version of LLVM was found system-wide or pointed
+491 | |        to by LLVM_SYS_",
+492 | |     env!("CARGO_PKG_VERSION_MAJOR"),
+...   |
+499 | |        llvmenv: https://crates.io/crates/llvmenv"
+500 | | ));
+    | |__^
+```
+
+
+[03/18/2023 19:59] vladbochok
+@AntonD
+
+
+[03/18/2023 20:06] antond3
+It seems that llvm was not built successfully. Are you using the quick-start command? Have you seen any errors during the build?
+
+
+[03/18/2023 20:18] Franfran#5067
+Yes, that's the only error I'm seeing
+
+
+[03/18/2023 20:20] koolexc
+Hey, I had the same error, I just installed LLVM independently
+
+
+[03/18/2023 20:23] Franfran#5067
+llvm clang right ?
+
+
+[03/18/2023 20:23] Franfran#5067
+its already installed on my machine
+
+
+[03/18/2023 20:23] koolexc
+Yes
+
+
+[03/18/2023 20:24] koolexc
+Try to re-install?
+
+
+[03/18/2023 20:38] antond3
+Are you sure that it was the same error? Because it looks like zkevm-llvm is not found
+
+
+[03/18/2023 20:51] koolexc
+On my machine yes
+
+
+[03/18/2023 21:20] antond3
+I see, maybe the error is gone because with clang llvm was installed some dependencies. Anyway @Franfran if the problem will be not fixed, could you please share the quick-start command output, especially the zkevm-llvm build(it will be so big, so you can pipe the output to the file)
+
+{Reactions}
+👍 
+
+[03/18/2023 21:27] Franfran#5067
+
+
+{Attachments}
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/message-5381C.txt
+
+
+[03/18/2023 22:05] acegawd
+@AntonD DM
+
+
+[03/18/2023 23:39] acegawd
+Who's available? @Barichek @riptide @mishap @bender-ml @Vlad B | zkSync
+
+
+[03/19/2023 04:05] .ellar
+Could someone clarify how ETH is transferred during contract deployment? How are the funds meant to get to `ContractDeployer` for it to transfer to the new contract?
+
+{Reactions}
+👍 (2) 
+
+[03/19/2023 08:45] vladbochok
+User call the `create[2][Account]` with provided `msg.value`. The contract deployer set value for the next call and transfer the ether balance. After make a mimic call, to call the constructor on behalf of the `msg.sender`.
+
+
+[03/19/2023 08:59] .ellar
+Ty!
+
+
+[03/19/2023 10:06] Franfran#5067
+The contract at `GET_EXTRA_ABI_DATA_ADDRESS` is out of scope right ?
+
+
+[03/19/2023 10:39] Franfran#5067
+Sorry for not pinging you @AntonD this was the output of the quick-start command
+
+
+[03/19/2023 10:55] vladbochok
+There is no contract on `GET_EXTRA_ABI_DATA_ADDRESS`, it is compiler simulation. Please read the https://github.com/code-423n4/2023-03-zksync/tree/21d9a364a4a75adfa6f1e038232d8c0f39858a64#simulations-via-our-compiler
+
+{Embed}
+https://github.com/code-423n4/2023-03-zksync/tree/21d9a364a4a75adfa6f1e038232d8c0f39858a64
+GitHub - code-423n4/2023-03-zksync at 21d9a364a4a75adfa6f1e038232d8...
+Contribute to code-423n4/2023-03-zksync development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/dd3017cd-c65d-4d26-a384-4b58490795c5-C6F68
+
+{Reactions}
+👍 
+
+[03/19/2023 10:57] Franfran#5067
+Thanks!
+
+
+[03/19/2023 11:20] barichek
+You can DM me.
+
+
+[03/19/2023 13:27] minh___
+if a contract contains something like: `anotherContract.foo{value: msg.value}()` I suppose the compiler will put a call to MsgValueSimulator inbetween?
+
+
+[03/19/2023 13:43] vladbochok
+Right
+
+{Reactions}
+👍 
+
+[03/19/2023 14:09] minh___
+> What is Block Gas Limit on zkSync Era?
+> 
+> The current value is currently set at roughly 2^32 gas.
+> Note: This value is temporal and will be updated soon
+
+will this be lowered or raised?
+
+
+[03/19/2023 14:43] koolexc
+@AntonD DMed for a question. not sure if you received my message.
+
+
+[03/19/2023 14:45] antond3
+I see it, just one moment
+
+
+[03/19/2023 14:45] koolexc
+Sure. 🙏
+
+
+[03/19/2023 14:45] antond3
+Let's move to DM
+
+{Reactions}
+👍 
+
+[03/19/2023 14:51] vladbochok
+No answer for this
+
+{Reactions}
+👍 
+
+[03/19/2023 16:08] acegawd
+Dmed
+
+
+[03/19/2023 16:24] acegawd
+Are you available? @Vlad B | zkSync
+
+
+[03/19/2023 17:08] barichek
+You can DM me in case of some questions.
+
+
+[03/19/2023 20:02] C4
+**🚨 CONTEST ALERT**
+
+@🐺wardens The **zkSync Era System Contracts** contest is now closed! Huge thanks to everyone who participated 🔍, whether you submitted a finding or not.
+
+What's next: The sponsor team and judge will review the findings over the next couple of weeks. Keep an eye on #📢announcements for regular updates on how the contest is progressing through awarding 🤑🏆, judging 🧑‍⚖️ and reporting 📜. Feel free to ping a gardener if you have questions along the way!
+
+{Reactions}
+👍 (19) 
+
+[03/19/2023 20:02] supernovahs
+best codebase
+
+{Reactions}
+❤️ (2) 
+
+[03/19/2023 20:03] chaindev
+it was pretty difficult to enter for junior guys
+Nice contest anyway
+
+{Reactions}
+❤️ (2) 
+
+[03/19/2023 20:03] 0xweiss
+I waited to the last minute and didn't have time to submit the last issue 😂 . Lesson learned
+
+{Reactions}
+😢 (4) 
+
+[03/19/2023 20:44] hunter_w3b
+why are you waited ?
+
+
+[03/19/2023 20:49] 0xweiss
+I was in the gym 😂
+
+{Reactions}
+🔥 
+
+[03/19/2023 20:54] saksham#7993
+Curls before bugs
+
+{Reactions}
+😂 (5) 
+
+[03/19/2023 20:59] jauvany
+Same here :hi5:
+
+
+[03/19/2023 21:56] evokid
+I agree ✅
+
+
+[03/19/2023 22:06] chaduke3730
+Nice proj, good luck to all
+
+
+[03/19/2023 23:50] 0xsmartcontractsamurai
+What do you mean pretty difficult for junior guys? 👀 
+
+👊 
+
+I can totally relate... it was my first audit/contest and I probably submitted rubbish.
+
+{Reactions}
+🙄 (2) 
+
+[03/20/2023 00:02] Franfran#5067
+Probably not much easier for more trained eyes ! There was a lot of concepts to grasp in a short timeline. Very creative project !
+
+
+[03/20/2023 01:21] 100proof
+- Shrugs before bugs
+- Cable pulls before rug pulls
+- Lat pull downs before infinite draw downs
+- Dumbbell rows before overflows
+- Back squats before flash bots
+- Interval running before front running
+
+{Reactions}
+😂 (27) 
+
+[03/20/2023 02:27] CRYP70#8985
+Welcome back man 😁 (assuming you’ve just gotten back recently 😅)
+
+
+[03/20/2023 02:35] 100proof
+Thanks man. I haven't got back into C4 yet but it might be on the horizon.
+
+{Reactions}
+🤙 (4) 
+
+[03/20/2023 04:58] saksham#7993
+Planet fitness fee before trading fee🤝
+
+{Reactions}
+👍 (5) 
+
+[03/20/2023 09:27] evokid
+I love L2 projects it's more fun tbh
+
+{Reactions}
+👍 
+
+[03/20/2023 20:05] Karled001#4045
+Hey guys, what’s good?
+
+
+[03/23/2023 07:06] heuss
+Looks like this one will take a while
+
+
+[03/23/2023 07:10] gjaldon
+@Heuss what makes you say that?
+
+
+[03/23/2023 07:14] heuss
+the lack of activity in this chat since the contest is over but im new in those kind of contest so i may be wrong
+
+
+[03/23/2023 07:14] heuss
+I hope i am xd
+
+
+[03/23/2023 07:34] chainNue#2511
+it's normal
+
+
+[04/05/2023 11:51] 0xweiss
+Does anyone has an estimate of how much long will it take for the results? 😀
+
+
+[04/05/2023 12:14] alextheentreprenerd
+Prob next week
+
+{Reactions}
+🫡 (7) 
+
+[04/11/2023 21:28] 0xweiss
+https://tenor.com/view/sweating-nervous-wreck-gif-24688521
+
+{Embed}
+https://tenor.com/view/sweating-nervous-wreck-gif-24688521
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/sweating-nervous-BFA64.png
+
+{Reactions}
+🔥 (2) 
+
+[04/12/2023 17:52] xyzbtchunt
+When?
+
+
+[04/12/2023 17:56] alextheentreprenerd
+Soon
+
+{Reactions}
+👍 (5) praisethesun (2) cheers_badger (2) 
+
+[04/18/2023 06:39] xyzbtchunt
+:thisisfine:
+
+{Reactions}
+bog (5) praisethesun (3) 
+
+[04/19/2023 08:49] un_for_given
+drafts:
+https://github.com/code-423n4/code423n4.com/pull/9313/files
+
+71748.21 >> ronnyx2017
+27100.66 >> HE1M
+10743.03 >> bin2chen
+8774.78 >> Jeiwan
+8354.37 >> minaminao
+5261.57 >> unforgiven
+4939.63 >> rvierdiiev
+2079.11 >> joestakey
+2079.11 >> gjaldon
+2079.11 >> brgltd
+2079.11 >> Dravee
+1968.25 >> Franfran
+1366.84 >> 0x73696d616f
+237.7 >> supernova
+237.7 >> rbserver
+237.7 >> bshramin
+237.7 >> Ruhum
+237.7 >> Madalad
+237.7 >> 0xSmartContract
+
+{Embed}
+https://github.com/code-423n4/code423n4.com/pull/9313/files
+Update Leaderboard Apr19 by liveactionllama · Pull Request #9313 · ...
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/98446738-1A1F9
+
+{Reactions}
+👍🏻 (3) 4739_Skeletor (3) chefskiss (4) 🔥 (5) 
+
+[04/19/2023 12:29] alextheentreprenerd
+@0xsi | C4 Happy Wednesday, can you please confirm that Q-13 is for a QA Report and not a single finding?
+
+
+[04/19/2023 12:34] 0xsi
+Hey @Alex The Entreprenerd  👋🏼
+
+Yes Q-13 is for a QA report 🙂 ( That's the issue 30, not sure you still have access to the repo )
+
+{Reactions}
+chefskiss 
+
+[04/19/2023 12:34] alextheentreprenerd
+Sounds good, thank you!
+
+{Reactions}
+hi5 
+
+[04/19/2023 16:56] 0xhacksmithh
+I'm little bit curious, which type of QA paid more than 2k$ ??
+
+Sorry if it's a dumb question...
+
+
+[04/19/2023 17:55] ladboy233
+so few qa has grade a
+
+
+[04/19/2023 17:55] ladboy233
+grade a to grade b is like a high finding to a medium finding
+
+
+[04/19/2023 17:56] ladboy233
+I did not do any contests in March
+
+
+[04/19/2023 17:58] ladboy233
+congrats everyone！
+
+
+[04/19/2023 18:49] liveactionllamac4
+:code4rena: 💸 🎉 Awards for **zkSync Era System Contracts**:
+
+$71,748.21 USDC » @ronnyx2017 | Offside Labs 
+$27,100.66 USDC » @HE1M  
+$10,743.03 USDC » @bin2chen 
+$8,774.78 USDC » @Jeiwan 
+$8,354.38 USDC » @minaminao 
+$5,261.56 USDC » @unforgiven 
+$4,939.64 USDC » @rvierdiiev 
+$2,079.11 USDC » @Dravee 
+$2,079.11 USDC » @joestakey 
+$2,079.11 USDC » @brgltd 
+$2,079.11 USDC » @gjaldon 
+$1,968.25 USDC » @Franfran 
+$1,366.84 USDC » @0x73696d616f 
+$237.70 USDC » @Ruhum 
+$237.70 USDC » @Madalad 
+$237.70 USDC » @bshramin 
+$237.70 USDC » @rbserver 
+$237.70 USDC » @supernova 
+$237.70 USDC » @0xSmartContract 
+
+🏁 Findings summary
+---------------------------
+High risk findings: 1 total, 1 unique
+Med risk findings: 14 total, 5 unique
+QA reports: 14
+
+Awards will be distributed on Polygon within the next week. Congratulations, everyone! 💸 💸 💸
+
+Note: If you participated in this contest and don’t see your name on this list, please wait until the report is published and the findings repo is made public to check on your submissions.
+
+{Reactions}
+hi5 (13) 🎉 (9) code4rena (6) 🫡 (3) 
+
+[04/19/2023 18:58] ladboy233
+https://github.com/minaminao/tornado-cats
+
+{Embed}
+https://github.com/minaminao/tornado-cats
+GitHub - minaminao/tornado-cats: A book for learning zero-knowledge...
+A book for learning zero-knowledge applications and decentralized mixing by creating a simple mixer protocol based on Tornado Cash - GitHub - minaminao/tornado-cats: A book for learning zero-knowle...
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/8d4beef0-5c1a-4e84-b6fc-2318302128c9-3DECE
+
+{Reactions}
+👍🏻 (7) 
+
+[04/19/2023 18:58] ladboy233
+I saw this.
+
+
+[04/19/2023 18:58] ladboy233
+interesting.
+
+
+[04/19/2023 18:58] ladboy233
+tornado cats lmao lolll
+
+
+[04/19/2023 19:39] Franfran#5067
+This was a super interesting contest. Which had more time to throw at it
+
+
+[04/19/2023 19:40] Franfran#5067
+Thanks frens :10_10:
+
+
+[04/19/2023 20:12] hunter_w3b
+Congratulations 🎉🎉 man
+
+
+[04/19/2023 20:21] minaminao
+Thanks for sharing ❤️
+
+
+[04/19/2023 20:31] supernovahs
+I will never forget some findings of this contest .
+Especially the lack of payable in fallback
+
+{Reactions}
+10_10 
+
+[04/19/2023 20:36] ladboy233
+Yeap I just discover your github profile from discord profile. full of the good educational content. really good stuff.
+
+{Reactions}
+👍 (4) 🔥 (3) 
+
+[04/19/2023 20:43] tataky#6898
+oh, your $237.7 is from the lack of payable?
+
+
+[04/19/2023 20:44] supernovahs
+Nope
+
+
+[04/19/2023 20:44] tataky#6898
+🤥
+
+
+[04/19/2023 22:29] jeiwan
+@ronnyx2017 | Offside Labs great job! 💪
+
+{Reactions}
+💪🏼 (4) thankyou 
+
+[04/19/2023 22:43] gjaldon
+Wow that’s awesome to get a solo High for that much! Congrats @ronnyx2017 | Offside Labs 🔥
+
+{Reactions}
+thankyou 
+
+[04/20/2023 04:20] angry_mustache_man
+@ronnyx2017 | Offside Labs 🔥 🔥 🔥
+
+
+[04/20/2023 04:57] chaduke3730
+Cngtats to all !
+
+{Reactions}
+🎉 
+
+[04/20/2023 05:46] 0xhacksmithh
+A perticular QA/Gas get accepted from first submitor, there is no any duplicate acceptance like in H/M, Right? Overall grade of a report decided by how much correct QA you submitted. Am I getting this right?
+
+
+[05/04/2023 22:39] evokid
+@🦙 liveactionllama | C4 A quick question, what are the names of the rewards that done for the issues outside the scope ? thanks
+https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest
+> while the bootloader/bootloader.yul is out of scope, zkSync team may reward an additional bounty for valid bugs found in it. Such bounty if any will not come from the prize pool, but will be paid on top.
+
+{Embed}
+https://code4rena.com/contests/2023-03-zksync-era-system-contracts-contest
+Code4rena zkSync Era System Contracts contest
+$180,500 USDC
+10 March 2023—19 March 2023
+Code4rena - ARCHIVE-Q1-2023 - zksync-era-mar10 [1083054993793364038].txt_Files/c4-og-banner-0FCFA.png
+
+
+[05/05/2023 00:00] liveactionllamac4
+Hi! I've responded to your dm, regarding your issue, since the report/findings repo for this contest are not yet public.
+
+{Reactions}
+✅ 
+
+[05/18/2023 22:50] dewaxindo
+Hi Fran, can you accept my friend request? want to DM you asking about solhunt
+
+{Reactions}
+👍 
+
+==============================================================
+Exported 337 message(s)
+==============================================================
